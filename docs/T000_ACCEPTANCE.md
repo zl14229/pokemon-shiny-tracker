@@ -11,8 +11,8 @@
 
 - 公开新仓库；默认 dev；只允许 Merge Commit；auto-merge 可用；delete_branch_on_merge=false。
 - protect-dev（25725833）、protect-prod（25725884）：active，准确匹配 dev/prod，禁止删除和强推，要求 PR、讨论解决，approvals=0，allowed_merge_methods=[merge]，bypass=[]。
-- 初检发现 required_status_checks 尚未配置。完成情况须复核，不能把本地 CI 文件当成服务端阻止失败合并的证明。
-- 当前 GitHub 连接可读/写内容及 PR，但不提供管理规则写入工具；Actions 权限读取接口也被连接器拒绝。此前截图显示受限 Actions、只读 token、全部外部 fork 贡献者需批准；本次暂不能独立重新读取该后台配置。
+- 两套规则均已通过登录后的 GitHub 设置页补齐 required_status_checks，并以 GitHub REST 读取结果复核：baseline-checks、repository-hygiene，integration_id=15368（GitHub Actions），strict_required_status_checks_policy=true，无创建豁免。
+- Actions 设置页已独立复核：允许仓库自身、GitHub 自有及 Marketplace 已验证创建者；默认令牌 contents/packages 只读；全部外部贡献者的 fork PR workflow 需批准；Actions 创建/批准 PR 选项关闭。当前工作流中的 Actions 均已固定完整 SHA；仓库全局强制固定 SHA 开关未开启。
 - prod 提前存在但未发布，仍为初始提交。
 
 ## 验证范围
@@ -28,4 +28,6 @@
 
 ## 未完成事项
 
-推送及 PR CI；服务端必需检查门槛；合并与合并后 dev CI；真实提交证据及最终状态。上述完成前 T000 不标 verified。
+PR #1（https://github.com/zl14229/pokemon-shiny-tracker/pull/1）已建立，初始提交 0ffc2eae07f605a4c14fa2411c301bffc88c1075 的 push 与 PR CI 均成功。PR CI：https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/39975588374。
+
+初步自审发现“无合并证据不得 verified”的反例测试需要独立清空证据，才能在 T000 后续完成后继续有效；已修复。仍待最终提交 CI、合并与 dev CI，以及真实合并证据归档。完成前 T000 不标 verified。

@@ -57,7 +57,7 @@ class BaselineValidationTests(unittest.TestCase):
         self.assertIn("T000: baseline acceptance mismatch", self.errors())
 
     def test_false_verified_state_is_rejected(self):
-        self.registry(lambda tasks: tasks[0].update(status="verified"))
+        self.registry(lambda tasks: tasks[0].update(status="verified", evidence={}))
         self.assertIn("T000: invalid merge_sha", self.errors())
 
     def test_forced_personal_data_is_rejected(self):

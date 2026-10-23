@@ -1,0 +1,716 @@
+{
+  "schema_version": 1,
+  "tasks": [
+    {
+      "id": "T000",
+      "milestone": "M0",
+      "deliverable": "新 GitHub 仓库基线、Product Spec、Task 状态机、AGENTS、ADR、PR 模板与 CI 规范",
+      "dependencies": [],
+      "acceptance": "29 Task / ADR 一致；GitHub dev 默认分支及 PR 保护规则可验证；不继承旧实现提交",
+      "status": "in_review",
+      "branch": "feature/T000-repository-baseline",
+      "evidence": {
+        "implementation": "完整导入 Baseline V1.1 原件并配置仓库治理；无业务代码",
+        "checks": [
+          "本地冻结哈希/29任务/依赖无环/16 ADR/忽略规则校验通过",
+          "git diff --cached --check 通过",
+          "治理验证器 7 项正反例回归通过"
+        ],
+        "self_review": "冻结原件哈希一致；规划与执行状态分离；无业务工程；GitHub 规则按实际结果报告",
+        "risks": [
+          "必需 CI 状态检查仍待服务端配置"
+        ],
+        "unverified": [
+          "PR CI、保护规则写入、dev 合并与合并后 CI"
+        ],
+        "documentation": [
+          "docs/GITHUB_WORKFLOW.md",
+          "docs/tasks/T000.md",
+          "docs/T000_ACCEPTANCE.md"
+        ],
+        "commit": null,
+        "pr_url": null,
+        "merge_sha": null
+      },
+      "record": "docs/tasks/T000.md"
+    },
+    {
+      "id": "T001",
+      "milestone": "M0",
+      "deliverable": "从零初始化 Go 后端项目",
+      "dependencies": [
+        "T000"
+      ],
+      "acceptance": "Go/Gin/GORM 工程可本地启动、构建与测试；从最新 dev 创建分支并经 PR 合入",
+      "status": "planned",
+      "branch": null,
+      "evidence": {
+        "implementation": null,
+        "checks": [],
+        "self_review": null,
+        "risks": [],
+        "unverified": [],
+        "documentation": [],
+        "commit": null,
+        "pr_url": null,
+        "merge_sha": null
+      },
+      "record": null
+    },
+    {
+      "id": "T002",
+      "milestone": "M0",
+      "deliverable": "Gin Router / Health API",
+      "dependencies": [
+        "T001"
+      ],
+      "acceptance": "`/api/v1` 健康接口、错误处理和自动测试通过",
+      "status": "planned",
+      "branch": null,
+      "evidence": {
+        "implementation": null,
+        "checks": [],
+        "self_review": null,
+        "risks": [],
+        "unverified": [],
+        "documentation": [],
+        "commit": null,
+        "pr_url": null,
+        "merge_sha": null
+      },
+      "record": null
+    },
+    {
+      "id": "T003",
+      "milestone": "M0",
+      "deliverable": "Vue 3 + TS + Vite + Element Plus 初始化",
+      "dependencies": [
+        "T000"
+      ],
+      "acceptance": "前端可启动、构建成功",
+      "status": "planned",
+      "branch": null,
+      "evidence": {
+        "implementation": null,
+        "checks": [],
+        "self_review": null,
+        "risks": [],
+        "unverified": [],
+        "documentation": [],
+        "commit": null,
+        "pr_url": null,
+        "merge_sha": null
+      },
+      "record": null
+    },
+    {
+      "id": "T004",
+      "milestone": "M0",
+      "deliverable": "API Client、前后端联调",
+      "dependencies": [
+        "T002",
+        "T003"
+      ],
+      "acceptance": "前端能调用 API，错误状态有提示",
+      "status": "planned",
+      "branch": null,
+      "evidence": {
+        "implementation": null,
+        "checks": [],
+        "self_review": null,
+        "risks": [],
+        "unverified": [],
+        "documentation": [],
+        "commit": null,
+        "pr_url": null,
+        "merge_sha": null
+      },
+      "record": null
+    },
+    {
+      "id": "T005",
+      "milestone": "M1",
+      "deliverable": "数据库基础模型/迁移/关联及轻量历史",
+      "dependencies": [
+        "T001"
+      ],
+      "acceptance": "Hunt/个体/物种/形态/游戏/历史等结构、外键、迁移测试通过",
+      "status": "planned",
+      "branch": null,
+      "evidence": {
+        "implementation": null,
+        "checks": [],
+        "self_review": null,
+        "risks": [],
+        "unverified": [],
+        "documentation": [],
+        "commit": null,
+        "pr_url": null,
+        "merge_sha": null
+      },
+      "record": null
+    },
+    {
+      "id": "T006",
+      "milestone": "M1",
+      "deliverable": "PokéAPI 基础资料导入、本地种子缓存与查询接口",
+      "dependencies": [
+        "T005"
+      ],
+      "acceptance": "物种/部分形态/游戏可离线查询，内部/外部 ID 映射、空值处理、缓存和来源字段有测试；不要求完整获取机制",
+      "status": "planned",
+      "branch": null,
+      "evidence": {
+        "implementation": null,
+        "checks": [],
+        "self_review": null,
+        "risks": [],
+        "unverified": [],
+        "documentation": [],
+        "commit": null,
+        "pr_url": null,
+        "merge_sha": null
+      },
+      "record": null
+    },
+    {
+      "id": "T007",
+      "milestone": "M1",
+      "deliverable": "Hunt CRUD 与状态/累计值",
+      "dependencies": [
+        "T005",
+        "T006"
+      ],
+      "acceptance": "0..N 成果关联规则；状态、计数单位、输入边界测试",
+      "status": "planned",
+      "branch": null,
+      "evidence": {
+        "implementation": null,
+        "checks": [],
+        "self_review": null,
+        "risks": [],
+        "unverified": [],
+        "documentation": [],
+        "commit": null,
+        "pr_url": null,
+        "merge_sha": null
+      },
+      "record": null
+    },
+    {
+      "id": "T008",
+      "milestone": "M1",
+      "deliverable": "ShinyRecord CRUD/关联/持有与历史变化",
+      "dependencies": [
+        "T005",
+        "T006",
+        "T007"
+      ],
+      "acceptance": "无 Hunt 记录可保存；进化/转移不重复建档；历史保留",
+      "status": "planned",
+      "branch": null,
+      "evidence": {
+        "implementation": null,
+        "checks": [],
+        "self_review": null,
+        "risks": [],
+        "unverified": [],
+        "documentation": [],
+        "commit": null,
+        "pr_url": null,
+        "merge_sha": null
+      },
+      "record": null
+    },
+    {
+      "id": "T009",
+      "milestone": "M1",
+      "deliverable": "查询、搜索、筛选、分页",
+      "dependencies": [
+        "T007",
+        "T008"
+      ],
+      "acceptance": "组合过滤准确、排序稳定、分页有测试",
+      "status": "planned",
+      "branch": null,
+      "evidence": {
+        "implementation": null,
+        "checks": [],
+        "self_review": null,
+        "risks": [],
+        "unverified": [],
+        "documentation": [],
+        "commit": null,
+        "pr_url": null,
+        "merge_sha": null
+      },
+      "record": null
+    },
+    {
+      "id": "T010",
+      "milestone": "M2",
+      "deliverable": "Hunt 前端列表/表单/详情",
+      "dependencies": [
+        "T004",
+        "T007"
+      ],
+      "acceptance": "能创建、更新、完成、放弃及查看",
+      "status": "planned",
+      "branch": null,
+      "evidence": {
+        "implementation": null,
+        "checks": [],
+        "self_review": null,
+        "risks": [],
+        "unverified": [],
+        "documentation": [],
+        "commit": null,
+        "pr_url": null,
+        "merge_sha": null
+      },
+      "record": null
+    },
+    {
+      "id": "T011",
+      "milestone": "M2",
+      "deliverable": "ShinyRecord 前端列表/详情/编辑",
+      "dependencies": [
+        "T004",
+        "T008",
+        "T009"
+      ],
+      "acceptance": "能登记已有收藏、关联 Hunt、修改持有状态",
+      "status": "planned",
+      "branch": null,
+      "evidence": {
+        "implementation": null,
+        "checks": [],
+        "self_review": null,
+        "risks": [],
+        "unverified": [],
+        "documentation": [],
+        "commit": null,
+        "pr_url": null,
+        "merge_sha": null
+      },
+      "record": null
+    },
+    {
+      "id": "T012",
+      "milestone": "M3",
+      "deliverable": "Excel 导入、预览、映射、重复检测",
+      "dependencies": [
+        "T006",
+        "T008",
+        "T011"
+      ],
+      "acceptance": "实际字段映射验证、错误报告、重复预警、无 Hunt 导入",
+      "status": "planned",
+      "branch": null,
+      "evidence": {
+        "implementation": null,
+        "checks": [],
+        "self_review": null,
+        "risks": [],
+        "unverified": [],
+        "documentation": [],
+        "commit": null,
+        "pr_url": null,
+        "merge_sha": null
+      },
+      "record": null
+    },
+    {
+      "id": "T013",
+      "milestone": "M3",
+      "deliverable": "附件/链接",
+      "dependencies": [
+        "T008",
+        "T011"
+      ],
+      "acceptance": "上传/查看/关联/删除及路径验证",
+      "status": "planned",
+      "branch": null,
+      "evidence": {
+        "implementation": null,
+        "checks": [],
+        "self_review": null,
+        "risks": [],
+        "unverified": [],
+        "documentation": [],
+        "commit": null,
+        "pr_url": null,
+        "merge_sha": null
+      },
+      "record": null
+    },
+    {
+      "id": "T014",
+      "milestone": "M3",
+      "deliverable": "导出及本地基础备份",
+      "dependencies": [
+        "T012",
+        "T013"
+      ],
+      "acceptance": "数据与附件一致性，可验证恢复流程/恢复演练不覆盖真实数据",
+      "status": "planned",
+      "branch": null,
+      "evidence": {
+        "implementation": null,
+        "checks": [],
+        "self_review": null,
+        "risks": [],
+        "unverified": [],
+        "documentation": [],
+        "commit": null,
+        "pr_url": null,
+        "merge_sha": null
+      },
+      "record": null
+    },
+    {
+      "id": "T015",
+      "milestone": "M3",
+      "deliverable": "MVP 端到端验收",
+      "dependencies": [
+        "T010",
+        "T011",
+        "T012",
+        "T013",
+        "T014"
+      ],
+      "acceptance": "从创建 Hunt 到登记闪光、历史导入、导出备份全程通过",
+      "status": "planned",
+      "branch": null,
+      "evidence": {
+        "implementation": null,
+        "checks": [],
+        "self_review": null,
+        "risks": [],
+        "unverified": [],
+        "documentation": [],
+        "commit": null,
+        "pr_url": null,
+        "merge_sha": null
+      },
+      "record": null
+    },
+    {
+      "id": "T016",
+      "milestone": "M4",
+      "deliverable": "全国图鉴、形态、多语言名称与数据来源体系",
+      "dependencies": [
+        "T006"
+      ],
+      "acceptance": "物种/形态稳定 ID、中文名核对、52Poké 等来源链接、覆盖率及冲突/缺失状态可查询；合规规则通过",
+      "status": "planned",
+      "branch": null,
+      "evidence": {
+        "implementation": null,
+        "checks": [],
+        "self_review": null,
+        "risks": [],
+        "unverified": [],
+        "documentation": [],
+        "commit": null,
+        "pr_url": null,
+        "merge_sha": null
+      },
+      "record": null
+    },
+    {
+      "id": "T017",
+      "milestone": "M4",
+      "deliverable": "双层图鉴、持有/历史、可获取性引擎",
+      "dependencies": [
+        "T008",
+        "T016"
+      ],
+      "acceptance": "四维过滤、分母口径、未知可获取性、进化历史测试",
+      "status": "planned",
+      "branch": null,
+      "evidence": {
+        "implementation": null,
+        "checks": [],
+        "self_review": null,
+        "risks": [],
+        "unverified": [],
+        "documentation": [],
+        "commit": null,
+        "pr_url": null,
+        "merge_sha": null
+      },
+      "record": null
+    },
+    {
+      "id": "T018",
+      "milestone": "M4",
+      "deliverable": "图鉴与收藏展示",
+      "dependencies": [
+        "T011",
+        "T017"
+      ],
+      "acceptance": "物种/形态切换、筛选、缺失目标、资料覆盖提示",
+      "status": "planned",
+      "branch": null,
+      "evidence": {
+        "implementation": null,
+        "checks": [],
+        "self_review": null,
+        "risks": [],
+        "unverified": [],
+        "documentation": [],
+        "commit": null,
+        "pr_url": null,
+        "merge_sha": null
+      },
+      "record": null
+    },
+    {
+      "id": "T026",
+      "milestone": "M5",
+      "deliverable": "合规核验的游戏可刷闪目标/方法/概率库",
+      "dependencies": [
+        "T016",
+        "T017"
+      ],
+      "acceptance": "按游戏/形态区分直接可刷/锁闪/仅传送/未知，方法/地点/前提/遭遇率与闪光率分开，逐条来源与核对时间可追踪；不批量抓取未经授权内容",
+      "status": "planned",
+      "branch": null,
+      "evidence": {
+        "implementation": null,
+        "checks": [],
+        "self_review": null,
+        "risks": [],
+        "unverified": [],
+        "documentation": [],
+        "commit": null,
+        "pr_url": null,
+        "merge_sha": null
+      },
+      "record": null
+    },
+    {
+      "id": "T027",
+      "milestone": "M5",
+      "deliverable": "Random Hunt 生成与计划保存",
+      "dependencies": [
+        "T007",
+        "T017",
+        "T026"
+      ],
+      "acceptance": "只按本地已核实合法可刷候选生成；双候选池、多游戏去重、均匀抽样、资料覆盖提示、概率未知/方法缺失提示及一键 Hunt",
+      "status": "planned",
+      "branch": null,
+      "evidence": {
+        "implementation": null,
+        "checks": [],
+        "self_review": null,
+        "risks": [],
+        "unverified": [],
+        "documentation": [],
+        "commit": null,
+        "pr_url": null,
+        "merge_sha": null
+      },
+      "record": null
+    },
+    {
+      "id": "T028",
+      "milestone": "M5",
+      "deliverable": "Bingo 挑战与格子判定",
+      "dependencies": [
+        "T008",
+        "T011",
+        "T027"
+      ],
+      "acceptance": "3×3/5×5、持久化、成果合法性、连线、重抽边界与恢复",
+      "status": "planned",
+      "branch": null,
+      "evidence": {
+        "implementation": null,
+        "checks": [],
+        "self_review": null,
+        "risks": [],
+        "unverified": [],
+        "documentation": [],
+        "commit": null,
+        "pr_url": null,
+        "merge_sha": null
+      },
+      "record": null
+    },
+    {
+      "id": "T019",
+      "milestone": "M6",
+      "deliverable": "Dashboard 数据接口与界面",
+      "dependencies": [
+        "T008",
+        "T017"
+      ],
+      "acceptance": "数据口径准确、数值缺失不被置 0",
+      "status": "planned",
+      "branch": null,
+      "evidence": {
+        "implementation": null,
+        "checks": [],
+        "self_review": null,
+        "risks": [],
+        "unverified": [],
+        "documentation": [],
+        "commit": null,
+        "pr_url": null,
+        "merge_sha": null
+      },
+      "record": null
+    },
+    {
+      "id": "T020",
+      "milestone": "M6",
+      "deliverable": "ECharts 统计可视化",
+      "dependencies": [
+        "T019"
+      ],
+      "acceptance": "游戏、方法、时间、次数与趋势准确，筛选有测试",
+      "status": "planned",
+      "branch": null,
+      "evidence": {
+        "implementation": null,
+        "checks": [],
+        "self_review": null,
+        "risks": [],
+        "unverified": [],
+        "documentation": [],
+        "commit": null,
+        "pr_url": null,
+        "merge_sha": null
+      },
+      "record": null
+    },
+    {
+      "id": "T021",
+      "milestone": "M6",
+      "deliverable": "高级统计与校验",
+      "dependencies": [
+        "T020"
+      ],
+      "acceptance": "跨单位比较限制、重复数据、筛选回归",
+      "status": "planned",
+      "branch": null,
+      "evidence": {
+        "implementation": null,
+        "checks": [],
+        "self_review": null,
+        "risks": [],
+        "unverified": [],
+        "documentation": [],
+        "commit": null,
+        "pr_url": null,
+        "merge_sha": null
+      },
+      "record": null
+    },
+    {
+      "id": "T022",
+      "milestone": "M7",
+      "deliverable": "HuntSession 与计时器",
+      "dependencies": [
+        "T007",
+        "T010"
+      ],
+      "acceptance": "会话明细与累计一致，暂停恢复正确",
+      "status": "planned",
+      "branch": null,
+      "evidence": {
+        "implementation": null,
+        "checks": [],
+        "self_review": null,
+        "risks": [],
+        "unverified": [],
+        "documentation": [],
+        "commit": null,
+        "pr_url": null,
+        "merge_sha": null
+      },
+      "record": null
+    },
+    {
+      "id": "T023",
+      "milestone": "M7",
+      "deliverable": "完整进化及游戏转移历史",
+      "dependencies": [
+        "T008",
+        "T017"
+      ],
+      "acceptance": "现状与历史不冲突，转移不虚增收藏",
+      "status": "planned",
+      "branch": null,
+      "evidence": {
+        "implementation": null,
+        "checks": [],
+        "self_review": null,
+        "risks": [],
+        "unverified": [],
+        "documentation": [],
+        "commit": null,
+        "pr_url": null,
+        "merge_sha": null
+      },
+      "record": null
+    },
+    {
+      "id": "T024",
+      "milestone": "M7",
+      "deliverable": "可控增量资料更新、缓存及图片资料机制",
+      "dependencies": [
+        "T016",
+        "T017",
+        "T026"
+      ],
+      "acceptance": "来源适配器、合规限制、增量差异预览、原子更新、回滚演练、断网可用；不覆写个人记录",
+      "status": "planned",
+      "branch": null,
+      "evidence": {
+        "implementation": null,
+        "checks": [],
+        "self_review": null,
+        "risks": [],
+        "unverified": [],
+        "documentation": [],
+        "commit": null,
+        "pr_url": null,
+        "merge_sha": null
+      },
+      "record": null
+    },
+    {
+      "id": "T025",
+      "milestone": "M7",
+      "deliverable": "最终系统验收与发布整理",
+      "dependencies": [
+        "T015",
+        "T018",
+        "T028",
+        "T021",
+        "T022",
+        "T023",
+        "T024"
+      ],
+      "acceptance": "全量测试、数据备份验证、启动文档、未完成项说明",
+      "status": "planned",
+      "branch": null,
+      "evidence": {
+        "implementation": null,
+        "checks": [],
+        "self_review": null,
+        "risks": [],
+        "unverified": [],
+        "documentation": [],
+        "commit": null,
+        "pr_url": null,
+        "merge_sha": null
+      },
+      "record": null
+    }
+  ]
+}

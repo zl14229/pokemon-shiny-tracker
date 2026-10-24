@@ -253,7 +253,7 @@
         "T005"
       ],
       "acceptance": "物种/部分形态/游戏可离线查询，内部/外部 ID 映射、空值处理、缓存和来源字段有测试；不要求完整获取机制",
-      "status": "in_progress",
+      "status": "in_review",
       "branch": "feature/T006-reference-data",
       "evidence": {
         "implementation": "PokéAPI 串行节流/原字节 SHA 缓存、规范化暂存/差异/事务新增与幂等导入、SQL v2 来源批次/外部 ID 映射、3 物种/3 基础形态/4 版本离线种子与本地查询，中文 source_provided/unknown/conflict，覆盖 partial",
@@ -261,7 +261,8 @@
           "Go test/build、make check（格式/tidy/verify/vet/race/build）和临时库 smoke 成功",
           "前端 typecheck、21 项客户端/组件、build/HTTP smoke、5 项真实集成通过",
           "真实 PokéAPI stage 后 offline 重建规范化文件逐字节相同；CLI 临时库 preview 10 项未提交、apply 新增10、重复 apply 新增0/不变10",
-          "SQLite v1→v2 个人身份不变，映射/形态/幂等/元数据刷新/差异冲突/原子回滚/源失败保留个人数据/离线查询测试通过"
+          "SQLite v1→v2 个人身份不变，映射/形态/幂等/元数据刷新/差异冲突/原子回滚/源失败保留个人数据/离线查询测试通过",
+          "治理验证、7 项治理回归、差异及敏感信息模式检查通过；PR 已创建并标记 code-reviewed"
         ],
         "self_review": "采集与个人数据库隔离，未知缓存和已有暂存文件不覆盖；字段/链接/ID/哈希校验后事务导入，元数据刷新不重建身份；冲突输出差异、原子拒绝；仅必要公开事实入库，中文不假称官方核验、覆盖与可刷性未知明确；无未授权站点或获取概率功能",
         "risks": [
@@ -280,8 +281,8 @@
           "docs/DEVELOPMENT_LOG.md",
           "README.md"
         ],
-        "commit": null,
-        "pr_url": null,
+        "commit": "9ae490d66d7a415f5643d3e1f044b2e10d3f3d65",
+        "pr_url": "https://github.com/zl14229/pokemon-shiny-tracker/pull/13",
         "merge_sha": null
       },
       "record": "docs/tasks/T006.md"

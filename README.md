@@ -21,6 +21,7 @@
 - [T001 执行记录](docs/tasks/T001.md)
 - [Go 后端开发与本地启动](docs/BACKEND_DEVELOPMENT.md)
 - [SQLite、模型与迁移](docs/DATABASE.md)
+- [基础资料、缓存、导入与离线查询](docs/REFERENCE_DATA.md)
 - [前端开发与本地启动](docs/FRONTEND_DEVELOPMENT.md)
 - [开发日志](docs/DEVELOPMENT_LOG.md)
 - [M0 集成验收报告](docs/M0_ACCEPTANCE.md)

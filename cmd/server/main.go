@@ -9,8 +9,10 @@ import (
 	"syscall"
 
 	"github.com/gin-gonic/gin"
+	"github.com/zl14229/pokemon-shiny-tracker/internal/api"
 	"github.com/zl14229/pokemon-shiny-tracker/internal/config"
 	"github.com/zl14229/pokemon-shiny-tracker/internal/database"
+	"github.com/zl14229/pokemon-shiny-tracker/internal/reference"
 	"github.com/zl14229/pokemon-shiny-tracker/internal/server"
 )
 
@@ -36,7 +38,10 @@ func run() error {
 		return err
 	}
 	defer conn.Close()
-	srv := server.New(cfg)
+	if err := reference.EnsureSeed(db); err != nil {
+		return err
+	}
+	srv := server.New(cfg, api.NewRouter(db))
 	listener, err := net.Listen("tcp", srv.Addr)
 	if err != nil {
 		return err

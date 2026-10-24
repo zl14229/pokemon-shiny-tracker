@@ -18,7 +18,7 @@ func request(router http.Handler, method, path string) *httptest.ResponseRecorde
 }
 
 func TestHealthContract(t *testing.T) {
-	response := request(NewRouter(), http.MethodGet, "/api/v1/health")
+	response := request(NewRouter(nil), http.MethodGet, "/api/v1/health")
 	if response.Code != http.StatusOK || !strings.HasPrefix(response.Header().Get("Content-Type"), "application/json") {
 		t.Fatalf("health status/content type: %d %s", response.Code, response.Header())
 	}
@@ -45,7 +45,7 @@ func TestRoutingErrors(t *testing.T) {
 		{http.MethodHead, "/api/v1/health", "method_not_allowed", 405},
 	} {
 		t.Run(test.method+test.path, func(t *testing.T) {
-			response := request(NewRouter(), test.method, test.path)
+			response := request(NewRouter(nil), test.method, test.path)
 			assertError(t, response, test.status, test.code)
 			if test.status == 405 && response.Header().Get("Allow") != "GET" {
 				t.Fatalf("Allow = %q", response.Header().Get("Allow"))
@@ -69,7 +69,7 @@ func assertError(t *testing.T, response *httptest.ResponseRecorder, status int, 
 }
 
 func TestInternalFailuresAreRedactedAndServerRecovers(t *testing.T) {
-	router := NewRouter()
+	router := NewRouter(nil)
 	router.GET("/test/error", func(c *gin.Context) { _ = c.Error(errors.New("private-test-detail")) })
 	router.GET("/test/panic", func(c *gin.Context) { panic("private-test-detail") })
 	for _, path := range []string{"/test/error", "/test/panic"} {
@@ -85,7 +85,7 @@ func TestInternalFailuresAreRedactedAndServerRecovers(t *testing.T) {
 }
 
 func TestWrittenResponsesAreNotOverwritten(t *testing.T) {
-	router := NewRouter()
+	router := NewRouter(nil)
 	for _, fail := range []string{"error", "panic"} {
 		router.GET("/test/"+fail, func(c *gin.Context) {
 			c.String(http.StatusAccepted, "committed")

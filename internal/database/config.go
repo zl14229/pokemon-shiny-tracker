@@ -17,9 +17,10 @@ func NewConfig() *gorm.Config {
 		TranslateError: true,
 		NowFunc:        func() time.Time { return time.Now().UTC() },
 		Logger: logger.New(log.New(os.Stderr, "", log.LstdFlags), logger.Config{
-			SlowThreshold:        200 * time.Millisecond,
-			LogLevel:             logger.Warn,
-			ParameterizedQueries: true,
+			SlowThreshold:             200 * time.Millisecond,
+			LogLevel:                  logger.Warn,
+			ParameterizedQueries:      true,
+			IgnoreRecordNotFoundError: true,
 		}),
 	}
 }

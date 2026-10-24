@@ -40,3 +40,7 @@ SQLite CHECK 约束状态枚举、计数/耗时和等级范围；外键保护所
 Go 数据库/关系测试使用 `t.TempDir()`。后端 smoke、前端真实集成与 Playwright 分别创建临时目录，向进程传入 SHINY_DB_PATH；只清理自己创建的目录。测试不打开用户默认数据库。
 
 验证从零初始化、重复迁移/重开、外键/形态错配、数值和状态 CHECK、0..N 成果、无 Hunt 个体、历史引用、失败回滚、未知/未来库不修改。根 Make/CI 继续执行普通与竞态测试、格式/依赖/vet/build、启动和前端回归。
+
+## T006 来源表升级
+
+版本 2 只创建 reference_batches/external_references，迁移不重建已有核心表。v1→v2 保留个人身份和记录有测试；新库由程序离线初始化小范围种子。来源/查询及 partial 覆盖详见 REFERENCE_DATA.md。

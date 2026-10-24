@@ -8,6 +8,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/zl14229/pokemon-shiny-tracker/internal/api"
 	"github.com/zl14229/pokemon-shiny-tracker/internal/config"
 )
 
@@ -34,7 +35,7 @@ func awaitStop(t *testing.T, done <-chan error) error {
 
 func TestScaffoldServesAndStops(t *testing.T) {
 	listener := listen(t)
-	srv := New(config.Config{Port: 8080})
+	srv := New(config.Config{Port: 8080}, api.NewRouter(nil))
 	t.Cleanup(func() { _ = srv.Close() })
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
@@ -67,7 +68,7 @@ func TestScaffoldServesAndStops(t *testing.T) {
 func TestServeReportsListenerFailure(t *testing.T) {
 	listener := listen(t)
 	_ = listener.Close()
-	if err := Serve(context.Background(), New(config.Config{Port: 8080}), listener); err == nil {
+	if err := Serve(context.Background(), New(config.Config{Port: 8080}, api.NewRouter(nil)), listener); err == nil {
 		t.Fatal("closed listener did not produce an error")
 	}
 }
@@ -76,7 +77,7 @@ func TestShutdownDrainsActiveRequest(t *testing.T) {
 	listener := listen(t)
 	started, release := make(chan struct{}), make(chan struct{})
 	defer close(release)
-	srv := New(config.Config{Port: 8080})
+	srv := New(config.Config{Port: 8080}, api.NewRouter(nil))
 	// Test-only handler: no application route is registered in the scaffold.
 	srv.Handler = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		close(started)

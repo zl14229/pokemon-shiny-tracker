@@ -43,3 +43,11 @@
 - 现有 smoke、真实前端集成和浏览器启动器全部改用各自创建的临时库，避免触碰个人默认库。测试与合并实际结果在 T005 记录归档。
 
 - T005 实现 PR https://github.com/zl14229/pokemon-shiny-tracker/pull/11 已合并（d5d42679079ac44af4f7ffa8e3cdf2af3dd0821d），PR CI https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40062408488 与 dev CI https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40062568518 成功；本任务标记 verified 并走验收收尾 PR。
+
+## 2026-10-24 — T006
+
+- T005 收尾 #12/dev CI 成功，从最新 dev 465eaf69 创建 feature/T006-reference-data，编码前记录源合规、缓存/暂存/应用、映射、未知/冲突和测试方案。
+- 使用带明确 UA、顺序至少 1 秒间隔和缓存的客户端真实读取 PokéAPI，保留最少结构化事实与源 URL/哈希/时间，得到 3 物种/3 基础形态/4 游戏。实际源语言标签为小写，采用兼容大小写匹配；版本 ID 和名称以实际响应为准，不按旧编号假设。
+- 原始 JSON 字节以缓存封装保留，离线重建规范化结果逐字节一致；不提交缓存原文/图片/正文。中文只标 source_provided，形态缺失名称 unknown，源内冲突明确 conflict。
+- SQL v2 仅新增来源批次和映射；ID/父形态校验、预览回滚、重复导入、证据元数据刷新、冲突差异/整批拒绝、源失败保留个人记录及 v1 升级通过真实 SQLite 测试。CLI 临时库 preview/apply/reapply 结果为 10 计划未提交、10 新增、0 新增/10 不变。
+- 启动仅在空参考表离线导入种子，现有表不覆盖；查询本地 SQLite，明确 partial 和未验证可刷性。

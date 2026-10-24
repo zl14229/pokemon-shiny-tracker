@@ -57,3 +57,5 @@
 - T007 开始：最新 dev dc36c0e530174a9fabb776273970e66eeffe3b2f，依赖 verified、工作区干净；方案：新增 service 层，在 SQLite 事务中验证物种/形态/游戏关系与三状态；完成须有有效成果，放弃或重新打开不删除成果，有历史关联则拒绝删除 Hunt。严格 JSON DTO、完整 PUT、未知值保留 null；计数/单位/耗时和部分精度日期校验，API 统一 400/404/409/415/500。真实临时数据库测试覆盖状态、0..N/意外成果、错误参数、事务回滚；不实现计时会话、查询筛选或业务 UI。
 
 - T007 实现及本地验收完成：Hunt CRUD/状态/累计值、严格 JSON、真实 SQLite 与 HTTP 边界测试；Go 普通/race/vet/build/启动全部成功。逐文件自审无待修复项；高级列表查询与个体 API 分别留待 T009/T008。
+
+- T007 实现 PR https://github.com/zl14229/pokemon-shiny-tracker/pull/15 已合并（7555c331277de45742970b41c9b2e53594bec50c），PR CI https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40082676847 与 dev CI https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40082901088 成功；本任务标记 verified 并走验收收尾 PR。

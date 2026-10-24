@@ -124,7 +124,7 @@
         "T000"
       ],
       "acceptance": "前端可启动、构建成功",
-      "status": "in_review",
+      "status": "verified",
       "branch": "feature/T003-vue-frontend-init",
       "evidence": {
         "implementation": "Vue 3 + TypeScript + Vite + Element Plus 工程，中文应用骨架、loopback 开发/预览、精确 npm 锁文件、组件/HTTP/Chromium 测试及必需 frontend-checks",
@@ -133,16 +133,18 @@
           "npm run typecheck、npm test（1 项组件测试）、npm run build、npm run smoke 全部成功",
           "本地 Chromium 下载完成，但浏览器启动失败：WSL 缺少 libglib-2.0.so.0；CI 配置 install --with-deps 后执行相同测试，待实际结果",
           "dev Ruleset 已写入并回读 frontend-checks，保留原三项必需检查、strict=true、无 bypass，prod 不变",
-          "治理验证、7 项治理回归、差异及敏感信息模式检查通过；PR 已创建并标记 code-reviewed"
+          "治理验证、7 项治理回归、差异及敏感信息模式检查通过；PR 已创建并标记 code-reviewed",
+          "最终实现 PR CI 全部 success: https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40056989398",
+          "实现 merge ea46d294a60b02badb48cd916cc7d1075fdddc46 后 dev CI 全部 success: https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40057135058",
+          "通过 Merge Commit 合并、源分支保留，无 Ruleset bypass；验收收尾经同一任务独立 PR 入库",
+          "Chromium 实际浏览器验收已在 PR 与合并后 dev 的 frontend-checks 中通过，覆盖桌面/窄屏加载、Element Plus 交互、无横向溢出/JS 错误；本机共享库限制保留为环境风险"
         ],
         "self_review": "逐文件检查工程/锁文件与 CI：精确依赖、loopback/strictPort、无凭据/个人数据、无 API Client 或业务实现，中文说明不伪造功能；真实组件交互和 HTTP 开发/构建启动验证通过；浏览器结果待 CI 实际确认",
         "risks": [
           "本地 WSL 缺少 Chromium 系统共享库，未在本机完成浏览器验收；通过安装依赖的 CI runner 执行同一浏览器测试",
           "首次依赖和浏览器下载需要网络；基础凭证检查不等于完整秘密扫描"
         ],
-        "unverified": [
-          "最终 PR/CI/Chromium 验收、合并与 dev CI 待实际执行"
-        ],
+        "unverified": [],
         "documentation": [
           "docs/FRONTEND_DEVELOPMENT.md",
           "docs/GITHUB_WORKFLOW.md",
@@ -153,7 +155,7 @@
         ],
         "commit": "9838489a2843852d707d47bc91e192a7e3647c7f",
         "pr_url": "https://github.com/zl14229/pokemon-shiny-tracker/pull/7",
-        "merge_sha": null
+        "merge_sha": "ea46d294a60b02badb48cd916cc7d1075fdddc46"
       },
       "record": "docs/tasks/T003.md"
     },

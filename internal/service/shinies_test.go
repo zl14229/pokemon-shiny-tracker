@@ -111,8 +111,8 @@ func TestIndividualIdentityHistoryAndUnknowns(t *testing.T) {
 	if err = db.Unscoped().First(&retained, row.ID).Error; err != nil || retained.ID != row.ID {
 		t.Fatal("permanent identity removed")
 	}
-	rows, n, err := s.List(ctx)
-	if err != nil || n != 0 || len(rows) != 0 {
+	rows, n, err := s.List(ctx, "")
+	if err != nil || n.Total != 0 || len(rows) != 0 {
 		t.Fatal(rows, n, err)
 	}
 }

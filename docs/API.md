@@ -22,7 +22,7 @@
 | 请求 | 成功 | 说明 |
 |---|---|---|
 | `POST /api/v1/hunts` | 201 `{data: Hunt}` | 新建；默认状态 `in_progress` |
-| `GET /api/v1/hunts` | 200 `{data: Hunt[], meta: {total, limit: 100}}` | 暂按 ID 升序返回前 100 条；搜索/分页归 T009 |
+| `GET /api/v1/hunts` | 200 `{data: Hunt[], meta: {total, page, page_size}}` | 查询规则见 T009 |
 | `GET /api/v1/hunts/:id` | 200 `{data: Hunt}` | 不存在或已软删除为 404 |
 | `PUT /api/v1/hunts/:id` | 200 `{data: Hunt}` | 完整替换可编辑字段，要求 species_id 与 status |
 | `DELETE /api/v1/hunts/:id` | 204 无响应体 | 软删除；有关联个体（含软删除历史）返回 409 |
@@ -37,14 +37,14 @@ ID 来自本地参考接口，不是 PokéAPI ID。物种必须存在，形态�
 
 可选字段为 form_id、game_id、method、start_date、end_date、encounter_count、count_unit、duration_seconds、notes；省略或 null 保留未知，PUT 省略的可选字段被清空。文本去除首尾空白，空文本归 null；method 最长 128 字符、单位 32、备注 5000。次数/秒数为非负 int64，已知次数（包括 0）须提供非空单位，单位已知而次数未知允许保存。不计算跨单位效率。
 
-日期只接受有效 `YYYY` / `YYYY-MM` / `YYYY-MM-DD`，原样保留精度；仅在开始最早日晚于结束最晚日时拒绝倒置，不擅自填补日期。状态为 `in_progress` / `completed` / `abandoned`，可重新打开。完成须至少一个未删除的关联成果；放弃不删除成果，进行中可有多个成果，非目标意外闪光不被排除。T007 测试使用已有模型构造成果，个体登记 API 归 T008。所有状态与删除保护均在 SQLite 事务内检查。
+日期只接受有效 `YYYY` / `YYYY-MM` / `YYYY-MM-DD`，原样保留精度；仅在开始最早日晚于结束最晚日时拒绝倒置，不擅自填补日期。状态为 `in_progress` / `completed` / `abandoned`，可重新打开。完成须至少一个未删除的关联成果；放弃不删除成果，进行中可有多个成果，非目标意外闪光不被排除。个体登记与关联 API 见下方 T008。所有状态与删除保护均在 SQLite 事务内检查。
 
 ## 闪光个体与历史（T008）
 
 | 请求 | 成功 | 说明 |
 |---|---|---|
 | `POST /api/v1/shiny-records` | 201 `{data: ShinyRecord}` | 新建永久身份；只要求 current_species_id |
-| `GET /api/v1/shiny-records` | 200 `{data: ShinyRecord[], meta: {total, limit: 100}}` | 当前前100条，完整搜索/分页归 T009 |
+| `GET /api/v1/shiny-records` | 200 `{data: ShinyRecord[], meta: {total, page, page_size}}` | 查询规则见 T009 |
 | `GET /api/v1/shiny-records/:id` | 200 `{data: ShinyRecord}` | 软删除后为404 |
 | `PUT /api/v1/shiny-records/:id` | 200 `{data: ShinyRecord}` | 完整替换，要求 current_species_id、source、holding_status |
 | `DELETE /api/v1/shiny-records/:id` | 204 | 软删除，永久身份与历史保留 |
@@ -63,3 +63,37 @@ source 为 self_hunted / trade / event / other / unknown，holding_status 为 he
 当前物种变化必须声明 `change_type: "evolution"` 或 `"correction"`；evolution 表示用户报告的进化，并不假称已验证完整进化图或游戏条件；纠错记录为 updated。当前形态、位置/游戏、持有状态变化分别保留 form_change、location_change、holding_change；其他编辑为 updated。创建有 registered，删除有 deleted。可选 event_date 与 history_note（1000字）为事件证据，未提供时为空；created_at/updated_at只是系统审计时间。同次更新多类别历史共享完整 before_json/after_json 快照，不臆造中间状态或先后时间；相同内容重提不新增历史或个体。历史只读，无修改/删除端点，完整转移事件管理仍归 T023。
 
 历史、个体和状态保护均在同一事务中完成，历史写入失败会回滚创建/更新/删除。删除或移走已完成 Hunt 的最后有效成果返回409，须先重新打开/放弃该 Hunt；已有多个成果时可逐项调整。交换出去/放生应更新持有状态而非删除，以保留历史获得事实；软删除用于撤销错误登记，不计入有效成果或正常列表。
+
+## 查询、搜索、筛选和分页（T009）
+
+适用于 `GET /api/v1/hunts` 与 `GET /api/v1/shiny-records`；参考资料与历史端点继续使用各自的 limit/offset。
+
+- `page` 从1开始，默认1；`page_size` 默认50、范围1–100；偏移 `(page-1)*page_size` 不得超过2147483647。越过末页返回空数组，total仍是匹配总数。未知、重复、空值、非法编码/UTF-8或不合法参数返回400，不静默忽略；旧临时列表的 limit 参数已由 page_size 替代。
+- `q` 最多200字符，匹配目标/原始/当前物种、形态、游戏的 slug/英文/源中文名，以及 Hunt 方法/备注/单位或个体昵称/备注/当前位置。搜索为字面子串，`%`、`_`、反斜线不会被当成用户通配符；ASCII匹配使用 SQLite LIKE 的默认大小写行为，不承诺中文分词或复杂 Unicode 大小写折叠。
+- 所有筛选和 q 以 AND 组合；枚举与文本精确筛选区分大小写，首尾空白被去除。ID必须为正的 int64 范围本地ID，不存在的筛选ID正常返回空结果。
+- `sort` 默认 created_at；共同支持 id/created_at/updated_at，Hunt另支持 start_date/end_date/encounter_count/duration_seconds，个体另支持 obtained_date/level。`order` 为 asc/desc，默认desc。空值始终排后，同值以相同方向的ID稳定排序；日期按已记录的ISO文本排序，部分精度不代表精确先后。
+- 单次请求的总数与当前页在同一 SQLite 事务快照中读取。数据不变时跨页排序稳定；多次请求之间如有新增/编辑/删除，页边界可以移动，未实现跨请求快照或游标分页。
+
+| Hunt 参数 | 语义 |
+|---|---|
+| species_id / form_id / game_id | 目标引用精确匹配 |
+| status / method / count_unit | 状态、方法、单位精确匹配 |
+| has_results=true/false | 至少一个有效关联个体 / 无有效个体；不计软删除个体 |
+| min_count / max_count | 非负整数边界；须同时指定 count_unit，次数排序也须指定单位，避免跨单位比较 |
+| min_duration / max_duration | 非负标准秒数边界 |
+| start_from / start_to / end_from / end_to | 对相应日期的闭区间重叠筛选 |
+
+| 个体参数 | 语义 |
+|---|---|
+| original_species_id / original_form_id / original_game_id | 原始获得引用精确匹配 |
+| current_species_id / current_form_id / current_game_id | 当前引用精确匹配，与原始字段分开 |
+| hunt_id / has_hunt=true/false | 特定 Hunt / 是否关联 Hunt |
+| source / holding_status / current_location | 来源、持有、当前位置精确匹配 |
+| obtained_from / obtained_to | 获得日期闭区间重叠筛选 |
+
+日期界限支持 YYYY、YYYY-MM、YYYY-MM-DD，按各自可能日期区间重叠判断；未知日期不匹配日期范围，未知次数不匹配数值范围。不把模糊日期补成真实日期，也不声称交集内实际发生：例如日期“2024”的记录可匹配2024年2月，但仍返回“2024”，供调用者提示精度。确定倒置的日期/数值边界为400。
+
+```text
+/api/v1/hunts?status=in_progress&game_id=1&count_unit=eggs&min_count=0&sort=encounter_count&order=asc&page=1&page_size=20
+/api/v1/shiny-records?original_species_id=1&current_species_id=2&holding_status=held&has_hunt=false&sort=obtained_date
+```

@@ -377,20 +377,34 @@
         "T008"
       ],
       "acceptance": "组合过滤准确、排序稳定、分页有测试",
-      "status": "planned",
-      "branch": null,
+      "status": "in_progress",
+      "branch": "feature/T009-query-filter-pagination",
       "evidence": {
-        "implementation": null,
-        "checks": [],
-        "self_review": null,
-        "risks": [],
-        "unverified": [],
-        "documentation": [],
+        "implementation": "Hunt/个体白名单组合查询、原始/当前分角色引用、字面搜索、日期区间重叠、同单位累计值边界、空值后置/ID次级排序、事务 total/分页；M1 真实进程验收接入 make smoke/必需 go-checks",
+        "checks": [
+          "Linux Go 1.27.3: go test ./...、go build ./...、make check（格式/module/vet/race/build）、make smoke 全部成功",
+          "SQL/HTTP 测试覆盖 AND 组合、字面通配符/引号/反斜线/中文搜索、注入输入、原始/当前角色、未知/软删除、部分日期/9999年、同值排序/跨页/总数和编码/重复/溢出边界",
+          "真实二进制+自建临时 SQLite 的 M1 验收通过：从零初始化、部分离线种子、独立/0..N/意外成果、CRUD/历史、原始/当前过滤、分页/坏参数、最后成果保护、重启和外键/永久身份",
+          "Linux Node 24.22.1/npm 11.19.1: npm ci（0 个已知漏洞）、typecheck、21 项组件/客户端、build/HTTP smoke、5 项真实集成全部成功"
+        ],
+        "self_review": "逐文件审查：字段/排序白名单，所有用户值绑定，搜索元字符按字面转义，EXISTS 避免关联倍增；总数与页在同一事务，日期精度保留，次数比较强制同单位；临时库/进程清理无真实个人数据写入。现有必需 go-checks 通过 make smoke 自动执行新增集成验收；未改冻结规则/权限/prod，无待修复项",
+        "risks": [
+          "偏移分页只保证数据未变化时跨页稳定，多次请求间编辑可能移动页边界；部分日期匹配表示可能区间重叠，不等于精确发生时间",
+          "参考种子部分覆盖与中文待交叉核验、用户声明进化规则未验证、本机 Chromium 缺系统库等 M1 限制在最终报告归档；M2 未启动"
+        ],
+        "unverified": [
+          "最终 PR CI、实现合并/dev CI 与 M1 合并后集成复验尚待确认"
+        ],
+        "documentation": [
+          "docs/tasks/T009.md",
+          "docs/API.md",
+          "docs/DEVELOPMENT_LOG.md"
+        ],
         "commit": null,
         "pr_url": null,
         "merge_sha": null
       },
-      "record": null
+      "record": "docs/tasks/T009.md"
     },
     {
       "id": "T010",

@@ -1,6 +1,6 @@
 # Go 后端开发（T001）
 
-后端 Go module 位于仓库根目录，module 路径为 `github.com/zl14229/pokemon-shiny-tracker`。T001 提供可启动的工程骨架；正式 Router、`/api/v1` Health API 和统一错误处理属于 T002，SQLite 连接、模型和迁移属于 T005。
+后端 Go module 位于仓库根目录，module 路径为 `github.com/zl14229/pokemon-shiny-tracker`。T001 提供可启动的工程骨架，T002 增加正式 Router、`/api/v1` Health API 和统一错误处理；SQLite 连接、模型和迁移属于 T005。
 
 ## 工具链与依赖
 
@@ -14,7 +14,7 @@
 ```text
 cmd/server/              程序入口、信号处理和监听失败退出
 internal/config/         环境变量读取与校验、固定 loopback 地址
-internal/server/         空 Gin engine、HTTP 超时和请求排空退出
+internal/server/         版本化 Gin Router、HTTP 超时和请求排空退出
 internal/database/       GORM 配置基础，不连接数据库
 scripts/smoke_backend.py 已构建 Linux 程序的启动/退出验证
 go.mod / go.sum          版本和校验和
@@ -35,7 +35,7 @@ bash -ic 'make deps'
 bash -ic 'make run'
 ```
 
-应选中 `/usr/local/go/bin/go`，系统为 Linux。服务默认监听 `127.0.0.1:8080`，启动日志包含实际监听地址。另一终端可运行 `curl --noproxy "*" -i http://127.0.0.1:8080/`，预期为 Gin 默认 **404**；它证明进程已提供 HTTP 服务。此时没有业务路由或 Health API，不能用它证明数据库/业务健康。
+应选中 `/usr/local/go/bin/go`，系统为 Linux。服务默认监听 `127.0.0.1:8080`，启动日志包含实际监听地址。另一终端可运行 `curl --noproxy "*" -i http://127.0.0.1:8080/api/v1/health`，预期为 **200** 和 `{"data":{"status":"ok"}}`；它只证明 HTTP 进程可响应，不证明数据库/业务健康。完整错误格式见 [API 契约](API.md)。
 
 按 Ctrl+C 或发送 SIGTERM，服务最多等待 5 秒排空活动请求；正常退出码为 0，配置错误或端口占用退出码为 1。HTTP 请求头超时 5 秒，读/写超时 15 秒，空闲连接超时 60 秒。
 
@@ -76,9 +76,9 @@ git diff --check
 - `make deps`：下载锁定依赖并执行 `go mod verify`；首次需要联网，缓存就绪后运行程序本身不访问网络。
 - `make build`：构建所有包，并产生被 Git 忽略的 `bin/shiny-tracker`。
 - `make check`：格式检查、`go mod tidy -diff`、依赖校验、`go vet`、竞态测试和构建。
-- `make smoke`：构建后测试非法配置、端口占用、真实 loopback HTTP/默认 404、SIGTERM 正常退出及端口释放；只使用临时端口，不接触个人数据。
+- `make smoke`：构建后测试非法配置、端口占用、真实 loopback health 200 和 JSON 404/405、SIGTERM 正常退出及端口释放；只使用临时端口，不接触个人数据。
 - `make fmt`：主动格式化 Go 源文件；它会修改源文件，仅在开发时使用。
 
-配置单元测试覆盖默认值、端口边界和非法输入。HTTP 测试覆盖真实监听/默认路由边界、监听错误，以及退出时保留活动请求。GitHub `go-checks` 运行上述 Go 检查和真实进程验证，现有治理检查继续执行。
+配置单元测试覆盖默认值、端口边界和非法输入。HTTP 测试覆盖健康/错误契约、404/405、内部错误/panic 脱敏、错误后继续服务、已提交响应不被追加、真实监听/错误和排空退出。GitHub `go-checks` 运行上述 Go 检查和真实进程验证，现有治理检查继续执行。
 
 本次不验证 Windows 原生启动、SQLite 行为或任何业务功能；相应 Task 负责后续验收。

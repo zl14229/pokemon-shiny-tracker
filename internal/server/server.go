@@ -1,4 +1,4 @@
-// Package server provides an HTTP process scaffold, without application routes.
+// Package server owns the HTTP process lifecycle.
 package server
 
 import (
@@ -9,17 +9,14 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/gin-gonic/gin"
+	"github.com/zl14229/pokemon-shiny-tracker/internal/api"
 	"github.com/zl14229/pokemon-shiny-tracker/internal/config"
 )
 
 func New(cfg config.Config) *http.Server {
-	engine := gin.New()
-	// No reverse proxy is configured for the local single-user server.
-	_ = engine.SetTrustedProxies(nil)
 	return &http.Server{
 		Addr:              cfg.Address(),
-		Handler:           engine,
+		Handler:           api.NewRouter(),
 		ReadHeaderTimeout: 5 * time.Second,
 		ReadTimeout:       15 * time.Second,
 		WriteTimeout:      15 * time.Second,

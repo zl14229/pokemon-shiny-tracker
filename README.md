@@ -40,7 +40,7 @@ bash -ic 'make deps'
 bash -ic 'make run'
 ```
 
-当前服务仅监听 `127.0.0.1:8080`，请求 `/` 返回默认 404；正式 API 在 T002 建立。可用 `SHINY_HTTP_PORT` 更改端口，`.env.example` 仅为配置说明模板。完整构建、测试和启动验证：
+当前服务仅监听 `127.0.0.1:8080`，`GET /api/v1/health` 返回进程健康状态；未知路径返回统一 JSON 404。详见 [API 契约](docs/API.md)。可用 `SHINY_HTTP_PORT` 更改端口，`.env.example` 仅为配置说明模板。完整构建、测试和启动验证：
 
 ```bash
 bash -ic 'go test ./... && go build ./...'

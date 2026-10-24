@@ -41,14 +41,14 @@ func TestScaffoldServesAndStops(t *testing.T) {
 	done := make(chan error, 1)
 	go func() { done <- Serve(ctx, srv, listener) }()
 	client := &http.Client{Timeout: time.Second}
-	for _, path := range []string{"/", "/api/v1/health"} {
+	for path, status := range map[string]int{"/": http.StatusNotFound, "/api/v1/health": http.StatusOK} {
 		resp, err := client.Get("http://" + listener.Addr().String() + path)
 		if err != nil {
 			t.Fatal(err)
 		}
 		_ = resp.Body.Close()
-		if resp.StatusCode != http.StatusNotFound {
-			t.Fatalf("%s status = %d; T001 must not expose application routes", path, resp.StatusCode)
+		if resp.StatusCode != status {
+			t.Fatalf("%s status = %d, want %d", path, resp.StatusCode, status)
 		}
 	}
 	client.CloseIdleConnections()

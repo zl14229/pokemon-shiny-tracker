@@ -124,20 +124,37 @@
         "T000"
       ],
       "acceptance": "前端可启动、构建成功",
-      "status": "planned",
-      "branch": null,
+      "status": "in_progress",
+      "branch": "feature/T003-vue-frontend-init",
       "evidence": {
-        "implementation": null,
-        "checks": [],
-        "self_review": null,
-        "risks": [],
-        "unverified": [],
-        "documentation": [],
+        "implementation": "Vue 3 + TypeScript + Vite + Element Plus 工程，中文应用骨架、loopback 开发/预览、精确 npm 锁文件、组件/HTTP/Chromium 测试及必需 frontend-checks",
+        "checks": [
+          "Linux Node 24.22.1/npm 11.19.1: npm install 与 npm ci 成功，npm 审计 0 个已知漏洞",
+          "npm run typecheck、npm test（1 项组件测试）、npm run build、npm run smoke 全部成功",
+          "本地 Chromium 下载完成，但浏览器启动失败：WSL 缺少 libglib-2.0.so.0；CI 配置 install --with-deps 后执行相同测试，待实际结果",
+          "dev Ruleset 已写入并回读 frontend-checks，保留原三项必需检查、strict=true、无 bypass，prod 不变"
+        ],
+        "self_review": "逐文件检查工程/锁文件与 CI：精确依赖、loopback/strictPort、无凭据/个人数据、无 API Client 或业务实现，中文说明不伪造功能；真实组件交互和 HTTP 开发/构建启动验证通过；浏览器结果待 CI 实际确认",
+        "risks": [
+          "本地 WSL 缺少 Chromium 系统共享库，未在本机完成浏览器验收；通过安装依赖的 CI runner 执行同一浏览器测试",
+          "首次依赖和浏览器下载需要网络；基础凭证检查不等于完整秘密扫描"
+        ],
+        "unverified": [
+          "最终 PR/CI/Chromium 验收、合并与 dev CI 待实际执行"
+        ],
+        "documentation": [
+          "docs/FRONTEND_DEVELOPMENT.md",
+          "docs/GITHUB_WORKFLOW.md",
+          "docs/DEVELOPMENT_LOG.md",
+          "docs/tasks/T003.md",
+          "docs/evidence/github-rulesets-t003.json",
+          "README.md"
+        ],
         "commit": null,
         "pr_url": null,
         "merge_sha": null
       },
-      "record": null
+      "record": "docs/tasks/T003.md"
     },
     {
       "id": "T004",

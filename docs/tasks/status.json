@@ -421,20 +421,38 @@
         "T007"
       ],
       "acceptance": "能创建、更新、完成、放弃及查看",
-      "status": "planned",
-      "branch": null,
+      "status": "in_review",
+      "branch": "feature/T010-hunt-ui",
       "evidence": {
-        "implementation": null,
-        "checks": [],
-        "self_review": null,
-        "risks": [],
-        "unverified": [],
-        "documentation": [],
-        "commit": null,
-        "pr_url": null,
+        "implementation": "中文响应式 Hunt 列表/筛选/分页、创建/完整编辑、详情/关联成果/三态操作；扩展同源Client/严格DTO与安全整数/部分日期/空值验证；读取取消与写入不明防重复、旧版本前置比对；共享资料/反馈/状态组件",
+        "checks": [
+          "Linux Node 24.22.1/npm 11.19.1：typecheck、38 项单元/组件、build、HTTP smoke、7 项真实 Go/Vite/API Client 联调成功",
+          "本地 Chromium 12 项场景全部通过：创建/编辑/放弃/重开/完成/关联成果、输入验证、接口失败重试、实际已提交但代理报错时不重复创建、旧版本保护、桌面与390px/无页面横向溢出/无JS错误；截图自审通过",
+          "Go test、make check（格式/module/vet/race/build）、make smoke（含M1真实进程）通过；治理验证、7项治理回归、差异/基础凭证模式检查通过",
+          "本机 Chromium 依赖及字体从 Debian 包仅解包至仓库外临时目录，以 FONTCONFIG_FILE/LD_LIBRARY_PATH 限定测试环境，无系统包安装或工具链修改",
+          "治理验证、7 项治理回归、差异及敏感信息模式检查通过；PR 已创建并标记 code-reviewed",
+          "自审补齐 Element Plus 全局简体中文与必填物种提示后，38项单元/组件、7项联调、12项本机Chromium及类型/构建/HTTP再次全部通过"
+        ],
+        "self_review": "逐文件复核 DTO与完整PUT、空值/0/日期精度/安全整数、资料来源提示、异步取消/旧响应/草稿、前置版本读取及写入结果不明无自动重试；原始服务器错误不渲染，测试只访问独立临时库。修复实际测试发现的下拉定位、表单错误显示等待和模板事件处理问题，最终全部复验成功；无未解决问题",
+        "risks": [
+          "客户端 updated_at 前置比对不是服务端原子并发控制，仍应避免多个窗口并发编辑同一记录；安全整数之外的响应明确拒绝编辑以防舍入",
+          "参考资料仍部分覆盖/中文待核验，不推断可刷性；本机浏览器依赖只在本轮临时测试环境补齐，常规机器仍需安装浏览器系统依赖；关联个体创建界面留到T011"
+        ],
+        "unverified": [
+          "PR CI、合并与dev CI、验收收尾尚待实际核实"
+        ],
+        "documentation": [
+          "docs/tasks/T010.md",
+          "docs/FRONTEND_DEVELOPMENT.md",
+          "docs/GITHUB_WORKFLOW.md",
+          "docs/DEVELOPMENT_LOG.md",
+          "README.md"
+        ],
+        "commit": "b50d92e602206e63a978bfe22f1de09b49785b2b",
+        "pr_url": "https://github.com/zl14229/pokemon-shiny-tracker/pull/21",
         "merge_sha": null
       },
-      "record": null
+      "record": "docs/tasks/T010.md"
     },
     {
       "id": "T011",

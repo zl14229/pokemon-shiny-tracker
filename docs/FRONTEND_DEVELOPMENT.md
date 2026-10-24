@@ -1,6 +1,6 @@
-# 前端开发（M0）
+# 前端开发
 
-前端在 `frontend/`，使用 Vue 3、TypeScript、Vite、Element Plus；默认简体中文、本地 loopback 开发服务器。T003 为页面骨架，T004 接入 API Client 和本地服务状态；记录、收藏和数据库业务属于后续任务。
+前端在 `frontend/`，使用 Vue 3、TypeScript、Vite、Element Plus；默认简体中文、本地 loopback 开发服务器。T003 为页面骨架，T004 接入 API Client 和本地服务状态；T010 增加 Hunt 管理界面；个体登记界面归 T011。数据库与业务 API 已在 M1 实现。
 
 ## 工具链与依赖
 
@@ -47,13 +47,13 @@ Chromium 还需要系统共享库；Debian WSL 若缺少浏览器依赖，不影
 
 `frontend-checks` 使用固定 SHA 的 setup-node、`.node-version`、`npm ci`，执行严格类型、组件测试、生产构建和 Chromium 测试。dev Ruleset 已实际增加该必需检查并回读，原三项检查、strict=true 和无 bypass 保留；prod 未改动，见 `docs/evidence/github-rulesets-t003.json`。
 
-本阶段不引入业务导航、收藏表单、假统计数据或网络资料采集。前端包及所有 `VITE_*` 配置都对浏览器公开，禁止放置密钥；当前没有任何认证凭据或个人数据。
+T010 提供首页与 Hunt 导航，不引入图鉴、Planner、统计或网络资料采集；收藏写入界面仍归 T011。前端包及所有 `VITE_*` 配置都对浏览器公开，禁止放置密钥；当前没有任何认证凭据或个人数据。
 
 ## T004 API Client 与前后端联调
 
 启动后端后运行前端，页面的“本地服务”卡片会自动检查健康，提供加载、成功、失败与重试；组件移除时取消未完成请求。客户端固定使用 `/api/v1`，处理 HTTP 状态、已知服务端错误码、非 JSON/异常 DTO、网络失败、5 秒超时和调用方取消。错误提示不直接显示未知服务端文本或 HTML。
 
-[Fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) 的 HTTP 失败需显式检查状态；[AbortController](https://developer.mozilla.org/en-US/docs/Web/API/AbortController) 用于取消 fetch 和响应体读取。对应行为均有测试，超时覆盖响应体读取过程。当前只支持健康查询及通用 JSON GET 基础，不实现业务接口。
+[Fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) 的 HTTP 失败需显式检查状态；[AbortController](https://developer.mozilla.org/en-US/docs/Web/API/AbortController) 用于取消 fetch 和响应体读取。对应行为均有测试，超时覆盖响应体读取过程。T004 交付时仅健康与 JSON GET；T010 的类型化业务查询和写入扩展见下方。
 
 Vite 开发与构建预览均按[官方 proxy 配置](https://vite.dev/config/server-options#server-proxy)代理 `/api/v1` 到 `127.0.0.1:8080`，不增加 CORS 或外网监听。后端换端口时分别给两个进程设置环境变量：
 
@@ -70,7 +70,19 @@ bash -ic 'make build && cd frontend && npm run test:e2e'
 ```
 
 - 客户端/组件测试覆盖正常响应、JSON 404/405/500、非 JSON 错误、错误 DTO、网络、超时（含响应体阶段）、取消、加载/重试/组件清理。
-- `test:integration` 使用临时端口启动真实 Go 程序和 Vite，验证 API Client 健康、404、405、构建预览代理、实际后端停机产生 502，以及重启后成功；不访问数据库。
+- `test:integration` 使用临时端口启动真实 Go 程序和 Vite，验证 API Client 健康、404、405、构建预览代理、实际后端停机产生 502，以及重启后成功；所有测试仅使用自建临时 SQLite，不访问默认个人库。
 - Chromium 测试同时启动真实 Go 和 Vite，先验证无 mock 的成功调用，再分别注入 JSON/非 JSON 错误、错误成功体、网络失败和超时，确认用户提示与重试恢复。故障仅在测试拦截中注入，不向实际后端增加故障端点。测试使用端口 45080/45173，拒绝复用未知服务。
 
-CI 的 frontend-checks 构建后端并运行所有联调/浏览器测试。本机缺少 Chromium 共享库的限制仍保留，浏览器验收以安装完整依赖后的 CI 实际结果为证据。
+CI 的 frontend-checks 构建后端并运行所有联调/浏览器测试。本机缺依赖时不可虚报浏览器成功；T010 本轮用仓库外临时解包的共享库与字体环境执行本地 Chromium，未安装系统包、未修改工具链或固化临时路径。CI 仍在标准 runner 安装依赖后执行相同场景。
+
+## T010 Hunt 管理界面
+
+hash 路由不增加部署重写要求：`#/home`、`#/hunts`、`#/hunts/new`、`#/hunts/:id`、`#/hunts/:id/edit`。使用现有 Vue/TypeScript/Element Plus，无额外运行时依赖或状态框架。列表以 q/status 组合筛选、20条分页，保留 URL 查询参数；详情呈现游戏/目标/累计/日期、三态操作及分页关联成果。允许意外闪光，完成规则由后端权威校验；放弃保留成果。不存在/失败/加载/空页均有反馈与可用的返回路径。
+
+`api/client.ts` 负责同源 GET/POST/PUT、超时/取消/安全错误；`api/models.ts` 与 `tracker.ts` 做运行时 DTO 校验和类型化调用；domain 层纯函数管理表单/日期/格式；共享反馈、资料选择和状态组件复用。只从本地参考接口分批读取，超过单页500条会继续加载，不静默截断；源中文待核验/覆盖有限的提示保留，不推断可刷性。
+
+表单不默认填日期/游戏/次数/耗时；空值保存 null，0保留为已知零。次数须提供单位，耗时为非负秒。支持原有年/月/日精度与真实日历/范围验证。浏览器仅编辑安全整数（最大9007199254740991）；超出范围的响应明确报错，不能悄悄舍入后写回。编辑保留全部既有可编辑字段，状态操作也构造完整 PUT，不以零值/空对象覆盖未展示字段。
+
+编辑前读取并比对 updated_at，发现已提交的新版本会拒绝本次写入并保留草稿；这是客户端前置检查，不能替代服务端原子并发控制，仍应避免同时在多个窗口编辑同一条记录。未发出 PUT 前的读取失败可安全重试；POST/PUT 发出后遇网络/超时/异常成功体/5xx，结果不明时先检查列表，不自动重试创建。所有服务器原始错误文字/HTML保持脱敏。
+
+测试包含纯字段/DTO/请求测试、真实 Element Plus 表单与错误/草稿保持、真实 Go/Vite 写入/完整更新/关联成果/409、以及 Chromium 创建→编辑→放弃→重开→完成、桌面/390px、验证阻止写入、失败重试、已实际提交但代理报错时不重复创建、旧版本编辑保护。浏览器所需两个服务端口必须空闲，不复用外部服务；数据库及测试注入只在自建临时目录。

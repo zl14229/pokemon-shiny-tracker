@@ -1,40 +1,76 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { ElButton, ElCard, ElTag } from 'element-plus'
+import { computed, ref } from 'vue'
+import { ElButton, ElCard, ElConfigProvider } from 'element-plus'
+import zhCn from 'element-plus/es/locale/lang/zh-cn'
 import ServiceStatus from './components/ServiceStatus.vue'
-
-const showGuide = ref(false)
+import HuntList from './pages/HuntList.vue'
+import HuntForm from './pages/HuntForm.vue'
+import HuntDetail from './pages/HuntDetail.vue'
+import { useRoute } from './domain/navigation'
+const route = useRoute(),
+  showGuide = ref(false)
+const path = computed(() => route.value.split('?')[0] ?? '/home')
+const query = computed(() => route.value.split('?').slice(1).join('?'))
+const detail = computed(() => /^\/hunts\/([1-9]\d*)(\/edit)?$/.exec(path.value))
+const id = computed(() =>
+  detail.value && Number.isSafeInteger(Number(detail.value[1])) ? Number(detail.value[1]) : null,
+)
 </script>
-
 <template>
-  <main class="app-shell">
-    <header class="app-header">
-      <span class="brand-mark" aria-hidden="true">✦</span>
-      <div>
-        <p class="eyebrow">属于你的闪光旅程</p>
-        <h1>Pokémon Shiny Tracker</h1>
-      </div>
-    </header>
-
-    <ElCard class="welcome-card" shadow="never">
-      <ElTag type="info" effect="plain">初始化版本</ElTag>
-      <h2>每一次相遇，都值得记录</h2>
-      <p>在这里整理你的刷闪旅程与闪光收藏。</p>
-      <p class="muted">记录与收藏功能正在后续阶段开发，当前尚不能保存个人数据。</p>
-      <ElButton
-        type="primary"
-        :aria-expanded="showGuide"
-        aria-controls="usage-guide"
-        @click="showGuide = !showGuide"
-      >
-        {{ showGuide ? '收起说明' : '查看说明' }}
-      </ElButton>
-      <p v-if="showGuide" id="usage-guide" class="usage-guide">
-        当前版本用于确认应用可以正常打开，尚不支持录入与保存收藏。
-      </p>
-    </ElCard>
-
-    <ServiceStatus />
-    <footer class="app-footer">本地运行 · 简体中文 · 个人收藏</footer>
-  </main>
+  <ElConfigProvider :locale="zhCn">
+    <div class="app-shell">
+      <aside class="sidebar">
+        <a class="brand" href="#/home"
+          ><span class="brand-mark" aria-hidden="true">✦</span>
+          <h1>Pokémon Shiny Tracker</h1></a
+        >
+        <p class="sidebar-caption">你的闪光收藏手帐</p>
+        <nav aria-label="主导航">
+          <a href="#/home" :aria-current="path === '/home' ? 'page' : undefined"
+            ><span aria-hidden="true">⌂</span>首页</a
+          ><a href="#/hunts" :aria-current="path.startsWith('/hunts') ? 'page' : undefined"
+            ><span aria-hidden="true">◎</span>刷闪任务</a
+          >
+        </nav>
+        <div class="sidebar-foot"><span class="local-dot" />本地运行 · 个人收藏</div>
+      </aside>
+      <main id="main" class="main-content">
+        <template v-if="path === '/home'">
+          <header class="page-heading">
+            <div>
+              <p class="eyebrow">属于你的闪光旅程</p>
+              <h2>每一次相遇，都值得记录</h2>
+              <p class="muted">从一个目标开始，把尝试和回忆留在这里。</p>
+            </div>
+          </header>
+          <ElCard class="welcome-card" shadow="never"
+            ><span class="section-kicker">HUNT JOURNAL</span>
+            <h3>下一次闪光，正在路上</h3>
+            <p>创建刷闪任务，记录次数与耗时，整理每段旅程的进度与成果。</p>
+            <ElButton tag="a" href="#/hunts" type="primary">查看刷闪任务 →</ElButton
+            ><ElButton
+              :aria-expanded="showGuide"
+              aria-controls="usage-guide"
+              @click="showGuide = !showGuide"
+              >{{ showGuide ? '收起说明' : '查看说明' }}</ElButton
+            >
+            <p v-if="showGuide" id="usage-guide" class="usage-guide">
+              新建任务时只填写已知信息；未知日期、次数与游戏可留空。完成任务需要至少一个关联成果，放弃会保留已有成果。
+            </p></ElCard
+          >
+          <ServiceStatus />
+        </template>
+        <HuntList v-else-if="path === '/hunts'" :query="query" />
+        <HuntForm v-else-if="path === '/hunts/new'" key="new-hunt" />
+        <HuntForm v-else-if="id && detail?.[2]" :key="`${id}-edit`" :id="id" />
+        <HuntDetail v-else-if="id" :key="id" :id="id" />
+        <section v-else class="surface">
+          <h2>页面不存在</h2>
+          <p>请通过导航返回任务列表。</p>
+          <a href="#/hunts">返回刷闪任务</a>
+        </section>
+        <footer class="app-footer">每一份记录，都属于你。 · 本地数据请自行妥善保管</footer>
+      </main>
+    </div>
+  </ElConfigProvider>
 </template>

@@ -6,6 +6,7 @@ import { tmpdir } from 'node:os'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 import { createServer, preview, type ViteDevServer } from 'vite'
 import { ApiClient } from '../../src/api/client'
+import { TrackerAPI, huntInput } from '../../src/api/tracker'
 
 let databaseDir: string
 let backend: ChildProcess | undefined
@@ -16,26 +17,40 @@ let client: ApiClient
 
 async function freePort(): Promise<number> {
   const server = createTCPServer()
-  await new Promise<void>((done, fail) => { server.once('error', fail); server.listen(0, '127.0.0.1', done) })
+  await new Promise<void>((done, fail) => {
+    server.once('error', fail)
+    server.listen(0, '127.0.0.1', done)
+  })
   const address = server.address()
   if (!address || typeof address === 'string') throw new Error('No TCP address')
-  await new Promise<void>((done, fail) => server.close((error) => error ? fail(error) : done()))
+  await new Promise<void>((done, fail) => server.close((error) => (error ? fail(error) : done())))
   return address.port
 }
 
 async function startBackend() {
   backend = spawn(resolve('../bin/shiny-tracker'), [], {
-    env: { ...process.env, SHINY_HTTP_PORT: String(port), SHINY_DB_PATH: join(databaseDir, "test.sqlite3") }, stdio: 'ignore',
+    env: {
+      ...process.env,
+      SHINY_HTTP_PORT: String(port),
+      SHINY_DB_PATH: join(databaseDir, 'test.sqlite3'),
+    },
+    stdio: 'ignore',
   })
   let launchError: Error | undefined
-  backend.once('error', (error) => { launchError = error })
+  backend.once('error', (error) => {
+    launchError = error
+  })
   for (let attempt = 0; attempt < 100; attempt++) {
     if (launchError) throw launchError
     if (backend.exitCode !== null) throw new Error('Backend exited before becoming ready')
     try {
-      const response = await fetch(`http://127.0.0.1:${port}/api/v1/health`, { signal: AbortSignal.timeout(200) })
+      const response = await fetch(`http://127.0.0.1:${port}/api/v1/health`, {
+        signal: AbortSignal.timeout(200),
+      })
       if (response.status === 200 && (await response.json()).data.status === 'ok') return
-    } catch { /* Retry only while this freshly spawned process is starting. */ }
+    } catch {
+      /* Retry only while this freshly spawned process is starting. */
+    }
     await new Promise((done) => setTimeout(done, 30))
   }
   throw new Error('Backend did not become ready')
@@ -45,18 +60,28 @@ async function stopBackend() {
   if (!backend || backend.exitCode !== null) return
   const current = backend
   await new Promise<void>((done, fail) => {
-    const timer = setTimeout(() => { current.kill('SIGKILL'); fail(new Error('Backend failed to stop')) }, 7_000)
-    current.once('exit', (code) => { clearTimeout(timer); code === 0 ? done() : fail(new Error(`Backend exit ${code}`)) })
+    const timer = setTimeout(() => {
+      current.kill('SIGKILL')
+      fail(new Error('Backend failed to stop'))
+    }, 7_000)
+    current.once('exit', (code) => {
+      clearTimeout(timer)
+      code === 0 ? done() : fail(new Error(`Backend exit ${code}`))
+    })
     current.kill('SIGTERM')
   })
 }
 
 beforeAll(async () => {
-  databaseDir = await mkdtemp(join(tmpdir(), "pst-integration-"))
+  databaseDir = await mkdtemp(join(tmpdir(), 'pst-integration-'))
   port = await freePort()
   await startBackend()
   frontend = await createServer({
-    server: { host: '127.0.0.1', port: 0, proxy: { '/api/v1': { target: `http://127.0.0.1:${port}` } } },
+    server: {
+      host: '127.0.0.1',
+      port: 0,
+      proxy: { '/api/v1': { target: `http://127.0.0.1:${port}` } },
+    },
   })
   await frontend.listen()
   const address = frontend.httpServer?.address()
@@ -66,8 +91,12 @@ beforeAll(async () => {
 })
 
 afterAll(async () => {
-  try { await frontend?.close(); await stopBackend() }
-  finally { if (databaseDir) await rm(databaseDir, { recursive: true, force: true }) }
+  try {
+    await frontend?.close()
+    await stopBackend()
+  } finally {
+    if (databaseDir) await rm(databaseDir, { recursive: true, force: true })
+  }
 })
 
 // Vitest runs this file's tests serially by default; restart is the final case.
@@ -76,7 +105,11 @@ describe('real Go backend through Vite and the actual API client', () => {
     await expect(client.getHealth()).resolves.toEqual({ status: 'ok' })
   })
   it('preserves backend JSON 404 through the proxy', async () => {
-    await expect(client.getJSON('/missing')).rejects.toMatchObject({ kind: 'http', status: 404, code: 'not_found' })
+    await expect(client.getJSON('/missing')).rejects.toMatchObject({
+      kind: 'http',
+      status: 404,
+      code: 'not_found',
+    })
   })
   it('preserves backend method errors through the proxy', async () => {
     const response = await fetch(`${origin}/api/v1/health`, { method: 'POST' })
@@ -86,15 +119,73 @@ describe('real Go backend through Vite and the actual API client', () => {
   })
   it('connects the built frontend preview to the same real backend', async () => {
     const built = await preview({
-      preview: { host: '127.0.0.1', port: 0, proxy: { '/api/v1': { target: `http://127.0.0.1:${port}` } } },
+      preview: {
+        host: '127.0.0.1',
+        port: 0,
+        proxy: { '/api/v1': { target: `http://127.0.0.1:${port}` } },
+      },
     })
     try {
       const address = built.httpServer.address()
       if (!address || typeof address === 'string') throw new Error('No preview address')
-      await expect(new ApiClient(`http://127.0.0.1:${address.port}/api/v1`).getHealth()).resolves.toEqual({ status: 'ok' })
+      await expect(
+        new ApiClient(`http://127.0.0.1:${address.port}/api/v1`).getHealth(),
+      ).resolves.toEqual({ status: 'ok' })
     } finally {
-      await new Promise<void>((done, fail) => built.httpServer.close((error) => error ? fail(error) : done()))
+      await new Promise<void>((done, fail) =>
+        built.httpServer.close((error) => (error ? fail(error) : done())),
+      )
     }
+  })
+  it('creates and edits a real Hunt with null/zero/partial date, then completes with an associated result', async () => {
+    const records = new TrackerAPI(client),
+      refs = await records.catalog()
+    const input = {
+      species_id: refs.species[0]!.id,
+      form_id: refs.forms.find((f) => f.species_id === refs.species[0]!.id)!.id,
+      game_id: null,
+      method: 'integration',
+      start_date: '2024',
+      end_date: null,
+      encounter_count: 0,
+      count_unit: 'eggs',
+      duration_seconds: null,
+      status: 'in_progress' as const,
+      notes: 'T010 real integration',
+    }
+    const created = await records.createHunt(input)
+    expect(created).toMatchObject(input)
+    const edited = await records.updateHunt(
+      created.id,
+      { ...huntInput(created), encounter_count: 12, notes: 'edited' },
+      created.updated_at,
+    )
+    expect(edited).toMatchObject({ ...input, encounter_count: 12, notes: 'edited' })
+    await expect(
+      records.updateHunt(
+        edited.id,
+        { ...huntInput(edited), status: 'completed' },
+        edited.updated_at,
+      ),
+    ).rejects.toMatchObject({ status: 409, code: 'conflict' })
+    await client.postJSON('/shiny-records', {
+      current_species_id: input.species_id,
+      hunt_id: edited.id,
+    })
+    expect((await records.results(edited.id)).meta.total).toBe(1)
+    const completed = await records.updateHunt(
+      edited.id,
+      { ...huntInput(edited), status: 'completed' },
+      edited.updated_at,
+    )
+    expect(completed.status).toBe('completed')
+    expect((await records.hunts('q=edited')).data.some((h) => h.id === completed.id)).toBe(true)
+  })
+  it('preserves real validation errors as safe machine codes', async () => {
+    await expect(new TrackerAPI(client).hunts('page=0')).rejects.toMatchObject({
+      status: 400,
+      code: 'invalid_request',
+    })
   })
   it('reports backend shutdown as an error, then succeeds after restart', async () => {
     await stopBackend()

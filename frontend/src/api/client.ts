@@ -12,7 +12,7 @@ export class ApiError extends Error {
   }
 }
 
-interface RequestOptions {
+export interface RequestOptions {
   signal?: AbortSignal
   timeoutMs?: number
 }
@@ -23,20 +23,51 @@ function isRecord(value: unknown): value is Record<string, unknown> {
 
 function httpError(status: number, body: unknown): ApiError {
   const messages: Record<string, string> = {
-    not_found: '请求的服务接口不存在，请确认应用版本。',
+    not_found: '记录不存在、已删除或接口不可用，请刷新后确认。',
     method_not_allowed: '服务不支持此操作，请确认应用版本。',
     internal_error: '本地服务暂时不可用，请稍后重试。',
+    invalid_request: '输入或引用资料无效，请检查表单后重试。',
+    conflict: '记录存在关联或状态冲突，请刷新后重试。',
+    request_too_large: '内容过长，请缩短备注后重试。',
+    unsupported_media_type: '提交格式不受支持，请确认应用版本。',
   }
-  const code = isRecord(body) && isRecord(body.error) && typeof body.error.code === 'string'
-    && Object.hasOwn(messages, body.error.code) ? body.error.code : null
+  const code =
+    isRecord(body) &&
+    isRecord(body.error) &&
+    typeof body.error.code === 'string' &&
+    Object.hasOwn(messages, body.error.code)
+      ? body.error.code
+      : null
   // Unknown server text/HTML must not be rendered as a user-facing error.
-  return new ApiError('http', code ? messages[code]! : `服务请求失败（HTTP ${status}），请重试。`, status, code)
+  return new ApiError(
+    'http',
+    code ? messages[code]! : `服务请求失败（HTTP ${status}），请重试。`,
+    status,
+    code,
+  )
 }
 
 export class ApiClient {
   constructor(private readonly baseURL = '/api/v1') {}
 
-  async getJSON(path: string, options: RequestOptions = {}): Promise<unknown> {
+  getJSON(path: string, options: RequestOptions = {}): Promise<unknown> {
+    return this.requestJSON('GET', path, undefined, options)
+  }
+
+  postJSON(path: string, data: unknown, options: RequestOptions = {}): Promise<unknown> {
+    return this.requestJSON('POST', path, data, options)
+  }
+
+  putJSON(path: string, data: unknown, options: RequestOptions = {}): Promise<unknown> {
+    return this.requestJSON('PUT', path, data, options)
+  }
+
+  private async requestJSON(
+    method: string,
+    path: string,
+    data: unknown,
+    options: RequestOptions,
+  ): Promise<unknown> {
     const controller = new AbortController()
     const cancel = () => controller.abort()
     if (options.signal?.aborted) cancel()
@@ -48,15 +79,29 @@ export class ApiClient {
     }, options.timeoutMs ?? 5_000)
     try {
       const response = await fetch(`${this.baseURL}${path}`, {
-        method: 'GET', signal: controller.signal,
-        headers: { Accept: 'application/json' }, cache: 'no-store', redirect: 'error',
+        method,
+        signal: controller.signal,
+        headers:
+          data === undefined
+            ? { Accept: 'application/json' }
+            : { Accept: 'application/json', 'Content-Type': 'application/json' },
+        ...(data === undefined ? {} : { body: JSON.stringify(data) }),
+        cache: 'no-store',
+        redirect: 'error',
       })
       // Reading the body is covered by the same cancellation/timeout deadline.
       const text = await response.text()
       let body: unknown
-      try { body = JSON.parse(text) } catch { body = undefined }
+      try {
+        body = JSON.parse(text)
+      } catch {
+        body = undefined
+      }
       if (!response.ok) throw httpError(response.status, body)
-      if (!response.headers.get('Content-Type')?.toLowerCase().startsWith('application/json') || body === undefined) {
+      if (
+        !response.headers.get('Content-Type')?.toLowerCase().startsWith('application/json') ||
+        body === undefined
+      ) {
         throw new ApiError('invalid_response', '服务返回了无法识别的响应，请稍后重试。')
       }
       return body

@@ -85,22 +85,23 @@
         "T001"
       ],
       "acceptance": "`/api/v1` 健康接口、错误处理和自动测试通过",
-      "status": "in_review",
+      "status": "verified",
       "branch": "feature/T002-router-health",
       "evidence": {
         "implementation": "Gin 版本化 Router、GET /api/v1/health、统一 JSON 404/405/500、内部错误和 panic 脱敏及恢复；不访问数据库",
         "checks": [
           "Linux Go 1.27.3: go test ./...、go build ./...、make check、make smoke 通过（smoke 端口探测 TIME_WAIT 修复后复验）",
-          "治理验证、7 项治理回归、差异及敏感信息模式检查通过；PR 已创建并标记 code-reviewed"
+          "治理验证、7 项治理回归、差异及敏感信息模式检查通过；PR 已创建并标记 code-reviewed",
+          "最终实现 PR CI 全部 success: https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40055913517",
+          "实现 merge 51ba5d81dcf719bb09abc743b3d349b5646889e6 后 dev CI 全部 success: https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40056003815",
+          "通过 Merge Commit 合并、源分支保留，无 Ruleset bypass；验收收尾经同一任务独立 PR 入库"
         ],
         "self_review": "逐文件差异检查：只增加 M0 HTTP 基础，无业务/数据库；健康不假称数据库健康；未知路径/错误方法/内部错误响应契约和 Allow 头有测试；内部错误与 panic 不外泄，已提交响应不被追加；无实际故障路由",
         "risks": [
           "已提交的 HTTP 响应无法改写，handler 应先完成可能失败的操作再写响应；健康仅表示进程可响应",
           "基础敏感信息检查不等于完整秘密扫描"
         ],
-        "unverified": [
-          "实现 PR/CI/合并与 dev CI 待实际执行"
-        ],
+        "unverified": [],
         "documentation": [
           "docs/API.md",
           "docs/BACKEND_DEVELOPMENT.md",
@@ -111,7 +112,7 @@
         ],
         "commit": "75250145917b0991dc5ad383c3aa9cacfcd49e71",
         "pr_url": "https://github.com/zl14229/pokemon-shiny-tracker/pull/5",
-        "merge_sha": null
+        "merge_sha": "51ba5d81dcf719bb09abc743b3d349b5646889e6"
       },
       "record": "docs/tasks/T002.md"
     },

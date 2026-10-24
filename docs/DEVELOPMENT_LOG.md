@@ -83,3 +83,11 @@
 - T011 开始：最新 dev ec6071dbb861150e428223845049cff9116d3f8b，依赖 verified、工作区干净；方案：复用T010中文导航/表单/反馈与Client：收藏列表以来源/持有/原始与当前游戏等筛选分页；个体可不关联Hunt，关联选择器分页搜索现有任务。完整DTO保持原始/当前物种、形态、游戏及球种/等级/备注等全部字段，未知不补造；进化/纠错由用户明确声明，同ID更新、轻量历史只读。关联成果与Hunt页面互通，最后成果冲突按后端反馈；版本前置比对与写入不明防重复沿用。真实临时库组件/API/完整M2浏览器流程、响应式截图、类型/构建/CI与自审；PR/merge/dev CI后收尾报告，M2后停止，不做M3。
 
 - T011 实现/本地验收：收藏独立/关联登记、原始/当前分离、球种等完整编辑、同ID进化/转移/持有与轻量历史、组合筛选分页及Hunt双向联动完成。51单元/组件、8真实API、19本机Chromium完整M2流程、类型/构建/HTTP/Go/治理均通过，修复自审与测试发现问题并检查桌面/390px截图；PR/合并验收待核实。
+
+- T011 实现 PR https://github.com/zl14229/pokemon-shiny-tracker/pull/23 已合并（910bed7c670fbfd86444707a509732b60b11f0c3），PR CI https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40111613096 与 dev CI https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40112146952 成功；本任务标记 verified 并走验收收尾 PR。
+
+## 2026-10-25 — M2 集成验收与收尾
+
+T010 与 T011 实现均经独立 feature 分支/PR、必需 CI、自审、Merge Commit 和 dev CI。T010 收尾 PR #22（ec6071dbb861150e428223845049cff9116d3f8b）及 dev CI 40108509235 成功。T011 实现 PR #23 合并 910bed7c670fbfd86444707a509732b60b11f0c3 后，dev CI 40112146952 四项成功；在该合并上重新实际验证 Go test/build/check/smoke、npm ci/typecheck、51 单元/组件、build/HTTP smoke、8 真实联调、19 Chromium 全部成功，完成完整 M2 表单/API/持久化/状态/关联/独立收藏/历史/筛选分页/错误/响应式验收。
+
+[M2 验收报告](M2_ACCEPTANCE.md) 和 Ruleset 回读证据随 T011 收尾 PR 归档；保留两条源分支，不修改 prod，无范围内阻塞。保留客户端非原子并发比对、基础资料覆盖不全与本机浏览器隔离依赖等限制，详见报告。T000–T011 verified，T012–T028 planned，授权范围到此停止；不启动 M3。收尾自身 merge SHA/dev CI 以对应 GitHub PR/Actions 为准。

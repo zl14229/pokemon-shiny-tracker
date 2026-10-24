@@ -139,7 +139,7 @@
           "通过 Merge Commit 合并、源分支保留，无 Ruleset bypass；验收收尾经同一任务独立 PR 入库",
           "Chromium 实际浏览器验收已在 PR 与合并后 dev 的 frontend-checks 中通过，覆盖桌面/窄屏加载、Element Plus 交互、无横向溢出/JS 错误；本机共享库限制保留为环境风险"
         ],
-        "self_review": "逐文件检查工程/锁文件与 CI：精确依赖、loopback/strictPort、无凭据/个人数据、无 API Client 或业务实现，中文说明不伪造功能；真实组件交互和 HTTP 开发/构建启动验证通过；浏览器结果待 CI 实际确认",
+        "self_review": "逐文件检查工程/锁文件与 CI：精确依赖、loopback/strictPort、无凭据/个人数据、无 API Client 或业务实现，中文说明不伪造功能；真实组件交互和 HTTP 开发/构建启动验证通过；浏览器结果已在最终 PR 与合并后 dev CI 实际成功确认",
         "risks": [
           "本地 WSL 缺少 Chromium 系统共享库，未在本机完成浏览器验收；通过安装依赖的 CI runner 执行同一浏览器测试",
           "首次依赖和浏览器下载需要网络；基础凭证检查不等于完整秘密扫描"
@@ -168,7 +168,7 @@
         "T003"
       ],
       "acceptance": "前端能调用 API，错误状态有提示",
-      "status": "in_review",
+      "status": "verified",
       "branch": "feature/T004-api-client-integration",
       "evidence": {
         "implementation": "同源 JSON API Client、健康 DTO 校验、HTTP/协议/网络/超时/取消分类、服务状态与重试组件、loopback Vite 开发/预览代理及真实 Go/API/浏览器集成验收",
@@ -176,27 +176,31 @@
           "Linux Go 1.27.3 构建后端成功；Linux Node 24.22.1/npm 11.19.1 类型、21 项客户端/组件测试、生产构建、HTTP smoke 全部通过",
           "5 项真实 Go/Vite/API Client 集成测试通过：健康、404、405、构建预览、后端实际停机 502 和重启恢复",
           "测试修复：使用当前 Vitest 串行默认而非已移除 API；按实际 Vite 502 语义修正停机断言，复验通过",
-          "治理验证、7 项治理回归、差异及敏感信息模式检查通过；PR 已创建并标记 code-reviewed"
+          "治理验证、7 项治理回归、差异及敏感信息模式检查通过；PR 已创建并标记 code-reviewed",
+          "最终实现 PR CI 全部 success: https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40057984013",
+          "实现 merge 70347166e587abbdb4a0dab2c750b1a6be9c55cf 后 dev CI 全部 success: https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40058212554",
+          "通过 Merge Commit 合并、源分支保留，无 Ruleset bypass；验收收尾经同一任务独立 PR 入库",
+          "最终 PR CI 日志确认：21 项客户端/组件、5 项真实集成、7 项 Chromium 场景全部通过",
+          "M0 在实际 merge 70347166e587abbdb4a0dab2c750b1a6be9c55cf 上本地复验通过：Go 普通/race/build/verify/vet/smoke，npm ci/类型/21 测试/build/smoke/5 集成，治理及 7 回归；prod 和四项 strict/no-bypass 规则回读通过"
         ],
-        "self_review": "逐文件检查无新增业务/数据库；客户端不把非 JSON/异常健康体当成功，已知错误码本地提示不渲染原始错误/HTML；超时覆盖响应体、取消清理、页面状态和重试有测试；代理固定 loopback 端口，开发/预览与真实进程测试通过",
+        "self_review": "逐文件检查无新增业务/数据库；客户端不把非 JSON/异常健康体当成功，已知错误码本地提示不渲染原始错误/HTML；超时覆盖响应体、取消清理、页面状态和重试有测试；代理固定 loopback 端口，开发/预览与真实进程测试通过；最终 PR 与合并后 dev 四项 CI 全成功，21/5/7 项前端各层测试已核实；M0 集成验收通过，无范围内待修复项",
         "risks": [
-          "本机 WSL 缺少 Chromium 系统共享库，本次新浏览器场景等待 CI 完整依赖环境验证",
+          "本机 WSL 缺少 Chromium 系统共享库，未在本机完成浏览器验收；最终 PR 和 dev CI 中 7 项 Chromium 场景已真实通过",
           "Vite proxy 是本地开发/预览能力，正式部署同源路由不属于 M0；健康不表示数据库或业务已就绪",
           "基础凭证模式检查不等于完整秘密扫描"
         ],
-        "unverified": [
-          "最终 PR/CI/Chromium 新场景、合并及 dev CI、合并后 M0 集成验收待实际执行"
-        ],
+        "unverified": [],
         "documentation": [
           "README.md",
           "docs/API.md",
           "docs/FRONTEND_DEVELOPMENT.md",
           "docs/DEVELOPMENT_LOG.md",
-          "docs/tasks/T004.md"
+          "docs/tasks/T004.md",
+          "docs/M0_ACCEPTANCE.md"
         ],
         "commit": "ebdc2097b58f7f1ccac59455f5349b69ea99e52d",
         "pr_url": "https://github.com/zl14229/pokemon-shiny-tracker/pull/9",
-        "merge_sha": null
+        "merge_sha": "70347166e587abbdb4a0dab2c750b1a6be9c55cf"
       },
       "record": "docs/tasks/T004.md"
     },

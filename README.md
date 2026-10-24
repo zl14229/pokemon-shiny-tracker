@@ -22,6 +22,8 @@
 - [Go 后端开发与本地启动](docs/BACKEND_DEVELOPMENT.md)
 - [前端开发与本地启动](docs/FRONTEND_DEVELOPMENT.md)
 - [开发日志](docs/DEVELOPMENT_LOG.md)
+- [M0 集成验收报告](docs/M0_ACCEPTANCE.md)
+- [T002](docs/tasks/T002.md)、[T003](docs/tasks/T003.md)、[T004](docs/tasks/T004.md) 执行证据
 - [初始化验收报告](docs/T000_ACCEPTANCE.md)
 
 新任务从最新远程 `dev` 建立 `feature/Txxx-name`，经 PR、CI 和自审后以 Merge Commit 合入 `dev`，保留源分支。正式发布至 `prod` 须另获用户授权。

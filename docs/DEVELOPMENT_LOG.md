@@ -26,3 +26,12 @@
 - 实现同源 API Client、健康 DTO 校验、安全错误提示、超时/取消、状态卡片与重试、loopback 开发/构建预览代理；无业务或数据库。
 - 修正 Vitest 串行 API 兼容性和 Vite 实际 502 网关语义断言；未跳过失败检查。复验类型、21 项客户端/组件测试、构建/HTTP smoke 和 5 项真实 Go/Vite 联调全部成功。
 - Chromium 验证真实成功链路与五类故障提示/重试；故障仅测试拦截，CI 为必需检查。最终 M0 验收在实现合并与 dev CI 成功后执行并归档。
+
+- T004 实现 PR https://github.com/zl14229/pokemon-shiny-tracker/pull/9 已合并（70347166e587abbdb4a0dab2c750b1a6be9c55cf），PR CI https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40057984013 与 dev CI https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40058212554 成功；本任务标记 verified 并走验收收尾 PR。
+
+## 2026-10-24 — M0 最终集成验收
+
+- T002 → T003 → T004 依次独立从最新远程 dev 创建分支；实现 PR #5/#7/#9 各经必需 CI 与自审后 Merge Commit，源分支保留；T002/T003 通过收尾 PR #6/#8 归档，T004 收尾同时归档本报告。
+- 在 T004 实际合并 dev 7034716 上再次执行本地 M0 全套 Go 与前端/真实集成检查，全部成功；最终实现 PR 的 21 项组件/客户端、5 项真实集成及 7 项 Chromium 验收成功，合并后 dev CI 四项 success。
+- 四项 GitHub 必需检查、strict=true、无 bypass、prod 不变均回读确认；完整证据见 M0_ACCEPTANCE.md 和各 Task 记录。
+- 本轮 T002–T004 全部 verified；不进入 T005，不发布 prod，无未解决的 M0 功能阻塞。WSL 缺浏览器共享库、正式部署路由与秘密扫描边界仍如实记录。

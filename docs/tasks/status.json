@@ -421,7 +421,7 @@
         "T007"
       ],
       "acceptance": "能创建、更新、完成、放弃及查看",
-      "status": "in_progress",
+      "status": "in_review",
       "branch": "feature/T010-hunt-ui",
       "evidence": {
         "implementation": "中文响应式 Hunt 列表/筛选/分页、创建/完整编辑、详情/关联成果/三态操作；扩展同源Client/严格DTO与安全整数/部分日期/空值验证；读取取消与写入不明防重复、旧版本前置比对；共享资料/反馈/状态组件",
@@ -429,7 +429,8 @@
           "Linux Node 24.22.1/npm 11.19.1：typecheck、38 项单元/组件、build、HTTP smoke、7 项真实 Go/Vite/API Client 联调成功",
           "本地 Chromium 12 项场景全部通过：创建/编辑/放弃/重开/完成/关联成果、输入验证、接口失败重试、实际已提交但代理报错时不重复创建、旧版本保护、桌面与390px/无页面横向溢出/无JS错误；截图自审通过",
           "Go test、make check（格式/module/vet/race/build）、make smoke（含M1真实进程）通过；治理验证、7项治理回归、差异/基础凭证模式检查通过",
-          "本机 Chromium 依赖及字体从 Debian 包仅解包至仓库外临时目录，以 FONTCONFIG_FILE/LD_LIBRARY_PATH 限定测试环境，无系统包安装或工具链修改"
+          "本机 Chromium 依赖及字体从 Debian 包仅解包至仓库外临时目录，以 FONTCONFIG_FILE/LD_LIBRARY_PATH 限定测试环境，无系统包安装或工具链修改",
+          "治理验证、7 项治理回归、差异及敏感信息模式检查通过；PR 已创建并标记 code-reviewed"
         ],
         "self_review": "逐文件复核 DTO与完整PUT、空值/0/日期精度/安全整数、资料来源提示、异步取消/旧响应/草稿、前置版本读取及写入结果不明无自动重试；原始服务器错误不渲染，测试只访问独立临时库。修复实际测试发现的下拉定位、表单错误显示等待和模板事件处理问题，最终全部复验成功；无未解决问题",
         "risks": [
@@ -446,8 +447,8 @@
           "docs/DEVELOPMENT_LOG.md",
           "README.md"
         ],
-        "commit": null,
-        "pr_url": null,
+        "commit": "b50d92e602206e63a978bfe22f1de09b49785b2b",
+        "pr_url": "https://github.com/zl14229/pokemon-shiny-tracker/pull/21",
         "merge_sha": null
       },
       "record": "docs/tasks/T010.md"

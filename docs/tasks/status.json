@@ -43,20 +43,37 @@
         "T000"
       ],
       "acceptance": "Go/Gin/GORM 工程可本地启动、构建与测试；从最新 dev 创建分支并经 PR 合入",
-      "status": "planned",
-      "branch": null,
+      "status": "in_review",
+      "branch": "feature/T001-go-backend-init",
       "evidence": {
-        "implementation": null,
-        "checks": [],
-        "self_review": null,
-        "risks": [],
-        "unverified": [],
-        "documentation": [],
-        "commit": null,
-        "pr_url": null,
+        "implementation": "从零建立 Go 1.27.3/Gin v1.12.0/GORM v1.31.2 工程：loopback 入口、环境配置、HTTP 退出、ORM 配置基础、锁定依赖、Make 与 Go CI；无业务 API/数据库连接",
+        "checks": [
+          "Linux Go 1.27.3: go test ./... 与 go build ./... 通过",
+          "make deps / make check 通过（格式、tidy diff、依赖校验、vet、race、build）",
+          "make smoke 通过：非法端口、端口占用、loopback 启动/默认 404、SIGTERM exit 0、端口释放",
+          "治理验证、7 项治理回归及 git diff --check 通过",
+          "GitHub dev Ruleset 已回读：baseline-checks、repository-hygiene、go-checks 必需，strict=true，无 bypass",
+          "暂存差异与凭证模式检查通过；PR #3 已创建并标记 code-reviewed，首轮 CI queued: https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40053772522"
+        ],
+        "self_review": "完整实现差异自审通过，无待修复问题：固定 loopback、无业务路由/数据库连接；配置/启动失败和排空退出验证；GORM 绑定参数过滤行为验证；依赖/Action 锁定；暂存差异/敏感路径/凭证模式检查通过。按 code-review 技能完成自审，PR #3 已标记 code-reviewed；未伪造人工批准",
+        "risks": [
+          "基础凭证模式检查不等于完整秘密扫描；Windows 原生启动及 SQLite/业务行为留给后续 Task"
+        ],
+        "unverified": [
+          "最终 PR CI、合并与 dev CI 尚待实际确认；Windows 原生/SQLite/业务功能属于后续 Task"
+        ],
+        "documentation": [
+          "README.md",
+          "docs/BACKEND_DEVELOPMENT.md",
+          "docs/GITHUB_WORKFLOW.md",
+          "docs/tasks/T001.md",
+          "docs/evidence/github-rulesets-t001.json"
+        ],
+        "commit": "29781901bba3c611068ec18a08662103c266d4c4",
+        "pr_url": "https://github.com/zl14229/pokemon-shiny-tracker/pull/3",
         "merge_sha": null
       },
-      "record": null
+      "record": "docs/tasks/T001.md"
     },
     {
       "id": "T002",

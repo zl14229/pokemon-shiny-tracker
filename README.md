@@ -26,6 +26,8 @@
 - [开发日志](docs/DEVELOPMENT_LOG.md)
 - [M0 集成验收报告](docs/M0_ACCEPTANCE.md)
 - [M1 集成验收报告](docs/M1_ACCEPTANCE.md)
+- [M2 集成验收报告](docs/M2_ACCEPTANCE.md)
+- [T010](docs/tasks/T010.md)、[T011](docs/tasks/T011.md) 界面执行证据
 - [T002](docs/tasks/T002.md)、[T003](docs/tasks/T003.md)、[T004](docs/tasks/T004.md) 执行证据
 - [T005](docs/tasks/T005.md)、[T006](docs/tasks/T006.md)、[T007](docs/tasks/T007.md)、[T008](docs/tasks/T008.md)、[T009](docs/tasks/T009.md) 后端执行证据
 - [初始化验收报告](docs/T000_ACCEPTANCE.md)
@@ -75,6 +77,6 @@ bash -ic 'cd frontend && npm run typecheck && npm test && npm run build && npm r
 bash -ic 'make build && cd frontend && npm run test:integration'
 ```
 
-Actions 包含 Go 检查、前端类型/组件/构建/启动、真实 API 联调及 Chromium 浏览器检查，以及治理基线、任务一致性、PR 来源和仓库卫生检查。Go 必需检查中的 make smoke 包含自建临时库的 M1 真实 CRUD/查询/历史/重启验收。业务界面及其余能力按后续 Task 实施。
+Actions 包含 Go 检查、前端类型/组件/构建/启动、真实 API 联调及 Chromium 浏览器检查，以及治理基线、任务一致性、PR 来源和仓库卫生检查。Go 必需检查中的 make smoke 包含自建临时库的 M1 真实 CRUD/查询/历史/重启验收。Hunt 管理与闪光收藏界面已完成 M2 验收；其余能力按后续 Task 实施。
 
 真实 SQLite 数据、Excel 原始资料、密钥、附件和备份放在仓库外。脱敏且获准入库的测试夹具需在对应任务中明确审查。

@@ -9,14 +9,13 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/zl14229/pokemon-shiny-tracker/internal/api"
 	"github.com/zl14229/pokemon-shiny-tracker/internal/config"
 )
 
-func New(cfg config.Config) *http.Server {
+func New(cfg config.Config, handler http.Handler) *http.Server {
 	return &http.Server{
 		Addr:              cfg.Address(),
-		Handler:           api.NewRouter(),
+		Handler:           handler,
 		ReadHeaderTimeout: 5 * time.Second,
 		ReadTimeout:       15 * time.Second,
 		WriteTimeout:      15 * time.Second,

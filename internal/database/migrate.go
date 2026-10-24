@@ -13,16 +13,20 @@ type migration struct {
 	apply   func(*gorm.DB) error
 }
 
+var migrations = []migration{{1, func(tx *gorm.DB) error {
+	if err := tx.AutoMigrate(&model.Game{}, &model.Species{}, &model.Form{}); err != nil {
+		return err
+	}
+	if err := tx.Exec("CREATE UNIQUE INDEX uidx_form_species ON forms(id,species_id)").Error; err != nil {
+		return err
+	}
+	return tx.AutoMigrate(&model.Hunt{}, &model.ShinyRecord{}, &model.ShinyHistory{})
+}}, {2, func(tx *gorm.DB) error {
+	return tx.Migrator().CreateTable(&model.ReferenceBatch{}, &model.ExternalReference{})
+}}}
+
 func Migrate(db *gorm.DB) error {
-	return migrate(db, []migration{{1, func(tx *gorm.DB) error {
-		if err := tx.AutoMigrate(&model.Game{}, &model.Species{}, &model.Form{}); err != nil {
-			return err
-		}
-		if err := tx.Exec("CREATE UNIQUE INDEX uidx_form_species ON forms(id,species_id)").Error; err != nil {
-			return err
-		}
-		return tx.AutoMigrate(&model.Hunt{}, &model.ShinyRecord{}, &model.ShinyHistory{})
-	}}})
+	return migrate(db, migrations)
 }
 
 func migrate(db *gorm.DB, steps []migration) error {

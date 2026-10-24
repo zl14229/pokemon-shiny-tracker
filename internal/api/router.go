@@ -6,6 +6,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"gorm.io/gorm"
 )
 
 type ErrorResponse struct {
@@ -18,7 +19,7 @@ type ErrorDetail struct {
 }
 
 // NewRouter installs process health and consistent JSON error handling.
-func NewRouter() *gin.Engine {
+func NewRouter(db *gorm.DB) *gin.Engine {
 	router := gin.New()
 	_ = router.SetTrustedProxies(nil)
 	router.HandleMethodNotAllowed = true
@@ -34,6 +35,9 @@ func NewRouter() *gin.Engine {
 	v1.GET("/health", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{"data": gin.H{"status": "ok"}})
 	})
+	if db != nil {
+		referenceRoutes(v1, db)
+	}
 	return router
 }
 

@@ -69,3 +69,7 @@
 - T009 开始：最新 dev 7aa5c7f4fef483d1dd598b8fddd6a6343d30dc8f，依赖 verified、工作区干净；方案：参数白名单、绑定值与字面搜索，分别筛选目标/原始/当前引用、状态、关联、单位及部分精度日期；AND 组合、明确空值、ID 次级稳定排序、同快照 total/分页，计数比较要求同单位。测试 SQL 注入/通配符/同值排序/跨页/错误边界；增添仅临时库的真实后端进程 M1 CRUD/离线/重启验收并接入既有 CI。完成 Go/前端回归及自审后 PR/合并/dev CI，收尾归档 M1 报告，T009 后停止，不实现 M2。
 
 - T009 实现/本地验收：组合筛选、原始/当前角色、字面搜索、同单位累计过滤、稳定排序与事务分页通过。新增 M1 真实进程验收接入 make smoke/既有 go-checks；Go 普通/race/vet/build/两层启动验收、npm ci/类型/21测试/build/HTTP/5集成成功，自审无待修复项。
+
+- T009 实现 PR https://github.com/zl14229/pokemon-shiny-tracker/pull/19 已合并（e36373d83c7d5c6b66f30e80115c06462025b122），PR CI https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40085147745 与 dev CI https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40085461939 成功；本任务标记 verified 并走验收收尾 PR。
+
+- M1 集成验收：在 T009 实现合并 e36373d83c7d5c6b66f30e80115c06462025b122 上本地 Go/构建/race/vet/空库与真实进程 CRUD/查询/历史/重启、前端 npm ci/类型/21测试/构建/HTTP/5集成全部成功。dev CI https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40085461939 四项成功；五个源分支、prod原SHA及strict/no-bypass规则实际回读，M1报告及规则证据通过T009收尾PR归档。仅T005–T009，T010+保持planned，完成后停止。

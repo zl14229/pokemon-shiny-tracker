@@ -22,6 +22,11 @@ h2 { font-size: clamp(23px, 4vw, 32px); line-height: 1.4; margin: 22px 0 12px; }
 .muted, .app-footer { color: #65718a; }
 .usage-guide { margin-top: 24px; padding: 16px; border-radius: 10px; background: #f3f5fa; }
 .app-footer { margin-top: 28px; font-size: 12px; text-align: center; }
+.service-card { margin-top: 24px; border-radius: 16px; border-color: #e4e8f2; }
+.service-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.service-heading h2 { font-size: 20px; margin: 0; }
+.service-card .el-button { margin-top: 16px; }
+.service-card .el-alert { margin-top: 16px; }
 
 @media (max-width: 600px) {
   .app-shell { padding: 32px 18px 18px; }

@@ -1,6 +1,6 @@
 # Pokémon Shiny Tracker
 
-基于 Baseline V1.1 的个人闪光收藏与 Hunt 管理项目。T000 仓库初始化已通过验收，T001 提供 Go 后端工程骨架，尚无业务功能。任务的实际验收与合并状态见任务证据。
+基于 Baseline V1.1 的个人闪光收藏与 Hunt 管理项目。当前包含 Go 后端、健康接口及 Vue 前端基础，尚无记录与收藏业务功能。任务的实际验收与合并状态见任务证据。
 
 ## 冻结需求
 
@@ -55,12 +55,18 @@ bash -ic 'make check && make smoke'
 bash -ic 'cd frontend && npm ci && npm run dev'
 ```
 
-打开 `http://127.0.0.1:5173`。类型/组件/构建/启动检查：
+保持后端 `make run` 运行，再打开 `http://127.0.0.1:5173`。页面会检查本地服务连接，失败时提供提示与重试；前端通过 `/api/v1` 同源代理调用后端，无需 CORS。类型/组件/构建/启动检查：
 
 ```bash
 bash -ic 'cd frontend && npm run typecheck && npm test && npm run build && npm run smoke'
 ```
 
-Actions 包含 Go 检查、前端类型/组件/构建/启动与 Chromium 浏览器检查，以及治理基线、任务一致性、PR 来源和仓库卫生检查。API Client 和前后端联调在 T004 建立，业务功能留给后续任务。
+真实 API 联调会自行启动并清理后端与 Vite，先构建后端程序：
+
+```bash
+bash -ic 'make build && cd frontend && npm run test:integration'
+```
+
+Actions 包含 Go 检查、前端类型/组件/构建/启动、真实 API 联调及 Chromium 浏览器检查，以及治理基线、任务一致性、PR 来源和仓库卫生检查。业务功能留给后续任务。
 
 真实 SQLite 数据、Excel 原始资料、密钥、附件和备份放在仓库外。脱敏且获准入库的测试夹具需在对应任务中明确审查。

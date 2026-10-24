@@ -1,6 +1,7 @@
 """Exercise the built Linux backend process without creating database files."""
 
 import http.client
+import json
 import os
 from pathlib import Path
 import signal
@@ -51,10 +52,11 @@ def main():
                 raise AssertionError(f"server exited early: {process.communicate()[0]}")
             connection = http.client.HTTPConnection("127.0.0.1", port, timeout=0.5)
             try:
-                connection.request("GET", "/")
+                connection.request("GET", "/api/v1/health")
                 response = connection.getresponse()
-                response.read()
-                assert response.status == 404, response.status
+                body = json.loads(response.read())
+                assert response.status == 200, response.status
+                assert body == {"data": {"status": "ok"}}, body
                 break
             except OSError:
                 if time.monotonic() >= deadline:
@@ -62,13 +64,28 @@ def main():
                 time.sleep(0.05)
             finally:
                 connection.close()
+        for method, path, status, code in (
+            ("GET", "/api/v1/missing", 404, "not_found"),
+            ("POST", "/api/v1/health", 405, "method_not_allowed"),
+        ):
+            connection = http.client.HTTPConnection("127.0.0.1", port, timeout=1)
+            try:
+                connection.request(method, path)
+                response = connection.getresponse()
+                body = json.loads(response.read())
+                assert response.status == status, response.status
+                assert body["error"]["code"] == code, body
+            finally:
+                connection.close()
         process.send_signal(signal.SIGTERM)
         output, _ = process.communicate(timeout=7)
         assert process.returncode == 0, (process.returncode, output)
         assert f"127.0.0.1:{port}" in output, output
         with socket.socket() as probe:
+            # Match Go's TCP listener behavior: TIME_WAIT is not a live listener.
+            probe.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
             probe.bind(("127.0.0.1", port))
-        print("PASS: invalid config; occupied port; loopback startup; default 404; SIGTERM exit 0; port released")
+        print("PASS: invalid config; occupied port; loopback health 200; JSON 404/405; SIGTERM exit 0; port released")
     finally:
         if process.poll() is None:
             process.kill()

@@ -85,20 +85,34 @@
         "T001"
       ],
       "acceptance": "`/api/v1` 健康接口、错误处理和自动测试通过",
-      "status": "planned",
-      "branch": null,
+      "status": "in_progress",
+      "branch": "feature/T002-router-health",
       "evidence": {
-        "implementation": null,
-        "checks": [],
-        "self_review": null,
-        "risks": [],
-        "unverified": [],
-        "documentation": [],
+        "implementation": "Gin 版本化 Router、GET /api/v1/health、统一 JSON 404/405/500、内部错误和 panic 脱敏及恢复；不访问数据库",
+        "checks": [
+          "Linux Go 1.27.3: go test ./...、go build ./...、make check、make smoke 通过（smoke 端口探测 TIME_WAIT 修复后复验）"
+        ],
+        "self_review": "逐文件差异检查：只增加 M0 HTTP 基础，无业务/数据库；健康不假称数据库健康；未知路径/错误方法/内部错误响应契约和 Allow 头有测试；内部错误与 panic 不外泄，已提交响应不被追加；无实际故障路由",
+        "risks": [
+          "已提交的 HTTP 响应无法改写，handler 应先完成可能失败的操作再写响应；健康仅表示进程可响应",
+          "基础敏感信息检查不等于完整秘密扫描"
+        ],
+        "unverified": [
+          "实现 PR/CI/合并与 dev CI 待实际执行"
+        ],
+        "documentation": [
+          "docs/API.md",
+          "docs/BACKEND_DEVELOPMENT.md",
+          "docs/DEVELOPMENT_LOG.md",
+          "docs/GITHUB_WORKFLOW.md",
+          "docs/tasks/T002.md",
+          "README.md"
+        ],
         "commit": null,
         "pr_url": null,
         "merge_sha": null
       },
-      "record": null
+      "record": "docs/tasks/T002.md"
     },
     {
       "id": "T003",

@@ -359,7 +359,8 @@
         "documentation": [
           "docs/tasks/T008.md",
           "docs/API.md",
-          "docs/DEVELOPMENT_LOG.md"
+          "docs/DEVELOPMENT_LOG.md",
+          "README.md"
         ],
         "commit": "8225d3e61ab3d732abc47e735743b59b46f1e963",
         "pr_url": "https://github.com/zl14229/pokemon-shiny-tracker/pull/17",

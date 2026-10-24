@@ -19,3 +19,10 @@
 - dev Ruleset 追加 frontend-checks 并回读，保留原检查、严格模式与无 bypass，不改 prod；不提前实现 T004。
 
 - T003 实现 PR https://github.com/zl14229/pokemon-shiny-tracker/pull/7 已合并（ea46d294a60b02badb48cd916cc7d1075fdddc46），PR CI https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40056989398 与 dev CI https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40057135058 成功；本任务标记 verified 并走验收收尾 PR。
+
+## 2026-10-24 — T004
+
+- T003 收尾 PR #8 与最终 dev CI 四项成功后，从最新 dev d7eab809 创建独立 T004 分支，确认 T002/T003 verified。
+- 实现同源 API Client、健康 DTO 校验、安全错误提示、超时/取消、状态卡片与重试、loopback 开发/构建预览代理；无业务或数据库。
+- 修正 Vitest 串行 API 兼容性和 Vite 实际 502 网关语义断言；未跳过失败检查。复验类型、21 项客户端/组件测试、构建/HTTP smoke 和 5 项真实 Go/Vite 联调全部成功。
+- Chromium 验证真实成功链路与五类故障提示/重试；故障仅测试拦截，CI 为必需检查。最终 M0 验收在实现合并与 dev CI 成功后执行并归档。

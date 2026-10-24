@@ -1,9 +1,13 @@
 import { mount } from '@vue/test-utils'
-import { describe, expect, it } from 'vitest'
+import { afterEach, describe, expect, it, vi } from 'vitest'
+import { api } from './api/client'
 import App from './App.vue'
+
+afterEach(() => vi.restoreAllMocks())
 
 describe('application shell', () => {
   it('renders Chinese guidance and usable Element Plus controls', async () => {
+    vi.spyOn(api, 'getHealth').mockResolvedValue({ status: 'ok' })
     const wrapper = mount(App)
     expect(wrapper.find('h1').text()).toBe('Pokémon Shiny Tracker')
     expect(wrapper.text()).toContain('当前尚不能保存个人数据')

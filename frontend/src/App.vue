@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { ElButton, ElCard, ElTag } from 'element-plus'
+import ServiceStatus from './components/ServiceStatus.vue'
 
 const showGuide = ref(false)
 </script>
@@ -33,6 +34,7 @@ const showGuide = ref(false)
       </p>
     </ElCard>
 
+    <ServiceStatus />
     <footer class="app-footer">本地运行 · 简体中文 · 个人收藏</footer>
   </main>
 </template>

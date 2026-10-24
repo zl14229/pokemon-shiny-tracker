@@ -12,7 +12,8 @@
     "preview": "vite preview",
     "test": "vitest run",
     "smoke": "node scripts/smoke.mjs",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "test:integration": "vitest run --config vitest.integration.config.ts"
   },
   "dependencies": {
     "element-plus": "2.14.7",

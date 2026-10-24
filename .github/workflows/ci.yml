@@ -32,10 +32,16 @@ jobs:
           node-version-file: frontend/.node-version
           cache: npm
           cache-dependency-path: frontend/package-lock.json
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16 # v6.5.0
+        with:
+          go-version-file: go.mod
+          cache-dependency-path: go.sum
       - name: Verify Linux Node toolchain and install locked dependencies
         run: node --version && npm --version && npm ci
       - name: Type check, component tests and production build
         run: npm run typecheck && npm test && npm run build && npm run smoke
+      - name: Build backend and verify real API client integration
+        run: go build -C .. -o bin/shiny-tracker ./cmd/server && npm run test:integration
       - name: Install test browser
         run: npx playwright install --with-deps chromium
       - name: Verify browser startup and interactions

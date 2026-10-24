@@ -122,3 +122,45 @@ export const isShiny: Guard<ShinyRecord> = (v): v is ShinyRecord =>
   nullable(v.level, (n) => integer(n) && n >= 1 && n <= 100) &&
   ['self_hunted', 'trade', 'event', 'other', 'unknown'].includes(String(v.source)) &&
   ['held', 'traded', 'released', 'unknown'].includes(String(v.holding_status))
+
+export interface ShinyWrite extends ShinyInput {
+  change_type?: 'evolution' | 'correction'
+  event_date?: string | null
+  history_note?: string | null
+}
+export interface History extends Base {
+  shiny_record_id: number
+  kind: string
+  before_json: string
+  after_json: string
+  event_date: string | null
+  note: string | null
+}
+export interface HistoryPage {
+  data: History[]
+  meta: { total: number; limit: number; offset: number; record_deleted: boolean }
+}
+export const isHistory: Guard<History> = (v): v is History =>
+  record(v) &&
+  base(v) &&
+  id(v.shiny_record_id) &&
+  [
+    'registered',
+    'evolution',
+    'form_change',
+    'location_change',
+    'holding_change',
+    'updated',
+    'deleted',
+  ].includes(String(v.kind)) &&
+  [v.before_json, v.after_json].every((raw) => {
+    if (typeof raw !== 'string') return false
+    try {
+      const snapshot: unknown = JSON.parse(raw)
+      return snapshot === null || isShiny(snapshot)
+    } catch {
+      return false
+    }
+  }) &&
+  nullable(v.event_date, str) &&
+  nullable(v.note, str)

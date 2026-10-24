@@ -79,3 +79,7 @@
 - T010 实现及本地验收：中文Hunt列表/表单/详情/关联成果/三态、同源DTO/写请求、安全整数/空值/部分日期/完整PUT与错误反馈完成；38项组件/Client、7项真实API、12项本机Chromium（桌面/390px）和类型/构建/HTTP/Go回归通过。浏览器依赖仅临时解包，未改系统；截图和代码自审无未解决项，CI/合并待核实。
 
 - T010 实现 PR https://github.com/zl14229/pokemon-shiny-tracker/pull/21 已合并（1d74d00e91ef48b614aca9213928fbd5ced97e3e），PR CI https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40107701589 与 dev CI https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40107960361 成功；本任务标记 verified 并走验收收尾 PR。
+
+- T011 开始：最新 dev ec6071dbb861150e428223845049cff9116d3f8b，依赖 verified、工作区干净；方案：复用T010中文导航/表单/反馈与Client：收藏列表以来源/持有/原始与当前游戏等筛选分页；个体可不关联Hunt，关联选择器分页搜索现有任务。完整DTO保持原始/当前物种、形态、游戏及球种/等级/备注等全部字段，未知不补造；进化/纠错由用户明确声明，同ID更新、轻量历史只读。关联成果与Hunt页面互通，最后成果冲突按后端反馈；版本前置比对与写入不明防重复沿用。真实临时库组件/API/完整M2浏览器流程、响应式截图、类型/构建/CI与自审；PR/merge/dev CI后收尾报告，M2后停止，不做M3。
+
+- T011 实现/本地验收：收藏独立/关联登记、原始/当前分离、球种等完整编辑、同ID进化/转移/持有与轻量历史、组合筛选分页及Hunt双向联动完成。51单元/组件、8真实API、19本机Chromium完整M2流程、类型/构建/HTTP/Go/治理均通过，修复自审与测试发现问题并检查桌面/390px截图；PR/合并验收待核实。

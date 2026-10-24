@@ -465,20 +465,35 @@
         "T009"
       ],
       "acceptance": "能登记已有收藏、关联 Hunt、修改持有状态",
-      "status": "planned",
-      "branch": null,
+      "status": "in_progress",
+      "branch": "feature/T011-shiny-collection-ui",
       "evidence": {
-        "implementation": null,
-        "checks": [],
-        "self_review": null,
-        "risks": [],
-        "unverified": [],
-        "documentation": [],
+        "implementation": "闪光收藏列表/详情/独立登记/完整编辑，原始与当前信息、球种/个体字段和持有/来源明确；可选Hunt分页搜索/清空与双向联动，用户声明进化/纠错同ID更新和只读轻量历史；组合筛选/保留URL排序分页、加载/错误/空态和安全写入",
+        "checks": [
+          "Linux Node 24.22.1/npm 11.19.1：typecheck、51项单元/组件、build/HTTP smoke、8项真实Go/Vite/API Client联调通过",
+          "本机Chromium19项全部通过：完整M2创建/编辑/状态/关联流程、独立历史记录、原始/当前/球种等字段保留、同ID进化/位置/持有与历史、21条组合筛选分页无重复、非法输入不写入、最后成果解除冲突、失败恢复与不明写入防重、桌面/390px无页面横向溢出",
+          "Go test、make check（格式/module/vet/race/build）、make smoke（含M1真实进程）与治理7项、差异及敏感模式检查通过；本地浏览器仍仅使用仓库外临时库/字体环境，无系统安装或工具链修改",
+          "截图及差异自审完成；修复分页重置排序/空筛选值、只读选择器测试定位与布局观察通知（固定列宽）；最终51/8/19及类型/构建/启动完整复验成功"
+        ],
+        "self_review": "逐文件复核完整DTO/PUT字段、来源/持有默认未知、原始与当前分离、不从Hunt补事实、显式进化/纠错、稳定ID与只读历史、关系冲突/草稿/前置版本比对/写入防重、分页/筛选/取消/错误脱敏及响应式布局；没有未解决的范围内缺陷。后端/模型/迁移/运行时依赖不变；测试全部使用自建临时数据库",
+        "risks": [
+          "客户端版本前置比对非原子并发锁，跨窗口编辑仍需避免；分页在跨请求期间有修改时可能移动页边界",
+          "参考数据部分覆盖/中文待核验、进化仅用户声明；浏览器超安全整数明确拒绝编辑，不静默舍入；本机浏览器临时依赖不是永久系统安装"
+        ],
+        "unverified": [
+          "实际PR CI、合并/dev CI、M2合并后复验和收尾报告待核实"
+        ],
+        "documentation": [
+          "docs/tasks/T011.md",
+          "docs/FRONTEND_DEVELOPMENT.md",
+          "docs/DEVELOPMENT_LOG.md",
+          "README.md"
+        ],
         "commit": null,
         "pr_url": null,
         "merge_sha": null
       },
-      "record": null
+      "record": "docs/tasks/T011.md"
     },
     {
       "id": "T012",

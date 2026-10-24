@@ -187,6 +187,9 @@ onBeforeUnmount(() => {
     <section class="surface">
       <div class="section-heading">
         <h3>关联成果</h3>
+        <ElButton tag="a" :href="`#/collection/new?hunt_id=${id}`" type="primary"
+          >登记关联成果</ElButton
+        >
         <span class="muted">{{ resultsTotal }} 个有效个体</span>
       </div>
       <Feedback :message="resultsError" retry @retry="loadResults(resultsPage)" /><ElSkeleton
@@ -202,7 +205,9 @@ onBeforeUnmount(() => {
           <ElTable :data="results" row-key="id"
             ><ElTableColumn label="个体" min-width="170"
               ><template #default="{ row: result }"
-                >{{ referenceName(catalog.species, result.current_species_id) }}
+                ><a class="record-link" :href="`#/collection/${result.id}`">{{
+                  referenceName(catalog.species, result.current_species_id)
+                }}</a>
                 <div class="cell-secondary">
                   #{{ result.id }} · {{ result.nickname ?? '昵称未记录' }}
                 </div></template

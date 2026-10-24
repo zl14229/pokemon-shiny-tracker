@@ -6,7 +6,7 @@ import { tmpdir } from 'node:os'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 import { createServer, preview, type ViteDevServer } from 'vite'
 import { ApiClient } from '../../src/api/client'
-import { TrackerAPI, huntInput } from '../../src/api/tracker'
+import { TrackerAPI, huntInput, shinyInput } from '../../src/api/tracker'
 
 let databaseDir: string
 let backend: ChildProcess | undefined
@@ -186,6 +186,67 @@ describe('real Go backend through Vite and the actual API client', () => {
       status: 400,
       code: 'invalid_request',
     })
+  })
+  it('registers independent and linked individuals, preserves original facts and records real history', async () => {
+    const records = new TrackerAPI(client),
+      refs = await records.catalog()
+    const first = refs.species[0]!.id,
+      second = refs.species[1]!.id
+    const independent = await records.createShiny({
+      hunt_id: null,
+      original_species_id: null,
+      original_form_id: null,
+      current_species_id: first,
+      current_form_id: null,
+      original_game_id: null,
+      current_game_id: null,
+      current_location: null,
+      obtained_date: '2018',
+      source: 'trade',
+      holding_status: 'held',
+      nickname: 'T011 integration',
+      gender: null,
+      nature: '胆小',
+      ability: null,
+      ball: '精灵球',
+      level: 50,
+      notes: 'keep',
+    })
+    const changed = await records.updateShiny(
+      independent.id,
+      {
+        ...shinyInput(independent),
+        current_species_id: second,
+        current_game_id: refs.games[1]!.id,
+        current_location: 'Box 2',
+        holding_status: 'traded',
+        change_type: 'evolution',
+      },
+      independent.updated_at,
+    )
+    expect(changed).toMatchObject({
+      id: independent.id,
+      original_species_id: null,
+      original_game_id: null,
+      hunt_id: null,
+      ball: '精灵球',
+      nature: '胆小',
+      level: 50,
+    })
+    expect((await records.shinies('q=T011+integration')).meta.total).toBe(1)
+    expect((await records.history(changed.id)).data.map((h) => h.kind)).toEqual(
+      expect.arrayContaining(['registered', 'evolution', 'holding_change', 'location_change']),
+    )
+    const h = (await records.hunts()).data[0]!
+    const linked = await records.createShiny({
+      ...shinyInput(independent),
+      hunt_id: h.id,
+      nickname: 'T011 linked',
+    })
+    expect(linked.hunt_id).toBe(h.id)
+    await expect(
+      records.updateShiny(linked.id, { ...shinyInput(linked), level: 101 }, linked.updated_at),
+    ).rejects.toMatchObject({ status: 400, code: 'invalid_request' })
   })
   it('reports backend shutdown as an error, then succeeds after restart', async () => {
     await stopBackend()

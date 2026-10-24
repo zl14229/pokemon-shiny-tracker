@@ -71,3 +71,61 @@ describe('typed record transport', () => {
     })
   })
 })
+
+describe('individual transport and audit', () => {
+  it('preserves individual identity during updates and validates audit snapshots', async () => {
+    const { shiny } = await import('../test/fixtures')
+    const { shinyInput } = await import('./tracker')
+    const changed = {
+      ...shiny,
+      current_species_id: 2,
+      current_game_id: 2,
+      holding_status: 'traded',
+    }
+    const fetcher = vi
+      .fn()
+      .mockResolvedValueOnce(json({ data: shiny }))
+      .mockResolvedValueOnce(json({ data: changed }))
+    vi.stubGlobal('fetch', fetcher)
+    const result = await new TrackerAPI().updateShiny(
+      1,
+      {
+        ...shinyInput(shiny),
+        current_species_id: 2,
+        current_game_id: 2,
+        holding_status: 'traded',
+        change_type: 'evolution',
+      },
+      shiny.updated_at,
+    )
+    expect(result.id).toBe(shiny.id)
+    expect(JSON.parse(fetcher.mock.calls[1]?.[1].body)).toMatchObject({
+      original_species_id: null,
+      current_species_id: 2,
+      change_type: 'evolution',
+      ball: null,
+    })
+  })
+  it('rejects broken history snapshots instead of displaying fabricated changes', async () => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn().mockResolvedValue(
+        json({
+          data: [
+            {
+              ...hunt,
+              shiny_record_id: 1,
+              kind: 'evolution',
+              before_json: '{broken',
+              after_json: 'null',
+              event_date: null,
+              note: null,
+            },
+          ],
+          meta: { total: 1, limit: 20, offset: 0, record_deleted: false },
+        }),
+      ),
+    )
+    await expect(new TrackerAPI().history(1)).rejects.toMatchObject({ kind: 'invalid_response' })
+  })
+})

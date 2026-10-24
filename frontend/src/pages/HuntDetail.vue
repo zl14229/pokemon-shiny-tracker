@@ -178,11 +178,7 @@ onBeforeUnmount(() => {
           >{{
             key === 'completed' ? '标为完成' : key === 'abandoned' ? '放弃任务' : '重新进行'
           }}</ElButton
-        ><ElButton
-          :disabled="changing"
-          @click="refresh"
-          >刷新详情</ElButton
-        >
+        ><ElButton :disabled="changing" @click="refresh">刷新详情</ElButton>
       </div>
       <p v-if="!resultsTotal" class="field-hint">
         至少登记一个关联成果后才能完成。放弃任务不会删除已有成果。

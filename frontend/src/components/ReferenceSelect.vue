@@ -7,6 +7,8 @@ const props = defineProps<{
   items: Reference[]
   label: string
   disabled?: boolean
+  required?: boolean
+  placeholder?: string
 }>()
 const emit = defineEmits<{ 'update:modelValue': [value: number | null] }>()
 function update(value: number | undefined | null) {
@@ -20,7 +22,8 @@ function update(value: number | undefined | null) {
     :disabled="disabled"
     filterable
     clearable
-    placeholder="请选择，未知可留空"
+    :aria-required="required"
+    :placeholder="placeholder ?? (required ? '请选择物种' : '未记录（可留空）')"
     @update:model-value="update"
   >
     <ElOption

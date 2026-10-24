@@ -102,6 +102,7 @@ onBeforeUnmount(() => {
           :model-value="draft.species_id"
           :items="catalog.species"
           label="目标物种"
+          required
           :disabled="catalogLoading || saving"
           @update:model-value="species"
       /></ElFormItem>

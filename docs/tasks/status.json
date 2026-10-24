@@ -337,20 +337,33 @@
         "T007"
       ],
       "acceptance": "无 Hunt 记录可保存；进化/转移不重复建档；历史保留",
-      "status": "planned",
-      "branch": null,
+      "status": "in_progress",
+      "branch": "feature/T008-shiny-record-crud",
       "evidence": {
-        "implementation": null,
-        "checks": [],
-        "self_review": null,
-        "risks": [],
-        "unverified": [],
-        "documentation": [],
+        "implementation": "独立/关联个体 CRUD、原始与当前字段分离、默认未知来源/持有、原 ID 进化/形态/位置/持有变化与前后快照、只读历史和软删除、完成 Hunt 最后成果保护",
+        "checks": [
+          "Linux Go 1.27.3: go test ./...、go build ./...、make check（格式/module/vet/race/build）和 make smoke 成功",
+          "真实临时 SQLite 覆盖独立个体、0..N/意外成果、原始空值不推断、进化/传送不重复、持有/形态/位置历史、完整 PUT 清空/no-op、跨体系/未知体系、已删除 Hunt、最后成果保护",
+          "触发器模拟历史写入失败：创建/更新/删除全部回滚，无残留个体/部分历史；HTTP CRUD/历史/参数/关联错误通过"
+        ],
+        "self_review": "逐文件检查严格 DTO、ID 与关联验证、事务保护、快照/事件日期与元数据时间区别、完整 PUT、永久身份和软删除/历史读权限；无未经验证进化规则推断，未发现待修复项。现有四项 CI 自动覆盖新包，无新增权限",
+        "risks": [
+          "进化是用户声明，尚未验证完整进化图/条件；完整跨游戏事件管理归 T023",
+          "M1 仅后端，无 M2 业务界面；列表高级查询归 T009；本机 Chromium 系统库限制由 CI 浏览器回归补充"
+        ],
+        "unverified": [
+          "PR CI、合并与 dev CI 尚待确认"
+        ],
+        "documentation": [
+          "docs/tasks/T008.md",
+          "docs/API.md",
+          "docs/DEVELOPMENT_LOG.md"
+        ],
         "commit": null,
         "pr_url": null,
         "merge_sha": null
       },
-      "record": null
+      "record": "docs/tasks/T008.md"
     },
     {
       "id": "T009",

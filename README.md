@@ -20,6 +20,8 @@
 - [T000 执行记录](docs/tasks/T000.md)
 - [T001 执行记录](docs/tasks/T001.md)
 - [Go 后端开发与本地启动](docs/BACKEND_DEVELOPMENT.md)
+- [前端开发与本地启动](docs/FRONTEND_DEVELOPMENT.md)
+- [开发日志](docs/DEVELOPMENT_LOG.md)
 - [初始化验收报告](docs/T000_ACCEPTANCE.md)
 
 新任务从最新远程 `dev` 建立 `feature/Txxx-name`，经 PR、CI 和自审后以 Merge Commit 合入 `dev`，保留源分支。正式发布至 `prod` 须另获用户授权。
@@ -47,6 +49,18 @@ bash -ic 'go test ./... && go build ./...'
 bash -ic 'make check && make smoke'
 ```
 
-Actions 包含 Go 格式、依赖一致性、vet、竞态测试、构建、启动验证，以及治理基线、任务一致性、PR 来源和仓库卫生检查。Vue 工程及业务功能在后续任务中建立。
+前端位于 `frontend/`，使用 Linux Node 24.22.1、npm 11.19.1：
+
+```bash
+bash -ic 'cd frontend && npm ci && npm run dev'
+```
+
+打开 `http://127.0.0.1:5173`。类型/组件/构建/启动检查：
+
+```bash
+bash -ic 'cd frontend && npm run typecheck && npm test && npm run build && npm run smoke'
+```
+
+Actions 包含 Go 检查、前端类型/组件/构建/启动与 Chromium 浏览器检查，以及治理基线、任务一致性、PR 来源和仓库卫生检查。API Client 和前后端联调在 T004 建立，业务功能留给后续任务。
 
 真实 SQLite 数据、Excel 原始资料、密钥、附件和备份放在仓库外。脱敏且获准入库的测试夹具需在对应任务中明确审查。

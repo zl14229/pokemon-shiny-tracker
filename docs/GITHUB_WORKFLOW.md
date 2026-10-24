@@ -42,3 +42,7 @@ Actions 本身不会设置或证明 GitHub 保护规则。实际观察、能力�
 ## T001 工程检查补充
 
 Go CI 验证格式、module 一致性、锁定依赖、vet、普通/竞态测试、构建和真实本地进程启动/退出。`dev` 的 active Ruleset 已通过 GitHub API 写入并回读三项必需检查，严格最新基线与无 bypass 保持不变。实际回读证据见 `docs/evidence/github-rulesets-t001.json`；T000 的历史证据保留。
+
+## T003 前端检查补充
+
+T003 为 dev 追加第四项必需检查 `frontend-checks`，包含 Node 锁定依赖、严格类型、组件测试、构建、开发/预览 HTTP 启动验证和 Chromium 浏览器验收。已通过 GitHub API 写入并回读，保留原三项、strict=true 和无 bypass；prod 未改动。当前回读见 `docs/evidence/github-rulesets-t003.json`。

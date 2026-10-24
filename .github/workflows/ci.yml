@@ -16,6 +16,31 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  frontend-checks:
+    name: frontend-checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version-file: frontend/.node-version
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - name: Verify Linux Node toolchain and install locked dependencies
+        run: node --version && npm --version && npm ci
+      - name: Type check, component tests and production build
+        run: npm run typecheck && npm test && npm run build && npm run smoke
+      - name: Install test browser
+        run: npx playwright install --with-deps chromium
+      - name: Verify browser startup and interactions
+        run: npm run test:e2e
+
   go-checks:
     name: go-checks
     runs-on: ubuntu-latest

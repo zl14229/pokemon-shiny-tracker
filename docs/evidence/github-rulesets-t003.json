@@ -1,0 +1,80 @@
+{
+  "note": "T003 dev-only read-back on 2026-10-24 Asia/Shanghai; prod unchanged; live GitHub remains authoritative.",
+  "dev": {
+    "id": 25725833,
+    "name": "protect-dev",
+    "target": "branch",
+    "source_type": "Repository",
+    "source": "zl14229/pokemon-shiny-tracker",
+    "enforcement": "active",
+    "conditions": {
+      "ref_name": {
+        "exclude": [],
+        "include": [
+          "refs/heads/dev"
+        ]
+      }
+    },
+    "rules": [
+      {
+        "type": "deletion"
+      },
+      {
+        "type": "non_fast_forward"
+      },
+      {
+        "type": "pull_request",
+        "parameters": {
+          "required_approving_review_count": 0,
+          "dismiss_stale_reviews_on_push": false,
+          "required_reviewers": [],
+          "require_code_owner_review": false,
+          "require_last_push_approval": false,
+          "required_review_thread_resolution": true,
+          "require_extra_approval_for_unattributed_changes": false,
+          "allowed_merge_methods": [
+            "merge"
+          ]
+        }
+      },
+      {
+        "type": "required_status_checks",
+        "parameters": {
+          "strict_required_status_checks_policy": true,
+          "do_not_enforce_on_create": false,
+          "required_status_checks": [
+            {
+              "context": "baseline-checks",
+              "integration_id": 15368
+            },
+            {
+              "context": "repository-hygiene",
+              "integration_id": 15368
+            },
+            {
+              "context": "go-checks",
+              "integration_id": 15368
+            },
+            {
+              "context": "frontend-checks",
+              "integration_id": 15368
+            }
+          ]
+        }
+      }
+    ],
+    "node_id": "RRS_lACqUmVwb3NpdG9yec5VTD-rzgGIi4k",
+    "created_at": "2026-10-23T21:37:30.846+08:00",
+    "updated_at": "2026-10-24T10:58:56.707+08:00",
+    "bypass_actors": [],
+    "current_user_can_bypass": "never",
+    "_links": {
+      "self": {
+        "href": "https://api.github.com/repos/zl14229/pokemon-shiny-tracker/rulesets/25725833"
+      },
+      "html": {
+        "href": "https://github.com/zl14229/pokemon-shiny-tracker/rules/25725833"
+      }
+    }
+  }
+}

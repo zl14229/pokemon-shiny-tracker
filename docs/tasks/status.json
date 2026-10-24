@@ -297,20 +297,32 @@
         "T006"
       ],
       "acceptance": "0..N 成果关联规则；状态、计数单位、输入边界测试",
-      "status": "planned",
-      "branch": null,
+      "status": "in_progress",
+      "branch": "feature/T007-hunt-crud",
       "evidence": {
-        "implementation": null,
-        "checks": [],
-        "self_review": null,
-        "risks": [],
-        "unverified": [],
-        "documentation": [],
+        "implementation": "Hunt service/DTO/API CRUD、事务状态保护、关联个体保护、可空累计/单位/耗时和部分精度日期验证；不推断可刷性、不限制意外闪光物种",
+        "checks": [
+          "Linux Go 1.27.3: go test ./...、go build ./...、make check（格式/tidy/verify/vet/race/build）、make smoke 全部通过",
+          "临时 SQLite 测试覆盖 0..N 成果、完成/放弃/重开、软删除保护、物种/形态/保存位置关系、未知/0/整数溢出/日期与原子失败；HTTP CRUD 和 400/404/409/413/415/500 脱敏通过"
+        ],
+        "self_review": "逐文件检查严格 DTO 无模型批量赋值，事务校验关联与状态、完整 PUT 清空可选值、未知不填 0，完成只计未删除成果；放弃和 Hunt 软删除不损坏个体历史。CI 既有 go-checks 自动覆盖新包，无需扩大权限",
+        "risks": [
+          "T007 列表临时上限 100，组合查询/分页归 T009；ShinyRecord 写入 API 与对称关联状态保护归 T008",
+          "可获取性/概率未实现，参考资料存在不等于合法可刷；本机浏览器共享库限制保留，CI 执行浏览器回归"
+        ],
+        "unverified": [
+          "GitHub PR CI、合并和 dev CI 尚待确认"
+        ],
+        "documentation": [
+          "docs/tasks/T007.md",
+          "docs/API.md",
+          "docs/DEVELOPMENT_LOG.md"
+        ],
         "commit": null,
         "pr_url": null,
         "merge_sha": null
       },
-      "record": null
+      "record": "docs/tasks/T007.md"
     },
     {
       "id": "T008",

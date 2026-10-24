@@ -1,4 +1,4 @@
-// Package api defines the versioned HTTP interface. No database is required.
+// Package api defines the versioned HTTP interface. Health needs no database.
 package api
 
 import (
@@ -37,6 +37,7 @@ func NewRouter(db *gorm.DB) *gin.Engine {
 	})
 	if db != nil {
 		referenceRoutes(v1, db)
+		huntRoutes(v1, db)
 	}
 	return router
 }

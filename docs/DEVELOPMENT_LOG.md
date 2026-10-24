@@ -41,3 +41,5 @@
 - 在最新远程 dev b885394 上确认 M0 verified，工作区干净，独立建立 feature/T005-sqlite-models；编码前记录实体、迁移、数据安全和测试方案。
 - 引入 GORM/SQLite 与精确驱动版本，基础六实体、复合形态外键、可空未知、状态/数值约束和版本化事务迁移。默认库在用户目录，拒绝仓库内/未知/未来数据库，不对已有数据反复 AutoMigrate。
 - 现有 smoke、真实前端集成和浏览器启动器全部改用各自创建的临时库，避免触碰个人默认库。测试与合并实际结果在 T005 记录归档。
+
+- T005 实现 PR https://github.com/zl14229/pokemon-shiny-tracker/pull/11 已合并（d5d42679079ac44af4f7ffa8e3cdf2af3dd0821d），PR CI https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40062408488 与 dev CI https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40062568518 成功；本任务标记 verified 并走验收收尾 PR。

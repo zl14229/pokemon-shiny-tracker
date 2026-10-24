@@ -51,3 +51,5 @@
 - 原始 JSON 字节以缓存封装保留，离线重建规范化结果逐字节一致；不提交缓存原文/图片/正文。中文只标 source_provided，形态缺失名称 unknown，源内冲突明确 conflict。
 - SQL v2 仅新增来源批次和映射；ID/父形态校验、预览回滚、重复导入、证据元数据刷新、冲突差异/整批拒绝、源失败保留个人记录及 v1 升级通过真实 SQLite 测试。CLI 临时库 preview/apply/reapply 结果为 10 计划未提交、10 新增、0 新增/10 不变。
 - 启动仅在空参考表离线导入种子，现有表不覆盖；查询本地 SQLite，明确 partial 和未验证可刷性。
+
+- T006 实现 PR https://github.com/zl14229/pokemon-shiny-tracker/pull/13 已合并（f51dea775f5b8bd693324e23acc955c869bbda09），PR CI https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40065170340 与 dev CI https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40065402167 成功；本任务标记 verified 并走验收收尾 PR。

@@ -9,6 +9,7 @@ import socket
 import subprocess
 import sys
 import time
+import tempfile
 
 ROOT = Path(__file__).resolve().parents[1]
 BINARY = ROOT / "bin/shiny-tracker"
@@ -17,7 +18,7 @@ BINARY = ROOT / "bin/shiny-tracker"
 def start(port):
     return subprocess.Popen(
         [str(BINARY)], cwd=ROOT,
-        env=dict(os.environ, SHINY_HTTP_PORT=str(port)),
+        env=dict(os.environ, SHINY_HTTP_PORT=str(port), SHINY_DB_PATH=DB_PATH),
         stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True,
     )
 
@@ -94,7 +95,9 @@ def main():
 
 if __name__ == "__main__":
     try:
-        main()
+        with tempfile.TemporaryDirectory(prefix="pst-smoke-") as directory:
+            DB_PATH = str(Path(directory) / "test.sqlite3")
+            main()
     except (AssertionError, OSError, subprocess.TimeoutExpired) as exc:
         print(f"FAIL: {exc}", file=sys.stderr)
         sys.exit(1)

@@ -2,11 +2,13 @@ package config
 
 import (
 	"os"
+	"path/filepath"
 	"strings"
 	"testing"
 )
 
 func TestLoadDefault(t *testing.T) {
+	t.Setenv("SHINY_DB_PATH", filepath.Join(t.TempDir(), "db.sqlite3"))
 	// Setenv registers restoration before Unsetenv, preserving the caller's env.
 	t.Setenv("SHINY_HTTP_PORT", "")
 	if err := os.Unsetenv("SHINY_HTTP_PORT"); err != nil {
@@ -19,6 +21,7 @@ func TestLoadDefault(t *testing.T) {
 }
 
 func TestLoadPort(t *testing.T) {
+	t.Setenv("SHINY_DB_PATH", filepath.Join(t.TempDir(), "db.sqlite3"))
 	for _, value := range []string{"1", "8081", "65535"} {
 		t.Run(value, func(t *testing.T) {
 			t.Setenv("SHINY_HTTP_PORT", value)
@@ -31,6 +34,7 @@ func TestLoadPort(t *testing.T) {
 }
 
 func TestLoadRejectsInvalidPort(t *testing.T) {
+	t.Setenv("SHINY_DB_PATH", filepath.Join(t.TempDir(), "db.sqlite3"))
 	for _, value := range []string{"", "0", "-1", "65536", "999999999999999999999999", "8080.5", " 8080", "+8080", "localhost:8080", "private-invalid-input"} {
 		t.Run(value, func(t *testing.T) {
 			t.Setenv("SHINY_HTTP_PORT", value)

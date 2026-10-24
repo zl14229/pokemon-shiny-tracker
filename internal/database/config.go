@@ -1,5 +1,4 @@
-// Package database holds GORM configuration for the later T005 connection layer.
-// T001 does not install a driver, open a database, or create any models.
+// Package database owns SQLite connections and explicit, transactional migrations.
 package database
 
 import (
@@ -15,6 +14,8 @@ import (
 // Parameterized logging keeps bound personal values out of future SQL logs.
 func NewConfig() *gorm.Config {
 	return &gorm.Config{
+		TranslateError: true,
+		NowFunc:        func() time.Time { return time.Now().UTC() },
 		Logger: logger.New(log.New(os.Stderr, "", log.LstdFlags), logger.Config{
 			SlowThreshold:        200 * time.Millisecond,
 			LogLevel:             logger.Warn,

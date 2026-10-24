@@ -1,10 +1,13 @@
 import { spawn, type ChildProcess } from 'node:child_process'
 import { createServer as createTCPServer } from 'node:net'
-import { resolve } from 'node:path'
+import { resolve, join } from 'node:path'
+import { mkdtemp, rm } from 'node:fs/promises'
+import { tmpdir } from 'node:os'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 import { createServer, preview, type ViteDevServer } from 'vite'
 import { ApiClient } from '../../src/api/client'
 
+let databaseDir: string
 let backend: ChildProcess | undefined
 let frontend: ViteDevServer | undefined
 let port: number
@@ -22,7 +25,7 @@ async function freePort(): Promise<number> {
 
 async function startBackend() {
   backend = spawn(resolve('../bin/shiny-tracker'), [], {
-    env: { ...process.env, SHINY_HTTP_PORT: String(port) }, stdio: 'ignore',
+    env: { ...process.env, SHINY_HTTP_PORT: String(port), SHINY_DB_PATH: join(databaseDir, "test.sqlite3") }, stdio: 'ignore',
   })
   let launchError: Error | undefined
   backend.once('error', (error) => { launchError = error })
@@ -49,6 +52,7 @@ async function stopBackend() {
 }
 
 beforeAll(async () => {
+  databaseDir = await mkdtemp(join(tmpdir(), "pst-integration-"))
   port = await freePort()
   await startBackend()
   frontend = await createServer({
@@ -61,7 +65,10 @@ beforeAll(async () => {
   client = new ApiClient(`${origin}/api/v1`)
 })
 
-afterAll(async () => { await frontend?.close(); await stopBackend() })
+afterAll(async () => {
+  try { await frontend?.close(); await stopBackend() }
+  finally { if (databaseDir) await rm(databaseDir, { recursive: true, force: true }) }
+})
 
 // Vitest runs this file's tests serially by default; restart is the final case.
 describe('real Go backend through Vite and the actual API client', () => {

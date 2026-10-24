@@ -10,6 +10,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/zl14229/pokemon-shiny-tracker/internal/config"
+	"github.com/zl14229/pokemon-shiny-tracker/internal/database"
 	"github.com/zl14229/pokemon-shiny-tracker/internal/server"
 )
 
@@ -26,6 +27,15 @@ func run() error {
 		return err
 	}
 	gin.SetMode(gin.ReleaseMode)
+	db, err := database.Open(cfg.DBPath)
+	if err != nil {
+		return err
+	}
+	conn, err := db.DB()
+	if err != nil {
+		return err
+	}
+	defer conn.Close()
 	srv := server.New(cfg)
 	listener, err := net.Listen("tcp", srv.Addr)
 	if err != nil {

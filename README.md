@@ -20,6 +20,7 @@
 - [T000 执行记录](docs/tasks/T000.md)
 - [T001 执行记录](docs/tasks/T001.md)
 - [Go 后端开发与本地启动](docs/BACKEND_DEVELOPMENT.md)
+- [SQLite、模型与迁移](docs/DATABASE.md)
 - [前端开发与本地启动](docs/FRONTEND_DEVELOPMENT.md)
 - [开发日志](docs/DEVELOPMENT_LOG.md)
 - [M0 集成验收报告](docs/M0_ACCEPTANCE.md)
@@ -45,6 +46,8 @@ bash -ic 'make run'
 ```
 
 当前服务仅监听 `127.0.0.1:8080`，`GET /api/v1/health` 返回进程健康状态；未知路径返回统一 JSON 404。详见 [API 契约](docs/API.md)。可用 `SHINY_HTTP_PORT` 更改端口，`.env.example` 仅为配置说明模板。完整构建、测试和启动验证：
+
+数据库默认位于用户数据目录，启动时初始化；`SHINY_DB_PATH` 可指定仓库外绝对路径。未知/未来数据库不会自动覆盖或重建。测试统一使用独立临时 SQLite。
 
 ```bash
 bash -ic 'go test ./... && go build ./...'

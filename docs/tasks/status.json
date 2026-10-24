@@ -212,20 +212,37 @@
         "T001"
       ],
       "acceptance": "Hunt/个体/物种/形态/游戏/历史等结构、外键、迁移测试通过",
-      "status": "planned",
-      "branch": null,
+      "status": "in_review",
+      "branch": "feature/T005-sqlite-models",
       "evidence": {
-        "implementation": null,
-        "checks": [],
-        "self_review": null,
-        "risks": [],
-        "unverified": [],
-        "documentation": [],
-        "commit": null,
-        "pr_url": null,
+        "implementation": "GORM/SQLite 基础六实体、稳定本地身份、0..N 成果/可空 Hunt、形态复合外键、CHECK、轻量历史与 soft delete、仓库外路径、显式版本化事务迁移",
+        "checks": [
+          "Linux Go 普通测试/构建、make check（格式/tidy/verify/vet/race/build）、临时库 smoke 通过",
+          "数据库测试覆盖初始化/重开/幂等、0..N 和无 Hunt 个体、外键/形态一致性、数值状态 CHECK、历史关联、失败回滚、未知/未来/不完整库不修改",
+          "Linux 前端 typecheck、21 项测试、build/smoke、5 项真实集成通过，所有启动器改用独立临时库",
+          "治理验证、7 项治理回归、差异及敏感信息模式检查通过；PR 已创建并标记 code-reviewed"
+        ],
+        "self_review": "逐文件审查：首次空库建表，版本迁移事务提交；已有未知/未来库只读预检拒绝，内部 ID 与未知字段不伪造；复合外键防形态错配；个人数据路径拒绝 Git checkout（含父目录符号链接）；测试只访问自建临时库，无实际用户数据库修改",
+        "risks": [
+          "CGO/GCC 是 SQLite driver 的构建前提；Windows 原生运行尚未验收",
+          "SQLite 连接串/单连接用于本地单机，跨表完成状态与 CRUD 验证留到 T007/T008；基本凭证扫描不等于完整安全审计"
+        ],
+        "unverified": [
+          "GitHub PR、必需 CI/Chromium 回归、实际合并和 dev CI 待执行"
+        ],
+        "documentation": [
+          "docs/tasks/T005.md",
+          "docs/DATABASE.md",
+          "docs/BACKEND_DEVELOPMENT.md",
+          "docs/DEVELOPMENT_LOG.md",
+          "docs/GITHUB_WORKFLOW.md",
+          "README.md"
+        ],
+        "commit": "d5dfaea8656f034ad1ef69580109f34a574d0f8c",
+        "pr_url": "https://github.com/zl14229/pokemon-shiny-tracker/pull/11",
         "merge_sha": null
       },
-      "record": null
+      "record": "docs/tasks/T005.md"
     },
     {
       "id": "T006",

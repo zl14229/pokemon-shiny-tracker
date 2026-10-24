@@ -1,6 +1,6 @@
 # Pokémon Shiny Tracker
 
-基于 Baseline V1.1 的个人闪光收藏与 Hunt 管理项目。T000 仓库初始化已通过验收，T001–T028 尚未启动；当前无业务代码。
+基于 Baseline V1.1 的个人闪光收藏与 Hunt 管理项目。T000 仓库初始化已通过验收，T001 提供 Go 后端工程骨架，尚无业务功能。任务的实际验收与合并状态见任务证据。
 
 ## 冻结需求
 
@@ -18,6 +18,8 @@
 - [GitHub 工作流及 AI 执行规范](docs/GITHUB_WORKFLOW.md)
 - [Task 状态与证据](docs/tasks/status.json)、[任务记录模板](docs/tasks/TEMPLATE.md)
 - [T000 执行记录](docs/tasks/T000.md)
+- [T001 执行记录](docs/tasks/T001.md)
+- [Go 后端开发与本地启动](docs/BACKEND_DEVELOPMENT.md)
 - [初始化验收报告](docs/T000_ACCEPTANCE.md)
 
 新任务从最新远程 `dev` 建立 `feature/Txxx-name`，经 PR、CI 和自审后以 Merge Commit 合入 `dev`，保留源分支。正式发布至 `prod` 须另获用户授权。
@@ -31,6 +33,20 @@ python scripts/validate_baseline.py
 git diff --check
 ```
 
-当前 Actions 只验证治理基线、任务一致性、PR 来源和仓库卫生。Go / Vue 工程、依赖及业务 CI 分别在对应任务中建立。
+Go 后端使用 Linux Go 1.27.3、Gin、GORM。从仓库根目录运行：
+
+```bash
+bash -ic 'make deps'
+bash -ic 'make run'
+```
+
+当前服务仅监听 `127.0.0.1:8080`，请求 `/` 返回默认 404；正式 API 在 T002 建立。可用 `SHINY_HTTP_PORT` 更改端口，`.env.example` 仅为配置说明模板。完整构建、测试和启动验证：
+
+```bash
+bash -ic 'go test ./... && go build ./...'
+bash -ic 'make check && make smoke'
+```
+
+Actions 包含 Go 格式、依赖一致性、vet、竞态测试、构建、启动验证，以及治理基线、任务一致性、PR 来源和仓库卫生检查。Vue 工程及业务功能在后续任务中建立。
 
 真实 SQLite 数据、Excel 原始资料、密钥、附件和备份放在仓库外。脱敏且获准入库的测试夹具需在对应任务中明确审查。

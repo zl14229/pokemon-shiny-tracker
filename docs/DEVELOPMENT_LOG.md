@@ -77,3 +77,5 @@
 - T010 开始：最新 dev 7e2f3ebc9f72437e4624b58b1ea423599f6815c8，依赖 verified、工作区干净；方案：复用 Vue3/TS/Element Plus、既有同源 Client，扩展严格 DTO/写请求与错误分类；简单 hash 页面导航、中文响应式列表/筛选/分页、创建/完整编辑、详情/关联成果、三态操作。空字段保留 null、部分日期/安全整数验证、保留完整 PUT 字段，写入结果不明不自动重试。复用字段/反馈/资料选择器，已知资料部分覆盖不推断可刷性。组件/Client单测、真实Go/Vite联调及Playwright实际流程（独立临时库）验证，类型/构建/CI、自审后 PR/merge/dev CI/收尾；不开发 T011 写入界面或 M3+。
 
 - T010 实现及本地验收：中文Hunt列表/表单/详情/关联成果/三态、同源DTO/写请求、安全整数/空值/部分日期/完整PUT与错误反馈完成；38项组件/Client、7项真实API、12项本机Chromium（桌面/390px）和类型/构建/HTTP/Go回归通过。浏览器依赖仅临时解包，未改系统；截图和代码自审无未解决项，CI/合并待核实。
+
+- T010 实现 PR https://github.com/zl14229/pokemon-shiny-tracker/pull/21 已合并（1d74d00e91ef48b614aca9213928fbd5ced97e3e），PR CI https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40107701589 与 dev CI https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40107960361 成功；本任务标记 verified 并走验收收尾 PR。

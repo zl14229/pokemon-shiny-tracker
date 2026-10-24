@@ -38,3 +38,28 @@ ID 来自本地参考接口，不是 PokéAPI ID。物种必须存在，形态�
 可选字段为 form_id、game_id、method、start_date、end_date、encounter_count、count_unit、duration_seconds、notes；省略或 null 保留未知，PUT 省略的可选字段被清空。文本去除首尾空白，空文本归 null；method 最长 128 字符、单位 32、备注 5000。次数/秒数为非负 int64，已知次数（包括 0）须提供非空单位，单位已知而次数未知允许保存。不计算跨单位效率。
 
 日期只接受有效 `YYYY` / `YYYY-MM` / `YYYY-MM-DD`，原样保留精度；仅在开始最早日晚于结束最晚日时拒绝倒置，不擅自填补日期。状态为 `in_progress` / `completed` / `abandoned`，可重新打开。完成须至少一个未删除的关联成果；放弃不删除成果，进行中可有多个成果，非目标意外闪光不被排除。T007 测试使用已有模型构造成果，个体登记 API 归 T008。所有状态与删除保护均在 SQLite 事务内检查。
+
+## 闪光个体与历史（T008）
+
+| 请求 | 成功 | 说明 |
+|---|---|---|
+| `POST /api/v1/shiny-records` | 201 `{data: ShinyRecord}` | 新建永久身份；只要求 current_species_id |
+| `GET /api/v1/shiny-records` | 200 `{data: ShinyRecord[], meta: {total, limit: 100}}` | 当前前100条，完整搜索/分页归 T009 |
+| `GET /api/v1/shiny-records/:id` | 200 `{data: ShinyRecord}` | 软删除后为404 |
+| `PUT /api/v1/shiny-records/:id` | 200 `{data: ShinyRecord}` | 完整替换，要求 current_species_id、source、holding_status |
+| `DELETE /api/v1/shiny-records/:id` | 204 | 软删除，永久身份与历史保留 |
+| `GET /api/v1/shiny-records/:id/history` | 200 `{data: ShinyHistory[], meta: {record_deleted,total,limit,offset}}` | 软删除后仍可查询，ID升序；limit默认100/最大500，offset非负 |
+
+同 Hunt 的 JSON/大小/错误契约。可选字段：hunt_id、original_species_id、original_form_id、current_form_id、original_game_id、current_game_id、current_location、obtained_date、nickname、gender、nature、ability、ball、level、notes。所有引用均为本地ID；可选字段省略/null均不猜测事实。**PUT 是完整替换，调用者须提交希望保留的原始资料及其他可选字段；省略会清空，历史仍保留改前快照。**
+
+```json
+{"current_species_id":1,"hunt_id":null,"original_species_id":null,"original_game_id":null,"current_location":"HOME Box 1","obtained_date":"2018","source":"trade","holding_status":"held"}
+```
+
+source 为 self_hunted / trade / event / other / unknown，holding_status 为 held / traded / released / unknown；创建省略二者默认 unknown，不默认仍持有。关联 Hunt 不推断 source、获得日期/原始游戏/物种；不同目标的意外闪光允许关联。交换/活动不因此变成亲自刷闪，后续统计须按来源区分。本轮未实现自刷统计。
+
+原始形态必须有原始物种，当前形态必须属于当前物种；保存位置类游戏可作为当前位置/特定来源。已知不同收藏体系（例如 sleep 与 pokemon）不能登记为同一个体的转移；未知体系不推断兼容或不兼容。未知原始游戏、日期允许 null。level 1–100；nickname128字、gender32字、nature64字、ability/ball128字、current_location256字、notes5000字，文本归一规则同 Hunt。obtained_date 和 event_date 支持三种日期精度，不用系统时间补获得日期。
+
+当前物种变化必须声明 `change_type: "evolution"` 或 `"correction"`；evolution 表示用户报告的进化，并不假称已验证完整进化图或游戏条件；纠错记录为 updated。当前形态、位置/游戏、持有状态变化分别保留 form_change、location_change、holding_change；其他编辑为 updated。创建有 registered，删除有 deleted。可选 event_date 与 history_note（1000字）为事件证据，未提供时为空；created_at/updated_at只是系统审计时间。同次更新多类别历史共享完整 before_json/after_json 快照，不臆造中间状态或先后时间；相同内容重提不新增历史或个体。历史只读，无修改/删除端点，完整转移事件管理仍归 T023。
+
+历史、个体和状态保护均在同一事务中完成，历史写入失败会回滚创建/更新/删除。删除或移走已完成 Hunt 的最后有效成果返回409，须先重新打开/放弃该 Hunt；已有多个成果时可逐项调整。交换出去/放生应更新持有状态而非删除，以保留历史获得事实；软删除用于撤销错误登记，不计入有效成果或正常列表。

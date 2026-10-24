@@ -297,23 +297,25 @@
         "T006"
       ],
       "acceptance": "0..N 成果关联规则；状态、计数单位、输入边界测试",
-      "status": "in_review",
+      "status": "verified",
       "branch": "feature/T007-hunt-crud",
       "evidence": {
         "implementation": "Hunt service/DTO/API CRUD、事务状态保护、关联个体保护、可空累计/单位/耗时和部分精度日期验证；不推断可刷性、不限制意外闪光物种",
         "checks": [
           "Linux Go 1.27.3: go test ./...、go build ./...、make check（格式/tidy/verify/vet/race/build）、make smoke 全部通过",
           "临时 SQLite 测试覆盖 0..N 成果、完成/放弃/重开、软删除保护、物种/形态/保存位置关系、未知/0/整数溢出/日期与原子失败；HTTP CRUD 和 400/404/409/413/415/500 脱敏通过",
-          "治理验证、7 项治理回归、差异及敏感信息模式检查通过；PR 已创建并标记 code-reviewed"
+          "治理验证、7 项治理回归、差异及敏感信息模式检查通过；PR 已创建并标记 code-reviewed",
+          "最终实现 PR CI 全部 success: https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40082676847",
+          "实现 merge 7555c331277de45742970b41c9b2e53594bec50c 后 dev CI 全部 success: https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40082901088",
+          "通过 Merge Commit 合并、源分支保留，无 Ruleset bypass；验收收尾经同一任务独立 PR 入库",
+          "本地 Linux Node 类型、21 项组件/客户端、构建/HTTP smoke、5 项真实集成全部通过；最终 PR 与 dev CI frontend-checks 含 Chromium 浏览器场景成功"
         ],
         "self_review": "逐文件检查严格 DTO 无模型批量赋值，事务校验关联与状态、完整 PUT 清空可选值、未知不填 0，完成只计未删除成果；放弃和 Hunt 软删除不损坏个体历史。CI 既有 go-checks 自动覆盖新包，无需扩大权限",
         "risks": [
           "T007 列表临时上限 100，组合查询/分页归 T009；ShinyRecord 写入 API 与对称关联状态保护归 T008",
           "可获取性/概率未实现，参考资料存在不等于合法可刷；本机浏览器共享库限制保留，CI 执行浏览器回归"
         ],
-        "unverified": [
-          "GitHub PR CI、合并和 dev CI 尚待确认"
-        ],
+        "unverified": [],
         "documentation": [
           "docs/tasks/T007.md",
           "docs/API.md",
@@ -321,7 +323,7 @@
         ],
         "commit": "879da2c916a9ef45bccc224a57f19cc9302ec5a1",
         "pr_url": "https://github.com/zl14229/pokemon-shiny-tracker/pull/15",
-        "merge_sha": null
+        "merge_sha": "7555c331277de45742970b41c9b2e53594bec50c"
       },
       "record": "docs/tasks/T007.md"
     },

@@ -1,6 +1,6 @@
 # Pokémon Shiny Tracker
 
-基于 Baseline V1.1 的个人闪光收藏与 Hunt 管理项目。当前包含 Go 后端、健康接口及 Vue 前端基础，尚无记录与收藏业务功能。任务的实际验收与合并状态见任务证据。
+基于 Baseline V1.1 的个人闪光收藏与 Hunt 管理项目。当前后端提供 SQLite、部分离线基础资料、Hunt 与闪光个体 CRUD 和轻量历史 API；Vue 前端目前提供工程基础与连接状态，业务界面归 M2。任务的实际验收与合并状态见任务证据。
 
 ## 冻结需求
 
@@ -26,6 +26,7 @@
 - [开发日志](docs/DEVELOPMENT_LOG.md)
 - [M0 集成验收报告](docs/M0_ACCEPTANCE.md)
 - [T002](docs/tasks/T002.md)、[T003](docs/tasks/T003.md)、[T004](docs/tasks/T004.md) 执行证据
+- [T005](docs/tasks/T005.md)、[T006](docs/tasks/T006.md)、[T007](docs/tasks/T007.md)、[T008](docs/tasks/T008.md) 后端执行证据
 - [初始化验收报告](docs/T000_ACCEPTANCE.md)
 
 新任务从最新远程 `dev` 建立 `feature/Txxx-name`，经 PR、CI 和自审后以 Merge Commit 合入 `dev`，保留源分支。正式发布至 `prod` 须另获用户授权。
@@ -73,6 +74,6 @@ bash -ic 'cd frontend && npm run typecheck && npm test && npm run build && npm r
 bash -ic 'make build && cd frontend && npm run test:integration'
 ```
 
-Actions 包含 Go 检查、前端类型/组件/构建/启动、真实 API 联调及 Chromium 浏览器检查，以及治理基线、任务一致性、PR 来源和仓库卫生检查。业务功能留给后续任务。
+Actions 包含 Go 检查、前端类型/组件/构建/启动、真实 API 联调及 Chromium 浏览器检查，以及治理基线、任务一致性、PR 来源和仓库卫生检查。业务界面及其余能力按后续 Task 实施。
 
 真实 SQLite 数据、Excel 原始资料、密钥、附件和备份放在仓库外。脱敏且获准入库的测试夹具需在对应任务中明确审查。

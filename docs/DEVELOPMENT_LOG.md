@@ -63,3 +63,5 @@
 - T008 开始：最新 dev 939406b5b625ae938fef26e5a7cf512f26231857，依赖 verified、工作区干净；方案：严格 DTO 与 service 事务登记/更新/软删除个体，原始获得与当前物种/形态/游戏分离且不推断未知。进化/形态/位置/持有变化使用原 ID 并存不可变前后快照；物种变化由调用者声明进化或纠错，不假称验证进化合法性。历史日期可空/部分精度，删除保留审计，保护已完成 Hunt 的最后有效成果。真实临时库测试覆盖独立/多成果/意外闪光、迁移/进化不重复、关联与数据校验、历史事务失败回滚及 HTTP 错误；不做 M2 界面或 T023 完整历史系统。
 
 - T008 实现/本地验收：个体 CRUD、独立/关联登记、原始/当前分离、原 ID 进化/位置/持有历史、完成 Hunt 最后成果保护；Go 普通/race/vet/build/启动均成功。历史失败注入验证三类写操作原子回滚，自审无待修复项。
+
+- T008 实现 PR https://github.com/zl14229/pokemon-shiny-tracker/pull/17 已合并（c9ae1ced0614aa9b256399016c0952eb1144d7ad），PR CI https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40083753536 与 dev CI https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40083990124 成功；本任务标记 verified 并走验收收尾 PR。

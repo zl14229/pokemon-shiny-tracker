@@ -62,7 +62,7 @@ func referenceRoutes(v1 *gin.RouterGroup, db *gorm.DB) {
 			}
 			counts[name] = count
 		}
-		c.JSON(200, gin.H{"data": gin.H{"coverage": "partial", "counts": counts, "shiny_availability": "not_verified", "source": reference.Source, "chinese_names": "source_provided_or_unknown_or_conflict"}})
+		c.JSON(200, gin.H{"data": gin.H{"coverage": "partial", "counts": counts, "shiny_availability": "not_verified", "configured_source": reference.Source, "chinese_names": "source_provided_or_unknown_or_conflict"}})
 	})
 }
 

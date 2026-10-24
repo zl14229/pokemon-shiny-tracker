@@ -111,6 +111,10 @@ func TestSourceFailuresAndNameConflict(t *testing.T) {
 	if f.NameStatus != "conflict" || f.NameZh != nil {
 		t.Fatal("conflict silently resolved")
 	}
+	f = labels(sourceResource{Name: "canonical-name", Names: []localized{{"First English", link{Name: "en"}}, {"Second English", link{Name: "en"}}}})
+	if f.Name != "canonical-name" || f.NameStatus != "conflict" {
+		t.Fatal("English conflict silently resolved")
+	}
 }
 
 func TestImportStableIDsDryRunAndAtomicConflict(t *testing.T) {

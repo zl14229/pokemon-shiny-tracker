@@ -193,12 +193,18 @@ func (c *Client) read(ctx context.Context, resource string, id int) (sourceResou
 func labels(data sourceResource) Facts {
 	f := Facts{Slug: data.Name, Name: data.Name, NameStatus: "unknown"}
 	chinese := map[string]bool{}
+	english := map[string]bool{}
 	for _, name := range data.Names {
 		if strings.EqualFold(name.Language.Name, "en") && name.Name != "" {
-			f.Name = name.Name
+			english[name.Name] = true
 		}
 		if strings.EqualFold(name.Language.Name, "zh-Hans") && name.Name != "" {
 			chinese[name.Name] = true
+		}
+	}
+	if len(english) == 1 {
+		for name := range english {
+			f.Name = name
 		}
 	}
 	if len(chinese) > 1 {
@@ -209,6 +215,11 @@ func labels(data sourceResource) Facts {
 			f.NameZh = &value
 			f.NameStatus = "source_provided"
 		}
+	}
+	if len(english) > 1 {
+		f.Name = data.Name
+		f.NameZh = nil
+		f.NameStatus = "conflict"
 	}
 	return f
 }

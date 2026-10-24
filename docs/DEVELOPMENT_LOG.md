@@ -17,3 +17,5 @@
 - 精确锁定 Vue/Vite/Element Plus 与 TS/测试工具；验证 nvm Linux Node/npm。npm install/ci、严格类型、组件交互、生产构建和真实 Vite/预览 HTTP smoke 成功，npm 审计 0 已知漏洞。
 - 本机 Chromium 下载后实际启动报缺少 libglib-2.0.so.0；不假称通过。CI 安装完整依赖后执行同一 Chromium 测试，作为必需 frontend-checks 的一部分。
 - dev Ruleset 追加 frontend-checks 并回读，保留原检查、严格模式与无 bypass，不改 prod；不提前实现 T004。
+
+- T003 实现 PR https://github.com/zl14229/pokemon-shiny-tracker/pull/7 已合并（ea46d294a60b02badb48cd916cc7d1075fdddc46），PR CI https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40056989398 与 dev CI https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40057135058 成功；本任务标记 verified 并走验收收尾 PR。

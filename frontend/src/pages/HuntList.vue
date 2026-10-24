@@ -60,23 +60,23 @@ async function load() {
   }
 }
 function filter(page = 1) {
-  const query = new URLSearchParams({
-    page: String(page),
-    page_size: String(pageSize.value),
-    sort: 'created_at',
-    order: 'desc',
-  })
+  const query = new URLSearchParams(props.query)
+  query.set('page', String(page))
+  query.set('page_size', String(pageSize.value))
+  if (!query.has('sort')) query.set('sort', 'created_at')
+  if (!query.has('order')) query.set('order', 'desc')
   if (search.value.trim()) query.set('q', search.value.trim())
+  else query.delete('q')
   if (status.value) query.set('status', status.value)
+  else query.delete('status')
   const target = `/hunts?${query}`
   if (location.hash.slice(1) === target) void load()
   else go(target)
 }
 function reset() {
-  search.value = ''
-  status.value = ''
-  pageSize.value = 20
-  filter()
+  const path = '/hunts?page=1&page_size=20'
+  if (location.hash.slice(1) === path) void load()
+  else go(path)
 }
 watch(() => props.query, load, { immediate: true })
 onMounted(loadCatalog)

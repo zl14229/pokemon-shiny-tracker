@@ -78,7 +78,7 @@ type ShinyRecord struct {
 	CurrentLocation   *string        `json:"current_location"`
 	ObtainedDate      *string        `json:"obtained_date"`
 	Source            string         `gorm:"not null;default:unknown;index;check:source IN ('self_hunted','trade','event','other','unknown')" json:"source"`
-	HoldingStatus     string         `gorm:"not null;default:held;index;check:holding_status IN ('held','traded','released','unknown')" json:"holding_status"`
+	HoldingStatus     string         `gorm:"not null;default:unknown;index;check:holding_status IN ('held','traded','released','unknown')" json:"holding_status"`
 	Nickname          *string        `json:"nickname"`
 	Gender            *string        `json:"gender"`
 	Nature            *string        `json:"nature"`

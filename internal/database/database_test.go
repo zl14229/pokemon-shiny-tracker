@@ -41,6 +41,9 @@ func TestInitializeReopenAndRelationships(t *testing.T) {
 	if got.HuntID != nil || got.OriginalSpeciesID != nil || got.OriginalGameID != nil || got.ObtainedDate != nil {
 		t.Fatal("unknowns were invented")
 	}
+	if got.HoldingStatus != "unknown" {
+		t.Fatal("unknown holding status was inferred")
+	}
 	history := model.ShinyHistory{ShinyRecordID: unknown.ID, Kind: "registered", BeforeJSON: "{}", AfterJSON: "{}"}
 	if err := db.Create(&history).Error; err != nil {
 		t.Fatal(err)

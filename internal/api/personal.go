@@ -53,12 +53,12 @@ func personalError(c *gin.Context, err error) {
 func huntRoutes(v1 *gin.RouterGroup, db *gorm.DB) {
 	s := service.Hunts{DB: db}
 	v1.GET("/hunts", func(c *gin.Context) {
-		rows, total, err := s.List(c.Request.Context())
+		rows, total, err := s.List(c.Request.Context(), c.Request.URL.RawQuery)
 		if err != nil {
 			personalError(c, err)
 			return
 		}
-		c.JSON(200, gin.H{"data": rows, "meta": gin.H{"total": total, "limit": 100}})
+		c.JSON(200, gin.H{"data": rows, "meta": total})
 	})
 	v1.POST("/hunts", func(c *gin.Context) {
 		in, ok := body[service.HuntInput](c)

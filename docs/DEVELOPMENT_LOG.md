@@ -65,3 +65,7 @@
 - T008 实现/本地验收：个体 CRUD、独立/关联登记、原始/当前分离、原 ID 进化/位置/持有历史、完成 Hunt 最后成果保护；Go 普通/race/vet/build/启动均成功。历史失败注入验证三类写操作原子回滚，自审无待修复项。
 
 - T008 实现 PR https://github.com/zl14229/pokemon-shiny-tracker/pull/17 已合并（c9ae1ced0614aa9b256399016c0952eb1144d7ad），PR CI https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40083753536 与 dev CI https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40083990124 成功；本任务标记 verified 并走验收收尾 PR。
+
+- T009 开始：最新 dev 7aa5c7f4fef483d1dd598b8fddd6a6343d30dc8f，依赖 verified、工作区干净；方案：参数白名单、绑定值与字面搜索，分别筛选目标/原始/当前引用、状态、关联、单位及部分精度日期；AND 组合、明确空值、ID 次级稳定排序、同快照 total/分页，计数比较要求同单位。测试 SQL 注入/通配符/同值排序/跨页/错误边界；增添仅临时库的真实后端进程 M1 CRUD/离线/重启验收并接入既有 CI。完成 Go/前端回归及自审后 PR/合并/dev CI，收尾归档 M1 报告，T009 后停止，不实现 M2。
+
+- T009 实现/本地验收：组合筛选、原始/当前角色、字面搜索、同单位累计过滤、稳定排序与事务分页通过。新增 M1 真实进程验收接入 make smoke/既有 go-checks；Go 普通/race/vet/build/两层启动验收、npm ci/类型/21测试/build/HTTP/5集成成功，自审无待修复项。

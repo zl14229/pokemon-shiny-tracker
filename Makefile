@@ -24,6 +24,7 @@ check:
 
 smoke: build
 	python3 scripts/smoke_backend.py
+	python3 scripts/smoke_records.py
 
 run:
 	go run ./cmd/server

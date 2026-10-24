@@ -78,8 +78,8 @@ func TestHuntLifecycleAndOutcomes(t *testing.T) {
 	if err = s.Delete(ctx, other.ID); !errors.Is(err, gorm.ErrRecordNotFound) {
 		t.Fatal("repeated delete", err)
 	}
-	rows, total, err := s.List(ctx)
-	if err != nil || len(rows) != 1 || total != 1 {
+	rows, total, err := s.List(ctx, "")
+	if err != nil || len(rows) != 1 || total.Total != 1 {
 		t.Fatal(rows, total, err)
 	}
 }

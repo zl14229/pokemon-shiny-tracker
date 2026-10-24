@@ -143,16 +143,6 @@ func (s Shinies) Get(ctx context.Context, id uint64) (model.ShinyRecord, error) 
 	err := s.DB.WithContext(ctx).First(&row, id).Error
 	return row, err
 }
-func (s Shinies) List(ctx context.Context) ([]model.ShinyRecord, int64, error) {
-	rows := []model.ShinyRecord{}
-	var n int64
-	db := s.DB.WithContext(ctx)
-	if err := db.Model(&model.ShinyRecord{}).Count(&n).Error; err != nil {
-		return rows, 0, err
-	}
-	err := db.Order("id ASC").Limit(100).Find(&rows).Error
-	return rows, n, err
-}
 func (s Shinies) Create(ctx context.Context, in ShinyInput) (model.ShinyRecord, error) {
 	var row model.ShinyRecord
 	err := s.DB.WithContext(ctx).Transaction(func(tx *gorm.DB) error {

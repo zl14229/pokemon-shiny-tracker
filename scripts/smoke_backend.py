@@ -1,4 +1,4 @@
-"""Exercise the built Linux backend process without creating database files."""
+"""Exercise the built Linux backend process using an owned disposable database."""
 
 import http.client
 import json

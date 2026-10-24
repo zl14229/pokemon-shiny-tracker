@@ -70,16 +70,6 @@ func (s Hunts) Get(ctx context.Context, id uint64) (model.Hunt, error) {
 	err := s.DB.WithContext(ctx).First(&row, id).Error
 	return row, err
 }
-func (s Hunts) List(ctx context.Context) ([]model.Hunt, int64, error) {
-	rows := []model.Hunt{}
-	var n int64
-	db := s.DB.WithContext(ctx)
-	if err := db.Model(&model.Hunt{}).Count(&n).Error; err != nil {
-		return rows, 0, err
-	}
-	err := db.Order("id ASC").Limit(100).Find(&rows).Error
-	return rows, n, err
-}
 func (s Hunts) Create(ctx context.Context, in HuntInput) (model.Hunt, error) {
 	var row model.Hunt
 	err := s.DB.WithContext(ctx).Transaction(func(tx *gorm.DB) error {

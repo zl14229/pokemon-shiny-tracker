@@ -85,12 +85,13 @@
         "T001"
       ],
       "acceptance": "`/api/v1` 健康接口、错误处理和自动测试通过",
-      "status": "in_progress",
+      "status": "in_review",
       "branch": "feature/T002-router-health",
       "evidence": {
         "implementation": "Gin 版本化 Router、GET /api/v1/health、统一 JSON 404/405/500、内部错误和 panic 脱敏及恢复；不访问数据库",
         "checks": [
-          "Linux Go 1.27.3: go test ./...、go build ./...、make check、make smoke 通过（smoke 端口探测 TIME_WAIT 修复后复验）"
+          "Linux Go 1.27.3: go test ./...、go build ./...、make check、make smoke 通过（smoke 端口探测 TIME_WAIT 修复后复验）",
+          "治理验证、7 项治理回归、差异及敏感信息模式检查通过；PR 已创建并标记 code-reviewed"
         ],
         "self_review": "逐文件差异检查：只增加 M0 HTTP 基础，无业务/数据库；健康不假称数据库健康；未知路径/错误方法/内部错误响应契约和 Allow 头有测试；内部错误与 panic 不外泄，已提交响应不被追加；无实际故障路由",
         "risks": [
@@ -108,8 +109,8 @@
           "docs/tasks/T002.md",
           "README.md"
         ],
-        "commit": null,
-        "pr_url": null,
+        "commit": "75250145917b0991dc5ad383c3aa9cacfcd49e71",
+        "pr_url": "https://github.com/zl14229/pokemon-shiny-tracker/pull/5",
         "merge_sha": null
       },
       "record": "docs/tasks/T002.md"

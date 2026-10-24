@@ -1,6 +1,6 @@
 # Go 后端开发（T001）
 
-后端 Go module 位于仓库根目录，module 路径为 `github.com/zl14229/pokemon-shiny-tracker`。T001 提供可启动的工程骨架，T002 增加正式 Router、`/api/v1` Health API 和统一错误处理；SQLite 连接、模型和迁移属于 T005。
+后端 Go module 位于仓库根目录，module 路径为 `github.com/zl14229/pokemon-shiny-tracker`。T001 提供可启动的工程骨架，T002 增加正式 Router、`/api/v1` Health API 和统一错误处理；T005 建立 SQLite 连接、模型与版本化迁移，详见 DATABASE.md。
 
 ## 工具链与依赖
 
@@ -15,7 +15,7 @@
 cmd/server/              程序入口、信号处理和监听失败退出
 internal/config/         环境变量读取与校验、固定 loopback 地址
 internal/server/         版本化 Gin Router、HTTP 超时和请求排空退出
-internal/database/       GORM 配置基础，不连接数据库
+internal/database/       GORM/SQLite 连接与显式版本迁移
 scripts/smoke_backend.py 已构建 Linux 程序的启动/退出验证
 go.mod / go.sum          版本和校验和
 Makefile                依赖、构建、测试、启动命令
@@ -59,7 +59,7 @@ GitHub Ubuntu runner 的 PATH 由 setup-go 配置，不依赖本机 `.bashrc`，
 bash -ic 'SHINY_HTTP_PORT=8081 go run ./cmd/server'
 ```
 
-`.env.example` 只是说明模板，程序不会自动读取 `.env` 或认证文件。需要持久化本机环境时由调用方管理，真实配置/密钥不提交。T001 没有密钥配置，也不创建 SQLite、附件或备份文件。GORM 仅准备不输出绑定参数的日志配置，供 T005 接线；尚未验证真实数据库行为。`go.sum` 中可能包含 GORM 上游测试所需的 SQLite module 校验和，这不表示应用已经引入 SQLite driver 或实现数据库连接。
+`.env.example` 只是说明模板，程序不会自动读取 `.env` 或认证文件。需要持久化本机环境时由调用方管理，真实配置/密钥不提交。程序没有认证密钥配置。T005 启动时在用户数据目录初始化 SQLite，测试仅在各自创建的临时目录运行；模型/迁移说明见 DATABASE.md。GORM 使用不输出绑定参数的日志配置。真实数据不进入源码或 CI。
 
 ## 构建、检查与启动验证
 
@@ -81,4 +81,4 @@ git diff --check
 
 配置单元测试覆盖默认值、端口边界和非法输入。HTTP 测试覆盖健康/错误契约、404/405、内部错误/panic 脱敏、错误后继续服务、已提交响应不被追加、真实监听/错误和排空退出。GitHub `go-checks` 运行上述 Go 检查和真实进程验证，现有治理检查继续执行。
 
-本次不验证 Windows 原生启动、SQLite 行为或任何业务功能；相应 Task 负责后续验收。
+SQLite 行为由 T005 的真实数据库测试验证；Windows 原生启动和业务 CRUD 在相应 Task 验收。

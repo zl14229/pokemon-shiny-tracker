@@ -101,3 +101,5 @@ T010 与 T011 实现均经独立 feature 分支/PR、必需 CI、自审、Merge 
 ## 2026-10-25 — T013 附件实现与本地验收
 
 按编码前计划新增v4附件元数据与私有不可变文件、随机存储键、严格名称/路径/权限/内容/尺寸/大小/完整性检查，详情页面上传/查看/链接/移除及结果不明锁定。删除软移除关联并明确保留文件供一致性备份，不会静默物理删除。仅匿名测试PNG/文本与自建SQLite；Go全套/race/vet/build/smoke、60单元/组件、8联调、23浏览器及390px视觉检查通过；追加NULL/空链接约束后Go全套复验。开发中先修复迁移注册遗漏和smoke断言误改，再验证通过；等待PR/CI/merge/dev CI后才verified。
+
+- 2026-10-25 T013 实现 PR https://github.com/zl14229/pokemon-shiny-tracker/pull/27 merge 59ee9a5746b848081469f77121db2ac320e73da5；PR CI https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40172780407、dev CI https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40172996313 已实际成功后才标记verified，进入验收收尾PR。

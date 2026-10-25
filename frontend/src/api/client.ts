@@ -58,6 +58,10 @@ export class ApiClient {
     return this.requestJSON('POST', path, data, options)
   }
 
+  postForm(path: string, data: FormData, options: RequestOptions = {}): Promise<unknown> {
+    return this.requestJSON('POST', path, data, options)
+  }
+
   putJSON(path: string, data: unknown, options: RequestOptions = {}): Promise<unknown> {
     return this.requestJSON('PUT', path, data, options)
   }
@@ -82,10 +86,12 @@ export class ApiClient {
         method,
         signal: controller.signal,
         headers:
-          data === undefined
+          data === undefined || data instanceof FormData
             ? { Accept: 'application/json' }
             : { Accept: 'application/json', 'Content-Type': 'application/json' },
-        ...(data === undefined ? {} : { body: JSON.stringify(data) }),
+        ...(data === undefined
+          ? {}
+          : { body: data instanceof FormData ? data : JSON.stringify(data) }),
         cache: 'no-store',
         redirect: 'error',
       })

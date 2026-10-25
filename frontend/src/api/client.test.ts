@@ -85,3 +85,12 @@ describe('API client', () => {
     await result
   })
 })
+
+it('uploads multipart without forcing a JSON content type or stringifying the file', async () => {
+  const fetcher = vi.fn().mockResolvedValue(json({data: true}))
+  vi.stubGlobal('fetch', fetcher)
+  const form = new FormData()
+  form.set('file', new Blob(['anonymous']), 'anonymous.xlsx')
+  await new ApiClient().postForm('/imports/inspect', form)
+  expect(fetcher).toHaveBeenCalledWith('/api/v1/imports/inspect', expect.objectContaining({body: form, headers: {Accept: 'application/json'}}))
+})

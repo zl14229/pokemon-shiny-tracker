@@ -44,3 +44,7 @@ Go 数据库/关系测试使用 `t.TempDir()`。后端 smoke、前端真实集�
 ## T006 来源表升级
 
 版本 2 只创建 reference_batches/external_references，迁移不重建已有核心表。v1→v2 保留个人身份和记录有测试；新库由程序离线初始化小范围种子。来源/查询及 partial 覆盖详见 REFERENCE_DATA.md。
+
+## T012 导入溯源升级
+
+版本3仅新增import_batches/import_rows，保留v1/v2身份与数据。预览只在有界短期内存中；确认后批次/选中行/原始单元格与ShinyRecord/注册历史在同一事务写入，批次令牌唯一保证重试幂等，外键限制物理删除。来源原值属个人数据，仅存私有SQLite，按T014随数据备份；不保存上传的Excel原件。详见 [导入说明](IMPORT.md)。

@@ -12,7 +12,7 @@ import (
 	"gorm.io/gorm"
 )
 
-const CurrentVersion = 2
+const CurrentVersion = 3
 
 // ValidatePath rejects relative paths, file symlinks and files inside Git checkouts.
 func ValidatePath(path string) error {
@@ -95,6 +95,12 @@ func preflight(path string) error {
 		}
 		if known != 2 {
 			return errors.New("reference schema is incomplete")
+		}
+	}
+	if version >= 3 {
+		var count int
+		if err := db.QueryRow("SELECT count(*) FROM sqlite_master WHERE type='table' AND name IN ('import_batches','import_rows')").Scan(&count); err != nil || count != 2 {
+			return errors.New("import schema is incomplete")
 		}
 	}
 	return nil

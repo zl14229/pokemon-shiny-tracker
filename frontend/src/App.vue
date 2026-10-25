@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import ImportPage from './pages/ImportPage.vue'
 import { computed, ref } from 'vue'
 import { ElButton, ElCard, ElConfigProvider } from 'element-plus'
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
@@ -43,6 +44,9 @@ const collectionId = computed(() =>
           <a href="#/collection" :aria-current="path.startsWith('/collection') ? 'page' : undefined"
             ><span aria-hidden="true">✧</span>闪光收藏</a
           >
+          <a href="#/data/import" :aria-current="path.startsWith('/data') ? 'page' : undefined"
+            >数据管理</a
+          >
         </nav>
         <div class="sidebar-foot"><span class="local-dot" />本地运行 · 个人收藏</div>
       </aside>
@@ -78,6 +82,7 @@ const collectionId = computed(() =>
           >
           <ServiceStatus />
         </template>
+        <ImportPage v-else-if="path === '/data/import'" />
         <HuntList v-else-if="path === '/hunts'" :query="query" />
         <HuntForm v-else-if="path === '/hunts/new'" key="new-hunt" />
         <HuntForm v-else-if="id && detail?.[2]" :key="`${id}-edit`" :id="id" />

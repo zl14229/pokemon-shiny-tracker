@@ -40,6 +40,9 @@ private/
 *.bak
 *.backup
 *.log
+# Default browser downloads contain personal records even outside backups/.
+shiny-backup*.zip
+shiny-data*.json
 
 # Build/cache/editor output
 node_modules/

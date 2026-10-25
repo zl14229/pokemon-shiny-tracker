@@ -109,3 +109,11 @@ T010 与 T011 实现均经独立 feature 分支/PR、必需 CI、自审、Merge 
 按编码前计划实现只读SQLite在线快照、全字段JSON、带文件/manifest的ZIP并重新校验，CLI只恢复不存在新目录，使用Linux不替换原子发布且同步文件/目录；无Web覆盖入口。保护上传不明提交后的文件保留；只提升既有锁定SQLite/xsys为直接依赖，版本不变。真实往返、并发创建/上传/软删除、源只读/损坏/缺失/路径/已有目标不变测试通过。Go全套/check/race/vet/build/smoke、63单元/组件、8联调、25浏览器通过；浏览器下载后真实CLI校验/恢复/再导出核对ID/批次/附件字节。修复空清单及目录发布问题后复验；仅匿名自建库/目录。准备独立PR，CI frontend同时构建恢复CLI；实际merge/dev CI后才verified。
 
 - 2026-10-25 T014 实现 PR https://github.com/zl14229/pokemon-shiny-tracker/pull/29 merge 1db235fadaf86d734dfe836376ec594ed38a89e7；PR CI https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40175263921、dev CI https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40175587296 已实际成功后才标记verified，进入验收收尾PR。
+
+## 2026-10-25 — T015 完整MVP本地验收
+
+新增完整真实浏览器故事，将Hunt/出闪登记/收藏编辑、Excel预览与显式确认、附件/链接、导出/备份/隔离恢复串联；恢复后启动独立Go与Vite，核对UI/API、稳定ID/未知/历史/批次溯源/附件字节，页面异常0，只停自己进程/清理自己目录。最终Go全套/check/race/vet/build/smoke、npm ci/typecheck、63单元组件、8真实联调、26浏览器通过。
+
+实际种子复核纠正证据口径：T012首轮2物种夹具为7/1705/2973，最终改用同启动3物种离线种子为8可用/1704错误/2972提示，均15表/10映射表/1712候选、原件哈希一致、个人写入0；其他5表/资料缺失未迁移，不能声称整份收藏已迁入。补上浏览器默认备份/导出名忽略规则和治理探针，7项治理回归通过。等待独立PR/CI/合并/dev CI后才verified并归档完整M3报告；不开始M4，不修改prod或发布。
+
+- T015首次PR/push CI 40177441757/40177440180的frontend失败（25项通过），已阻止合并并回到in_progress。根因是恢复Vite日志端口颜色码使原就绪字符串匹配失败；在本机对子进程删除NO_COLOR并FORCE_COLOR=1实际复现。使用Node内置VT控制符规范化，保留进程归属+HTTP检测及原期限；显式颜色环境完整MVP及全26项实际复验通过，自审后回到in_review等待新CI，不绕过失败。

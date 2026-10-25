@@ -116,7 +116,8 @@ def validate():
     # Check ignore behavior without creating real secrets or personal data.
     probes = [".env", ".env.local", "nested/.env.production", "private.sqlite3",
               "nested/app.db-wal", "uploads/photo.png", "attachments/image.jpg", "backups/db.zip",
-              "data/personal.json", "imports/raw.csv", "records.xlsx", "movie.mp4", "secret.pem"]
+              "data/personal.json", "imports/raw.csv", "records.xlsx", "movie.mp4", "secret.pem",
+              "shiny-backup.zip", "shiny-backup (1).zip", "shiny-data.json"]
     ignored = git("check-ignore", "--no-index", "-z", "--stdin", input="\0".join(probes) + "\0")
     require(set(ignored.stdout.rstrip("\0").split("\0")) == set(probes), "Sensitive path ignore probes failed")
     for safe in [".env.example", "docs/PRODUCT_SPEC_V1.1.md", "tests/fixtures/species.json"]:

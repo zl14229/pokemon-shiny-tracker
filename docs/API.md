@@ -97,3 +97,7 @@ source 为 self_hunted / trade / event / other / unknown，holding_status 为 he
 /api/v1/hunts?status=in_progress&game_id=1&count_unit=eggs&min_count=0&sort=encounter_count&order=asc&page=1&page_size=20
 /api/v1/shiny-records?original_species_id=1&current_species_id=2&holding_status=held&has_hunt=false&sort=obtained_date
 ```
+
+## T012 Excel 导入
+
+新增只读文件检查、字段/值映射预览、逐行错误与疑似重复、显式选行确认和批次查询。完整契约、大小边界、确认幂等与隐私见 [IMPORT.md](IMPORT.md)。接口前缀仍为 `/api/v1`，既有 Hunt/ShinyRecord CRUD 契约不变。

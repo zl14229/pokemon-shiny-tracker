@@ -511,20 +511,40 @@
         "T011"
       ],
       "acceptance": "实际字段映射验证、错误报告、重复预警、无 Hunt 导入",
-      "status": "planned",
-      "branch": null,
+      "status": "in_review",
+      "branch": "feature/T012-excel-import",
       "evidence": {
-        "implementation": null,
-        "checks": [],
-        "self_review": null,
-        "risks": [],
-        "unverified": [],
-        "documentation": [],
-        "commit": null,
-        "pr_url": null,
+        "implementation": "受限只读XLSX读取、显式字段/值映射、逐行预览/错误/疑似重复/公式与未映射警告；确认选中行后事务创建无Hunt个体、历史与批次/行溯源，幂等重试防重；中文数据管理、批次核对入口",
+        "checks": [
+          "Linux Go test/build、make check（格式/tidy/verify/vet/race/build）、make smoke全部成功；新库/旧库迁移、ZIP/XML边界、日期/公式缓存、错误/重复/未知不推断、确认前零个人写入、失败事务回滚、确认幂等/并发新增候选与HTTP/Origin验证",
+          "Linux Node typecheck、55项单元/组件、build/HTTP smoke、8项真实API联调、21项本机Chromium全部通过；导入确认与响应丢失安全重试、桌面/390px无页面溢出；最终小范围UI更新复验见PR CI",
+          "真实用户样本只读映射：15表、10表可映射、1712非空候选行；现有小范围资料7格式/引用可用、1705行错误、2973提示；原文件哈希不变、个人导入为零；不声明完整迁移或确认7只个体",
+          "治理7项回归、冻结/依赖与差异/基础凭证模式检查通过；个人Excel、行值、指纹、媒体与SQLite均未提交"
+        ],
+        "self_review": "逐文件检查ZIP解压与行列边界、公式只读缓存、日期精度与引用、未映射原值保留/未知不推断、事务/批次幂等/重复重新检查、前端明确选行与结果不明锁定重试、Origin与隐私；已修复真实ZIP目录兼容、旧smoke版本断言与隐藏checkbox测试定位，无范围内待修复项",
+        "risks": [
+          "资料仅部分覆盖，真实样本很多引用尚未收录，其他5表未由此映射覆盖；未执行真实个人导入，不能声称完成整份收藏迁移",
+          "仅标准XLSX子集/有界预览，公式缓存需人工核对，默认不选行；疑似重复仅提示非身份判定",
+          "本机浏览器共享库/字体仅临时解包，未安装系统包或重装工具链；正式部署/认证与M4资料扩充不在范围"
+        ],
+        "unverified": [
+          "实现、测试、自审、真实CI与PR合并/dev CI待核实"
+        ],
+        "documentation": [
+          "docs/tasks/T012.md",
+          "docs/IMPORT.md",
+          "docs/DATABASE.md",
+          "docs/API.md",
+          "docs/FRONTEND_DEVELOPMENT.md",
+          "docs/GITHUB_WORKFLOW.md",
+          "docs/DEVELOPMENT_LOG.md",
+          "README.md"
+        ],
+        "commit": "e577ff47c7633a75eaf568f5e0885bfb249fc8ea",
+        "pr_url": "https://github.com/zl14229/pokemon-shiny-tracker/pull/25",
         "merge_sha": null
       },
-      "record": null
+      "record": "docs/tasks/T012.md"
     },
     {
       "id": "T013",

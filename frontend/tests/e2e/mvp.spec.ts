@@ -4,6 +4,7 @@ import { mkdtemp, readFile, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { createServer, type AddressInfo } from 'node:net'
+import { stripVTControlCharacters } from 'node:util'
 
 async function select(page: Page, label: string, option?: string) {
   const input = page.getByRole('combobox', { name: label, exact: true })
@@ -45,7 +46,7 @@ async function start(
     if (child.exitCode !== null) throw new Error('Owned recovery process exited during startup')
     // A marker from our own process proves it bound the chosen port, before any
     // data requests are sent. Never reuse or terminate an existing service.
-    if (logs.includes(marker)) {
+    if (stripVTControlCharacters(logs).includes(marker)) {
       try {
         if ((await fetch(url)).ok) return
       } catch {
@@ -131,13 +132,11 @@ test('MVP full user journey survives verified backup and isolated restored UI', 
 
     const count = (await (await request.get('/api/v1/shiny-records')).json()).meta.total
     await page.goto('/#/data/import')
-    await page
-      .getByLabel('选择 Excel 文件', { exact: true })
-      .setInputFiles({
-        name: 'anonymous.xlsx',
-        mimeType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-        buffer: execFileSync('python3', ['../scripts/anonymous_workbook.py']),
-      })
+    await page.getByLabel('选择 Excel 文件', { exact: true }).setInputFiles({
+      name: 'anonymous.xlsx',
+      mimeType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      buffer: execFileSync('python3', ['../scripts/anonymous_workbook.py']),
+    })
     for (const [col, field] of [
       ['A', '当前物种全国编号'],
       ['B', '获得日期（ISO）'],
@@ -168,13 +167,11 @@ test('MVP full user journey survives verified backup and isolated restored UI', 
     await page.goto(`/#/collection/${shinyID}`)
     const panel = page.getByRole('region', { name: '附件与链接', exact: true })
     await expect(panel.getByRole('button', { name: '上传本地附件', exact: true })).toBeEnabled()
-    await panel
-      .getByLabel('上传附件文件', { exact: true })
-      .setInputFiles({
-        name: 'mvp-evidence.txt',
-        mimeType: 'text/plain',
-        buffer: Buffer.from('MVP anonymous exact evidence bytes'),
-      })
+    await panel.getByLabel('上传附件文件', { exact: true }).setInputFiles({
+      name: 'mvp-evidence.txt',
+      mimeType: 'text/plain',
+      buffer: Buffer.from('MVP anonymous exact evidence bytes'),
+    })
     await expect(panel.getByText('mvp-evidence.txt', { exact: true })).toBeVisible()
     await panel.getByRole('textbox', { name: '附件链接名称', exact: true }).fill('MVP proof link')
     await panel
@@ -257,6 +254,13 @@ test('MVP full user journey survives verified backup and isolated restored UI', 
     )
     const vitePort = await freePort()
     const base = `http://127.0.0.1:${vitePort}`
+    // Exercise CI's colored output even if the parent shell sets NO_COLOR.
+    const viteEnv: NodeJS.ProcessEnv = {
+      ...process.env,
+      SHINY_API_PORT: String(backendPort),
+      FORCE_COLOR: '1',
+    }
+    delete viteEnv.NO_COLOR
     await start(
       process.execPath,
       [
@@ -267,7 +271,7 @@ test('MVP full user journey survives verified backup and isolated restored UI', 
         String(vitePort),
         '--strictPort',
       ],
-      { ...process.env, SHINY_API_PORT: String(backendPort) },
+      viteEnv,
       base,
       `${base}/`,
       owned,

@@ -647,7 +647,7 @@
         "T014"
       ],
       "acceptance": "从创建 Hunt 到登记闪光、历史导入、导出备份全程通过",
-      "status": "in_progress",
+      "status": "in_review",
       "branch": "feature/T015-mvp-acceptance",
       "evidence": {
         "implementation": "单条真实浏览器完整MVP故事串联Hunt/关联成果/收藏编辑/独立Excel确认导入/附件链接/JSON与ZIP下载，CLI校验恢复到新目录后启动自建恢复Go/Vite并核对UI/API/身份/历史/批次/字节；真实样本按实际离线种子复核并修正历史口径；默认下载名忽略保护",
@@ -674,8 +674,8 @@
           "docs/DEVELOPMENT_LOG.md",
           "README.md"
         ],
-        "commit": null,
-        "pr_url": null,
+        "commit": "011115b901baf3b165747ba7c9574b380b33f814",
+        "pr_url": "https://github.com/zl14229/pokemon-shiny-tracker/pull/31",
         "merge_sha": null
       },
       "record": "docs/tasks/T015.md"

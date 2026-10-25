@@ -556,7 +556,7 @@
         "T011"
       ],
       "acceptance": "上传/查看/关联/删除及路径验证",
-      "status": "in_progress",
+      "status": "in_review",
       "branch": "feature/T013-attachments",
       "evidence": {
         "implementation": "闪光个体附件/HTTP-HTTPS链接元数据与详情组件；仓库外私有不可变文件、随机键独占写入、名称/路径/权限/格式/大小/尺寸/哈希校验，失败清理仅新文件；查看/下载、链接不抓取、软删除关联与明确保留策略",
@@ -583,8 +583,8 @@
           "docs/DEVELOPMENT_LOG.md",
           "README.md"
         ],
-        "commit": null,
-        "pr_url": null,
+        "commit": "f2cd0ea77da3b86b7d917c29fd842b6d2c8c110d",
+        "pr_url": "https://github.com/zl14229/pokemon-shiny-tracker/pull/27",
         "merge_sha": null
       },
       "record": "docs/tasks/T013.md"

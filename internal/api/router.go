@@ -40,6 +40,7 @@ func NewRouter(db *gorm.DB) *gin.Engine {
 		huntRoutes(v1, db)
 		shinyRoutes(v1, db)
 		importRoutes(v1, db)
+		attachmentRoutes(v1, db)
 	}
 	return router
 }

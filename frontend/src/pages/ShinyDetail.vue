@@ -6,6 +6,7 @@ import { tracker } from '../api/tracker'
 import { useCatalog, errorText } from '../composables/resources'
 import { referenceName, holdingLabels, sourceLabels } from '../domain/format'
 import { historyLabels } from '../domain/shiny-form'
+import AttachmentsPanel from '../components/AttachmentsPanel.vue'
 import CatalogNotice from '../components/CatalogNotice.vue'
 import Feedback from '../components/Feedback.vue'
 const props = defineProps<{ id: number }>()
@@ -169,6 +170,7 @@ onBeforeUnmount(() => {
         <p>{{ row.notes ?? '未记录' }}</p>
       </div>
     </section>
+    <AttachmentsPanel :id="row.id" />
     <section class="surface">
       <div class="section-heading">
         <h3>变更记录</h3>

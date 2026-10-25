@@ -23,7 +23,7 @@ var migrations = []migration{{1, func(tx *gorm.DB) error {
 	return tx.AutoMigrate(&model.Hunt{}, &model.ShinyRecord{}, &model.ShinyHistory{})
 }}, {2, func(tx *gorm.DB) error {
 	return tx.Migrator().CreateTable(&model.ReferenceBatch{}, &model.ExternalReference{})
-}}, {3, func(tx *gorm.DB) error { return tx.Migrator().CreateTable(&model.ImportBatch{}, &model.ImportRow{}) }}}
+}}, {3, func(tx *gorm.DB) error { return tx.Migrator().CreateTable(&model.ImportBatch{}, &model.ImportRow{}) }}, {4, func(tx *gorm.DB) error { return tx.Migrator().CreateTable(&model.Attachment{}) }}}
 
 func Migrate(db *gorm.DB) error {
 	return migrate(db, migrations)

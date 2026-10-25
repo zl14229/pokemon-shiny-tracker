@@ -511,7 +511,7 @@
         "T011"
       ],
       "acceptance": "实际字段映射验证、错误报告、重复预警、无 Hunt 导入",
-      "status": "in_progress",
+      "status": "in_review",
       "branch": "feature/T012-excel-import",
       "evidence": {
         "implementation": "受限只读XLSX读取、显式字段/值映射、逐行预览/错误/疑似重复/公式与未映射警告；确认选中行后事务创建无Hunt个体、历史与批次/行溯源，幂等重试防重；中文数据管理、批次核对入口",
@@ -540,8 +540,8 @@
           "docs/DEVELOPMENT_LOG.md",
           "README.md"
         ],
-        "commit": null,
-        "pr_url": null,
+        "commit": "e577ff47c7633a75eaf568f5e0885bfb249fc8ea",
+        "pr_url": "https://github.com/zl14229/pokemon-shiny-tracker/pull/25",
         "merge_sha": null
       },
       "record": "docs/tasks/T012.md"

@@ -62,6 +62,10 @@ export class ApiClient {
     return this.requestJSON('POST', path, data, options)
   }
 
+  deleteJSON(path: string, options: RequestOptions = {}): Promise<unknown> {
+    return this.requestJSON('DELETE', path, undefined, options)
+  }
+
   putJSON(path: string, data: unknown, options: RequestOptions = {}): Promise<unknown> {
     return this.requestJSON('PUT', path, data, options)
   }

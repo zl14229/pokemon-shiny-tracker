@@ -556,20 +556,38 @@
         "T011"
       ],
       "acceptance": "上传/查看/关联/删除及路径验证",
-      "status": "planned",
-      "branch": null,
+      "status": "in_progress",
+      "branch": "feature/T013-attachments",
       "evidence": {
-        "implementation": null,
-        "checks": [],
-        "self_review": null,
-        "risks": [],
-        "unverified": [],
-        "documentation": [],
+        "implementation": "闪光个体附件/HTTP-HTTPS链接元数据与详情组件；仓库外私有不可变文件、随机键独占写入、名称/路径/权限/格式/大小/尺寸/哈希校验，失败清理仅新文件；查看/下载、链接不抓取、软删除关联与明确保留策略",
+        "checks": [
+          "Go test/build、make check（含格式/tidy/verify/vet/race）、make smoke通过；v4增量迁移、外键与文件/链接SQL形状、NULL边界、路径/符号链接/根权限/非法名/MIME/尺寸/大小/损坏/同名不覆盖/失败清理/软删除保留/100项配额及HTTP通过",
+          "Linux Node typecheck、60项单元/组件、build/HTTP smoke、8真实API联调、23本机Chromium通过；附件上传/读取/链接/移除、非法输入、响应丢失锁定与刷新核对、桌面/390px回归；追加SQL约束后Go全套/构建复验通过",
+          "治理7项回归、冻结/依赖、差异和基础凭证模式检查通过；只用自建临时SQLite/目录与内存PNG/匿名文本，没有个人媒体或文件入Git"
+        ],
+        "self_review": "检查原始multipart名称与随机键隔离、os.OpenRoot/权限/类型/大小与完整性边界、无覆写与DB失败清理范围、软删除不可变文件一致性、所属个体/FK/配额/NULL约束、URL协议与无服务抓取、前端转义/链接隔离/结果不明锁定与响应式。修复开发时遗漏v4迁移注册和误改smoke记录数断言，全部复验，无范围内待修复问题",
+        "risks": [
+          "删除只软移除关联、不释放文件空间；崩溃孤立文件无自动清理，T014备份含数据库引用文件/软删除元数据，不包含孤立文件或外部网页内容",
+          "仅PNG/JPEG/GIF/PDF/UTF8 TXT与10MiB/100项/图片尺寸限制，未做杀毒或完整媒体语义审计；视频使用外部链接",
+          "本机浏览器临时库/字体环境，不是系统安装；Windows原生与正式部署未验收；写入结果不明需手动刷新核对，不自动重复提交"
+        ],
+        "unverified": [
+          "实现、测试、自审、真实CI与PR合并/dev CI待核实"
+        ],
+        "documentation": [
+          "docs/tasks/T013.md",
+          "docs/ATTACHMENTS.md",
+          "docs/DATABASE.md",
+          "docs/API.md",
+          "docs/FRONTEND_DEVELOPMENT.md",
+          "docs/DEVELOPMENT_LOG.md",
+          "README.md"
+        ],
         "commit": null,
         "pr_url": null,
         "merge_sha": null
       },
-      "record": null
+      "record": "docs/tasks/T013.md"
     },
     {
       "id": "T014",

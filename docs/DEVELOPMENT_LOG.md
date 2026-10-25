@@ -97,3 +97,7 @@ T010 与 T011 实现均经独立 feature 分支/PR、必需 CI、自审、Merge 
 按编码前计划实现受限只读XLSX/映射/预览/错误与重复警告、显式选行确认、事务个体/历史/批次溯源及幂等重试；中文数据管理和批次到个体核对。v2→v3仅新增导入表，不改变现有身份；修复旧smoke版本固定值。Go全套、55单元/组件、8真实联调、21本机浏览器通过；匿名fixture在运行时生成。真实样本15表中10表/1712候选行映射验证，资料仅7行格式/引用可用，1705错误/2973提示；只读文件哈希一致，未确认导入，不把模板行当获得事实。其他5表和资料覆盖限制明确记录于IMPORT.md，不宣称完整个人数据迁移。个人文件、行值/指纹和数据库不上传；准备独立PR，等待实际CI/merge/dev CI后才verified。
 
 - 2026-10-25 T012 实现 PR https://github.com/zl14229/pokemon-shiny-tracker/pull/25 merge 2daf1e24d4a38853b85d9255fcba48a28fa2e5e3；PR CI https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40170737923、dev CI https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40171021238 已实际成功后才标记verified，进入验收收尾PR。
+
+## 2026-10-25 — T013 附件实现与本地验收
+
+按编码前计划新增v4附件元数据与私有不可变文件、随机存储键、严格名称/路径/权限/内容/尺寸/大小/完整性检查，详情页面上传/查看/链接/移除及结果不明锁定。删除软移除关联并明确保留文件供一致性备份，不会静默物理删除。仅匿名测试PNG/文本与自建SQLite；Go全套/race/vet/build/smoke、60单元/组件、8联调、23浏览器及390px视觉检查通过；追加NULL/空链接约束后Go全套复验。开发中先修复迁移注册遗漏和smoke断言误改，再验证通过；等待PR/CI/merge/dev CI后才verified。

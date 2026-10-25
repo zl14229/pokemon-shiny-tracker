@@ -101,3 +101,7 @@ source 为 self_hunted / trade / event / other / unknown，holding_status 为 he
 ## T012 Excel 导入
 
 新增只读文件检查、字段/值映射预览、逐行错误与疑似重复、显式选行确认和批次查询。完整契约、大小边界、确认幂等与隐私见 [IMPORT.md](IMPORT.md)。接口前缀仍为 `/api/v1`，既有 Hunt/ShinyRecord CRUD 契约不变。
+
+## T013 附件与链接
+
+个体附件列表/上传、外部链接登记、完整性校验后的内容访问与软删除契约见 [ATTACHMENTS.md](ATTACHMENTS.md)。文件与元数据私有，链接不由服务端抓取。既有个体身份、业务与历史不变。

@@ -599,20 +599,39 @@
         "T013"
       ],
       "acceptance": "数据与附件一致性，可验证恢复流程/恢复演练不覆盖真实数据",
-      "status": "planned",
-      "branch": null,
+      "status": "in_progress",
+      "branch": "feature/T014-export-backup",
       "evidence": {
-        "implementation": null,
-        "checks": [],
-        "self_review": null,
-        "risks": [],
-        "unverified": [],
-        "documentation": [],
+        "implementation": "只读SQLite在线快照、全应用表/列JSON导出、含引用附件与manifest的ZIP生成并完整verify后独占发布；CLI备份/导出/校验/只向新目录原子恢复，UI本地下载与数据导航；保守确认上传失败清理引用，防止不明提交误删",
+        "checks": [
+          "Go test/build、make check（格式/tidy/verify/vet/race/build）、make smoke全部通过；真实SQLite/历史/批次/软删除文件/ID与NULL往返、源库只读、既有输出/恢复目标不变、损坏/缺失/遍历/取消、并发写入/上传/软删除、HTTP与CLI参数边界通过",
+          "前端typecheck、63单元/组件、生产构建/HTTP smoke、8真实API联调、25本机Chromium通过；浏览器下载后实际CLI verify/restore/export并核对个体与附件字节，错误脱敏/重试与390px布局；最后目录同步补强后Go全套/构建复验通过",
+          "前端CI改为make build同时生成后端/恢复CLI，四项必需检查和只读权限/固定Action不变；治理7项回归、冻结/依赖、差异/基础凭证模式检查通过；无个人数据库/附件/归档入Git"
+        ],
+        "self_review": "核对在线WAL快照及只读源、全部表/列/NULL/历史/批次、不可变文件一致性、清单与DB交叉校验/ZIP路径/重复/超限/CRC/SHA、独占输出/不替换目录原子发布/文件与目录同步、无Web覆盖入口、取消/期限/下载MIME与错误隐私。修复空文件清单比较、初版目录发布方式后重复恢复通过；保守引用核对避免不明提交误删，未发现范围内待修复问题",
+        "risks": [
+          "只支持当前schema4及本归档格式；不自动迁移恢复，JSON不含文件且不能作为恢复格式，外部内容/原Excel/孤立文件不备份",
+          "安全原子恢复仅Debian/Linux支持且需文件系统NOREPLACE能力；Windows原生/Windows挂载目录未验收，最大2GiB规模与真实断电未实测",
+          "归档未加密，SHA用于完整性非来源认证；应保存可信私有备份。仅隔离匿名目录恢复，未访问或覆盖真实个人库",
+          "异常或目录同步失败后需核对已生成的新目标，已有目标始终拒绝覆盖；软删除文件仍占空间，无自动物理清理"
+        ],
+        "unverified": [
+          "实现、测试、自审、真实CI与PR合并/dev CI待核实"
+        ],
+        "documentation": [
+          "docs/tasks/T014.md",
+          "docs/BACKUP.md",
+          "docs/DATABASE.md",
+          "docs/API.md",
+          "docs/FRONTEND_DEVELOPMENT.md",
+          "docs/DEVELOPMENT_LOG.md",
+          "README.md"
+        ],
         "commit": null,
         "pr_url": null,
         "merge_sha": null
       },
-      "record": null
+      "record": "docs/tasks/T014.md"
     },
     {
       "id": "T015",

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import BackupPage from './pages/BackupPage.vue'
 import ImportPage from './pages/ImportPage.vue'
 import { computed, ref } from 'vue'
 import { ElButton, ElCard, ElConfigProvider } from 'element-plus'
@@ -82,6 +83,7 @@ const collectionId = computed(() =>
           >
           <ServiceStatus />
         </template>
+        <BackupPage v-else-if="path === '/data/backup'" />
         <ImportPage v-else-if="path === '/data/import'" />
         <HuntList v-else-if="path === '/hunts'" :query="query" />
         <HuntForm v-else-if="path === '/hunts/new'" key="new-hunt" />

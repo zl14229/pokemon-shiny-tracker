@@ -127,3 +127,33 @@ func TestAttachmentSQLRejectsNullFileSizeAndEmptyLink(t *testing.T) {
 		}
 	}
 }
+
+func TestAmbiguousUploadCleanupPreservesReferencedAndUnknownBlobs(t *testing.T) {
+	db := testutil.DB(t)
+	r := testutil.Seed(t, db)
+	ctx := context.Background()
+	owner, e := (Shinies{DB: db}).Create(ctx, ShinyInput{CurrentSpeciesID: r.Species.ID})
+	if e != nil {
+		t.Fatal(e)
+	}
+	s := Attachments{DB: db}
+	a, e := s.Upload(ctx, owner.ID, "saved.txt", []byte("preserve"))
+	if e != nil {
+		t.Fatal(e)
+	}
+	store, _ := s.store(ctx)
+	s.cleanupUnreferenced(store, *a.StorageKey)
+	if _, e = store.Read(*a.StorageKey, *a.SHA256, *a.SizeBytes); e != nil {
+		t.Fatal("referenced blob removed")
+	}
+	orphan, e := store.Put("pending.txt", []byte("uncertain"))
+	if e != nil {
+		t.Fatal(e)
+	}
+	sql, _ := db.DB()
+	_ = sql.Close()
+	s.cleanupUnreferenced(store, orphan.Key)
+	if _, e = store.Read(orphan.Key, orphan.SHA256, orphan.Size); e != nil {
+		t.Fatal("unavailable database caused deletion")
+	}
+}

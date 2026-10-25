@@ -41,6 +41,7 @@ func NewRouter(db *gorm.DB) *gin.Engine {
 		shinyRoutes(v1, db)
 		importRoutes(v1, db)
 		attachmentRoutes(v1, db)
+		dataRoutes(v1, db)
 	}
 	return router
 }

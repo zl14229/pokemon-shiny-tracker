@@ -23,6 +23,7 @@
 - [SQLite、模型与迁移](docs/DATABASE.md)
 - [基础资料、缓存、导入与离线查询](docs/REFERENCE_DATA.md)
 - [前端开发与本地启动](docs/FRONTEND_DEVELOPMENT.md)
+- [数据导出与隔离备份恢复](docs/BACKUP.md)
 - [本地附件与链接](docs/ATTACHMENTS.md)
 - [Excel 导入与数据安全](docs/IMPORT.md)
 - [开发日志](docs/DEVELOPMENT_LOG.md)

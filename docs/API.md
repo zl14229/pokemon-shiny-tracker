@@ -105,3 +105,7 @@ source 为 self_hunted / trade / event / other / unknown，holding_status 为 he
 ## T013 附件与链接
 
 个体附件列表/上传、外部链接登记、完整性校验后的内容访问与软删除契约见 [ATTACHMENTS.md](ATTACHMENTS.md)。文件与元数据私有，链接不由服务端抓取。既有个体身份、业务与历史不变。
+
+## T014 导出与备份下载
+
+`GET /api/v1/data/export` 返回一致性JSON下载，`GET /api/v1/data/backup` 返回完整校验后的ZIP；生成失败使用统一JSON错误，不返回部分成功。无Web restore接口；格式、大小与隔离恢复方法见 [BACKUP.md](BACKUP.md)。

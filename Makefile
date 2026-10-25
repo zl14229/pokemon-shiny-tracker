@@ -13,6 +13,7 @@ test:
 build:
 	go build ./...
 	go build -o bin/shiny-tracker ./cmd/server
+	go build -o bin/shiny-data ./cmd/shiny-data
 
 check:
 	test -z "$$(gofmt -l cmd internal)"

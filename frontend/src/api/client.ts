@@ -126,6 +126,47 @@ export class ApiClient {
     }
   }
 
+  async download(path: string, expectedType: string, options: RequestOptions = {}): Promise<Blob> {
+    const controller = new AbortController()
+    const cancel = () => controller.abort()
+    if (options.signal?.aborted) cancel()
+    options.signal?.addEventListener('abort', cancel, { once: true })
+    let timedOut = false
+    const timer = setTimeout(() => {
+      timedOut = true
+      controller.abort()
+    }, options.timeoutMs ?? 120000)
+    try {
+      const response = await fetch(`${this.baseURL}${path}`, {
+        signal: controller.signal,
+        headers: { Accept: expectedType },
+        cache: 'no-store',
+        redirect: 'error',
+      })
+      if (!response.ok) {
+        const body = await response.json().catch(() => undefined)
+        throw httpError(response.status, body)
+      }
+      const type = response.headers.get('Content-Type')?.split(';')[0]?.toLowerCase()
+      const length = Number(response.headers.get('Content-Length'))
+      if (type !== expectedType || length > 2 * 1024 * 1024 * 1024)
+        throw new ApiError('invalid_response', '导出文件类型或大小不符合要求。')
+      const blob = await response.blob()
+      if (blob.size === 0 || blob.size > 2 * 1024 * 1024 * 1024)
+        throw new ApiError('invalid_response', '导出文件为空或大小超限。')
+      return blob
+    } catch (e) {
+      if (e instanceof ApiError) throw e
+      if (timedOut)
+        throw new ApiError('timeout', '生成或下载超时；可使用本地命令重试，已有记录不会被覆盖。')
+      if (controller.signal.aborted) throw new ApiError('aborted', '下载已取消。')
+      throw new ApiError('network', '下载失败，请确认本地服务可用后重试。')
+    } finally {
+      clearTimeout(timer)
+      options.signal?.removeEventListener('abort', cancel)
+    }
+  }
+
   async getHealth(options: RequestOptions = {}): Promise<{ status: 'ok' }> {
     const body = await this.getJSON('/health', options)
     if (!isRecord(body) || !isRecord(body.data) || body.data.status !== 'ok') {

@@ -106,3 +106,7 @@ hash 路由不增加部署重写要求：`#/home`、`#/hunts`、`#/hunts/new`、
 ## T013 个体附件
 
 收藏详情提供共享AttachmentsPanel，上传图片/附件、查看/下载、HTTP/HTTPS链接与移除关联；加载/空态/失败/不明写入反馈统一，链接与DTO运行时校验，布局适配390px。明确显示软删除与磁盘保留语义，真实限制见 [ATTACHMENTS.md](ATTACHMENTS.md)。
+
+## T014 导出与备份
+
+`#/data/import` 与 `#/data/backup` 共用数据管理导航。下载明确区分JSON数据与含附件ZIP，校验响应MIME/非空/大小、覆盖整个文件体的超时与取消，错误脱敏；完成后交给浏览器保存。CLI只允许恢复新目录，操作说明见 [BACKUP.md](BACKUP.md)。浏览器测试下载真实文件并在自建临时目录执行CLI恢复，不访问默认个人库。

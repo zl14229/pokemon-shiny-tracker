@@ -107,3 +107,5 @@ T010 与 T011 实现均经独立 feature 分支/PR、必需 CI、自审、Merge 
 ## 2026-10-25 — T014 导出、备份与隔离恢复验收
 
 按编码前计划实现只读SQLite在线快照、全字段JSON、带文件/manifest的ZIP并重新校验，CLI只恢复不存在新目录，使用Linux不替换原子发布且同步文件/目录；无Web覆盖入口。保护上传不明提交后的文件保留；只提升既有锁定SQLite/xsys为直接依赖，版本不变。真实往返、并发创建/上传/软删除、源只读/损坏/缺失/路径/已有目标不变测试通过。Go全套/check/race/vet/build/smoke、63单元/组件、8联调、25浏览器通过；浏览器下载后真实CLI校验/恢复/再导出核对ID/批次/附件字节。修复空清单及目录发布问题后复验；仅匿名自建库/目录。准备独立PR，CI frontend同时构建恢复CLI；实际merge/dev CI后才verified。
+
+- 2026-10-25 T014 实现 PR https://github.com/zl14229/pokemon-shiny-tracker/pull/29 merge 1db235fadaf86d734dfe836376ec594ed38a89e7；PR CI https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40175263921、dev CI https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40175587296 已实际成功后才标记verified，进入验收收尾PR。

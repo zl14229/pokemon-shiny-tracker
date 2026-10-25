@@ -23,6 +23,7 @@ import {
   type Preview,
 } from '../api/imports'
 import { useCatalog } from '../composables/resources'
+import DataNav from '../components/DataNav.vue'
 import CatalogNotice from '../components/CatalogNotice.vue'
 import { ApiError } from '../api/client'
 const { catalog, catalogError, loadCatalog } = useCatalog()
@@ -202,6 +203,7 @@ onBeforeUnmount(() => {
       <p class="muted">先映射与预览，再选择明确的个体行；每批最多500条，不创建 Hunt。</p>
     </div>
   </header>
+  <DataNav active="import" />
   <ElAlert
     title="文件只读，不执行公式或外部链接。未知日期、来源、形态及原始信息不会自动补造。预览30分钟失效；确认后仅新增个体，不覆盖已有记录。"
     type="info"

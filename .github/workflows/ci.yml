@@ -40,8 +40,8 @@ jobs:
         run: node --version && npm --version && npm ci
       - name: Type check, component tests and production build
         run: npm run typecheck && npm test && npm run build && npm run smoke
-      - name: Build backend and verify real API client integration
-        run: go build -C .. -o bin/shiny-tracker ./cmd/server && npm run test:integration
+      - name: Build backend and data tools, then verify real API client integration
+        run: make -C .. build && npm run test:integration
       - name: Install test browser
         run: npx playwright install --with-deps chromium
       - name: Verify browser startup and interactions

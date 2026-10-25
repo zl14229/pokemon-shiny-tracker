@@ -5,6 +5,7 @@ import (
 	"errors"
 	"net/url"
 	"strings"
+	"time"
 	"unicode/utf8"
 
 	"github.com/zl14229/pokemon-shiny-tracker/internal/files"
@@ -84,7 +85,7 @@ func (s Attachments) Upload(ctx context.Context, id uint64, name string, data []
 		return tx.Omit(clause.Associations).Create(&a).Error
 	})
 	if e != nil {
-		_ = store.RemoveNew(info.Key)
+		s.cleanupUnreferenced(store, info.Key)
 	}
 	return a, e
 }
@@ -139,4 +140,15 @@ func (s Attachments) Delete(ctx context.Context, id uint64) error {
 		}
 		return tx.Delete(&a).Error
 	})
+}
+
+// A failed Commit may be ambiguous: only delete when a fresh query proves no
+// metadata references the new blob. Unavailable storage leaves an orphan safely.
+func (s Attachments) cleanupUnreferenced(store files.Store, key string) {
+	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
+	defer cancel()
+	var n int64
+	if e := s.DB.WithContext(ctx).Unscoped().Model(&model.Attachment{}).Where("storage_key = ?", key).Count(&n).Error; e == nil && n == 0 {
+		_ = store.RemoveNew(key)
+	}
 }

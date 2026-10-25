@@ -94,3 +94,18 @@ it('uploads multipart without forcing a JSON content type or stringifying the fi
   await new ApiClient().postForm('/imports/inspect', form)
   expect(fetcher).toHaveBeenCalledWith('/api/v1/imports/inspect', expect.objectContaining({body: form, headers: {Accept: 'application/json'}}))
 })
+
+it('downloads typed data without interpreting its private contents', async () => {
+ vi.stubGlobal('fetch',vi.fn().mockResolvedValue(new Response('anonymous zip',{headers:{'Content-Type':'application/zip'}})))
+ const blob=await new ApiClient().download('/data/backup','application/zip')
+ expect(blob.size).toBeGreaterThan(0)
+})
+it('rejects the wrong download type', async () => {
+ vi.stubGlobal('fetch',vi.fn().mockResolvedValue(new Response('<html>bad</html>',{headers:{'Content-Type':'text/html'}})))
+ await expect(new ApiClient().download('/data/backup','application/zip')).rejects.toMatchObject({kind:'invalid_response'})
+})
+it('redacts private download errors', async () => {
+ vi.stubGlobal('fetch',vi.fn().mockResolvedValue(json({error:{code:'internal_error',message:'private-path'}},500)))
+ const e=await new ApiClient().download('/data/backup','application/zip').catch(e=>e)
+ expect(e).toMatchObject({kind:'http',status:500});expect(String(e)).not.toContain('private-path')
+})

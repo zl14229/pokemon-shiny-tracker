@@ -599,7 +599,7 @@
         "T013"
       ],
       "acceptance": "数据与附件一致性，可验证恢复流程/恢复演练不覆盖真实数据",
-      "status": "in_progress",
+      "status": "in_review",
       "branch": "feature/T014-export-backup",
       "evidence": {
         "implementation": "只读SQLite在线快照、全应用表/列JSON导出、含引用附件与manifest的ZIP生成并完整verify后独占发布；CLI备份/导出/校验/只向新目录原子恢复，UI本地下载与数据导航；保守确认上传失败清理引用，防止不明提交误删",
@@ -627,8 +627,8 @@
           "docs/DEVELOPMENT_LOG.md",
           "README.md"
         ],
-        "commit": null,
-        "pr_url": null,
+        "commit": "6b07416d377743d8e8d920d77399533ee64b6ffc",
+        "pr_url": "https://github.com/zl14229/pokemon-shiny-tracker/pull/29",
         "merge_sha": null
       },
       "record": "docs/tasks/T014.md"

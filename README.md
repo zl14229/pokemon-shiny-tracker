@@ -30,6 +30,7 @@
 - [M0 集成验收报告](docs/M0_ACCEPTANCE.md)
 - [M1 集成验收报告](docs/M1_ACCEPTANCE.md)
 - [M2 集成验收报告](docs/M2_ACCEPTANCE.md)
+- [M3 功能验收报告](docs/M3_ACCEPTANCE.md)
 - [T010](docs/tasks/T010.md)、[T011](docs/tasks/T011.md) 界面执行证据
 - [T012](docs/tasks/T012.md)、[T013](docs/tasks/T013.md)、[T014](docs/tasks/T014.md)、[T015](docs/tasks/T015.md) 数据与MVP执行证据
 - [T002](docs/tasks/T002.md)、[T003](docs/tasks/T003.md)、[T004](docs/tasks/T004.md) 执行证据

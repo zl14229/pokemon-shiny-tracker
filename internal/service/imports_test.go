@@ -5,6 +5,7 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 	"github.com/zl14229/pokemon-shiny-tracker/internal/model"
+	"github.com/zl14229/pokemon-shiny-tracker/internal/reference"
 	"github.com/zl14229/pokemon-shiny-tracker/internal/testutil"
 	"github.com/zl14229/pokemon-shiny-tracker/internal/workbook"
 	"os"
@@ -117,7 +118,9 @@ func TestRealWorkbookMappingReadOnly(t *testing.T) {
 		t.Fatal(e)
 	}
 	db := testutil.DB(t)
-	testutil.Seed(t, db)
+	if e := reference.EnsureSeed(db); e != nil {
+		t.Fatal(e)
+	}
 	s := NewImports(db)
 	valid, invalid, warnings, previews := 0, 0, 0, 0
 	for _, sheet := range b.Sheets {

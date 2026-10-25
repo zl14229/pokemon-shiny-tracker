@@ -518,11 +518,12 @@
         "checks": [
           "Linux Go test/build、make check（格式/tidy/verify/vet/race/build）、make smoke全部成功；新库/旧库迁移、ZIP/XML边界、日期/公式缓存、错误/重复/未知不推断、确认前零个人写入、失败事务回滚、确认幂等/并发新增候选与HTTP/Origin验证",
           "Linux Node typecheck、55项单元/组件、build/HTTP smoke、8项真实API联调、21项本机Chromium全部通过；导入确认与响应丢失安全重试、桌面/390px无页面溢出；最终小范围UI更新复验见PR CI",
-          "真实用户样本只读映射：15表、10表可映射、1712非空候选行；现有小范围资料7格式/引用可用、1705行错误、2973提示；原文件哈希不变、个人导入为零；不声明完整迁移或确认7只个体",
+          "首轮2物种隔离引用夹具的真实用户样本只读映射：15表、10表可映射、1712非空候选行；该夹具7行格式/引用可用、1705行错误、2973提示；原文件哈希不变、个人导入为零；不声明完整迁移或确认7只个体",
           "治理7项回归、冻结/依赖与差异/基础凭证模式检查通过；个人Excel、行值、指纹、媒体与SQLite均未提交",
           "最终实现PR CI全部成功: https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40170737923",
           "实现merge 2daf1e24d4a38853b85d9255fcba48a28fa2e5e3 后dev CI全部成功: https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40171021238",
-          "Merge Commit合并，无Ruleset bypass，保留源分支；本收尾PR归档，不直接提交dev"
+          "Merge Commit合并，无Ruleset bypass，保留源分支；本收尾PR归档，不直接提交dev",
+          "T015最终真实样本复验使用与启动相同的reference.EnsureSeed（3物种）：15表/10映射表/1712候选行，8行格式与引用可用、1704错误、2972提示；原文件哈希一致、个人写入0，未声明整份收藏迁移"
         ],
         "self_review": "逐文件检查ZIP解压与行列边界、公式只读缓存、日期精度与引用、未映射原值保留/未知不推断、事务/批次幂等/重复重新检查、前端明确选行与结果不明锁定重试、Origin与隐私；已修复真实ZIP目录兼容、旧smoke版本断言与隐藏checkbox测试定位，无范围内待修复项",
         "risks": [
@@ -646,20 +647,38 @@
         "T014"
       ],
       "acceptance": "从创建 Hunt 到登记闪光、历史导入、导出备份全程通过",
-      "status": "planned",
-      "branch": null,
+      "status": "in_progress",
+      "branch": "feature/T015-mvp-acceptance",
       "evidence": {
-        "implementation": null,
-        "checks": [],
-        "self_review": null,
-        "risks": [],
-        "unverified": [],
-        "documentation": [],
+        "implementation": "单条真实浏览器完整MVP故事串联Hunt/关联成果/收藏编辑/独立Excel确认导入/附件链接/JSON与ZIP下载，CLI校验恢复到新目录后启动自建恢复Go/Vite并核对UI/API/身份/历史/批次/字节；真实样本按实际离线种子复核并修正历史口径；默认下载名忽略保护",
+        "checks": [
+          "Linux Go 1.27.3: go test ./...、go build ./...、make check（格式/tidy/verify/vet/race/build）、make smoke成功；Node24.22.1/npm11.19.1 npm ci/typecheck、63单元/组件、build/HTTP smoke、8真实API联调、26本机Chromium全部成功",
+          "完整MVP单故事实际通过：Hunt创建/修改/完成→明确自刷个体登记与同ID位置/收藏编辑→匿名Excel预览/错误/选行确认无Hunt→附件/链接→JSON/ZIP下载→CLI verify/新目录restore→独立恢复Go/Vite启动后UI/API/历史/批次/附件逐项核对；只停止自己进程、只清理自己临时目录",
+          "最终真实Excel只读复验使用与启动相同的3物种reference.EnsureSeed：15表/10映射表/1712候选行，8格式/引用可用、1704行错误、2972提示；原文件哈希一致、个人写入0。首轮7/1705/2973来自2物种夹具，已明确记录而不宣称完整迁移",
+          "恢复后桌面/390px截图视觉自审、页面异常为0；治理7项回归/冻结/依赖/差异/基础凭证模式检查通过，增加默认浏览器shiny-backup*.zip/shiny-data*.json忽略探针；实际回读dev active严格四检查/无bypass，prod仍为原提交"
+        ],
+        "self_review": "逐项对照冻结Task/MVP路径、隔离数据库/子进程所有权/无覆盖恢复、完整个体身份与未知值/历史/关联/导入溯源和文件一致性、实际种子与真实样本统计口径、下载文件误提交保护、自审证据和未验证边界。所有失败修复后复验，无范围内未解决问题；不声称全量真实迁移/Windows/发布验收",
+        "risks": [
+          "真实整份个人收藏未迁移，5表未由当前映射覆盖，参考数据部分覆盖/中文待核验；8行可用不等于确认个体。仅匿名数据确认写入与隔离恢复",
+          "恢复仅支持schema4/本格式与Linux不替换原子发布；Windows/挂载目录、最大2GiB压力和真实断电未验收，归档未加密",
+          "软删除附件保留磁盘/无自动孤立文件清理，外部内容/原始Excel不备份；仅导出JSON不可恢复；客户端并发版本比对仍非原子锁",
+          "未发布prod/正式Release/公网部署，M4–M7以及完整全国资料、图鉴/Planner/Bingo/统计/计时器等保持后续Task；深色主题/Windows原生未验收"
+        ],
+        "unverified": [
+          "实现、测试、自审、真实CI与PR合并/dev CI待核实"
+        ],
+        "documentation": [
+          "docs/tasks/T015.md",
+          "docs/tasks/T012.md",
+          "docs/IMPORT.md",
+          "docs/DEVELOPMENT_LOG.md",
+          "README.md"
+        ],
         "commit": null,
         "pr_url": null,
         "merge_sha": null
       },
-      "record": null
+      "record": "docs/tasks/T015.md"
     },
     {
       "id": "T016",

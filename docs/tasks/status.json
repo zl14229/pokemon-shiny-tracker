@@ -712,7 +712,9 @@
           "主形态纳入1227/排除172/未知180是本地保守规则，非全形态官方核验；合法闪光资料0条、4版本种子",
           "无第三方图集；旧schema4备份需旧程序先恢复到新目录再升级；Windows原生未验收"
         ],
-        "unverified": [],
+        "unverified": [
+          "52Poké条目内容/中文官方对照、完整持久形态跨站核验、图片再用许可；全部明确保留unknown或source_provided"
+        ],
         "documentation": [
           "docs/tasks/T016.md",
           "docs/REFERENCE_DATA.md",
@@ -755,7 +757,9 @@
           "空形态不推断，unknown持有不算held；完整历史编辑属于T023",
           "旧schema4/5备份须对应旧程序先恢复新目录再升级；Windows原生未验收"
         ],
-        "unverified": [],
+        "unverified": [
+          "正式游戏合法性事实0条、4版本类别unknown；引擎已验收，事实补充属于T026"
+        ],
         "documentation": [
           "docs/tasks/T017.md",
           "docs/DEX.md",
@@ -778,18 +782,39 @@
         "T017"
       ],
       "acceptance": "物种/形态切换、筛选、缺失目标、资料覆盖提示",
-      "status": "in_review",
+      "status": "verified",
       "branch": "feature/T018-dex-ui",
       "evidence": {
-        "implementation": null,
-        "checks": [],
-        "self_review": null,
-        "risks": [],
-        "unverified": [],
-        "documentation": [],
-        "commit": null,
-        "pr_url": null,
-        "merge_sha": null
+        "implementation": "响应式双层图鉴与收藏卡片，物种/形态、历史/当前/游戏/体系/记录/持有/合法子集、多语言搜索/稳定分页、完成度/缺失/来源/中文回退/个体证明、离线API、图片失败占位、响应一致性与过时请求保护；M4完整验收报告",
+        "checks": [
+          "make check/make smoke、治理及7回归通过",
+          "前端typecheck/75单元组件/build/HTTP smoke/8真实API通过",
+          "最终实现HEAD本机完整29 Chromium通过，图鉴3场景额外复验通过；含MVP备份新目录恢复和390px无溢出",
+          "最终PR CI success https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40317598643",
+          "最终push CI success https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40317535019",
+          "merge后dev CI success https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40317953752",
+          "GitHub实际回读dev默认/四项strict必需/无bypass/Merge Commit/保留分支；prod初始SHA不变"
+        ],
+        "self_review": "按code-review技能完成逐文件自审并标code-reviewed。核对稳定身份、百分比分子分母与证明一致性、中文缺失/冲突回退、来源链接、无第三方自动请求、可访问占位、hash查询/同步pending和旧结果清除。修复全套浏览器发现的hash切换窗口，并修复模板条件拼接语法；最终所有检查通过，无范围内待修复问题。",
+        "risks": [
+          "资料52Poké内容交叉核验0、正式游戏合法性事实0，因此默认完成率null；无已核验图集，全部占位",
+          "618形态缺简体/72缺英语、180形态口径未知，4种子游戏类别unknown",
+          "Windows原生/深色主题/完整全游戏资料/正式发布未验收；旧schema4/5备份用对应旧版恢复新目录再升级"
+        ],
+        "unverified": [
+          "逐条中文/52Poké及完整持久形态跨站核验、实际游戏合法性库和图片再用许可（保留unknown，不当可信事实）",
+          "Windows原生与深色主题；不属于本次已验收平台"
+        ],
+        "documentation": [
+          "docs/tasks/T018.md",
+          "docs/M4_ACCEPTANCE.md",
+          "docs/DEX.md",
+          "docs/FRONTEND_DEVELOPMENT.md",
+          "docs/evidence/github-rulesets-m4.json"
+        ],
+        "commit": "f4db8cbe727f6a6c5d5b3b4143a3395786261726",
+        "pr_url": "https://github.com/zl14229/pokemon-shiny-tracker/pull/37",
+        "merge_sha": "cdb7e424b3721650388ba74a4135a1065b0ab47b"
       },
       "record": "docs/tasks/T018.md"
     },

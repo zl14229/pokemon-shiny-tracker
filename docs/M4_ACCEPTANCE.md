@@ -1,6 +1,6 @@
 # M4 — 全国资料、双层图鉴与收藏展示验收
 
-状态：in_progress。授权仅T016–T018；M5/Random Hunt/Bingo/完整机制概率库未开始，prod不修改。时间：2026-10-26（Asia/Shanghai）。完成状态必须以最终PR/CI/合并证据为准。
+状态：verified（T016–T018工程验收完成；资料核验仍按下表明确分级）。授权仅T016–T018；M5/Random Hunt/Bingo/完整机制概率库未开始，prod不修改。时间：2026-10-26（Asia/Shanghai）。完成状态必须以最终PR/CI/合并证据为准。
 
 ## 全国资料覆盖与来源
 
@@ -22,7 +22,7 @@
 
 主来源：PokéAPI v2及其[官方v2数据仓库](https://github.com/PokeAPI/pokeapi/tree/2bf639e5572812a67d2b94903fdcb9d095f5aeb2/data/v2/csv)。固定revision `2bf639e5572812a67d2b94903fdcb9d095f5aeb2`，逐文件URL/SHA256/采集时间及逐实体外部身份/本地检查时间保存在离线快照/SQLite中，原始缓存仓库外。`scripts/stage_catalog.py --offline`重建与内置快照逐字节一致。3条v2 ID/name抽样结果见[实际证据](evidence/m4-pokeapi-samples.json)，抽样不声称逐条API核验。来源许可附[PokéAPI原文](POKEAPI_LICENSE.md)。
 
-[52Poké机器规则](https://wiki.52poke.com/wiki/神奇宝贝百科:机器读取守则)、[robots](https://wiki.52poke.com/robots.txt)、[版权FAQ](https://wiki.52poke.com/wiki/神奇宝贝百科:常见问题)已查阅，不据此假定无限制批量再用/图片授权；本次无正文批量抓取、无图集镜像。Serebii、Bulbapedia、Pokémon Database和官方的逐游戏合法性与机制交叉核验未实施，保持未知，等待T026，未未经验证标为可信事实。
+[52Poké机器规则](https://wiki.52poke.com/wiki/神奇宝贝百科:机器读取守则)、[robots](https://wiki.52poke.com/robots.txt)、[版权FAQ](https://wiki.52poke.com/wiki/神奇宝贝百科:常见问题)已查阅，不据此假定无限制批量再用/图片授权；本次无正文批量抓取、无图集镜像。Serebii、Bulbapedia、Pokémon Database和官方的逐游戏合法性与机制交叉核验未实施，保持未知，等待T026，未将未经验证的资料标为可信事实。
 
 ## T016
 
@@ -46,7 +46,7 @@
 
 图鉴页面与收藏卡片已实现：物种/形态、历史/当前、游戏/体系、记录/持有/合法子集、多语言搜索/分页、完成度/分母外/已核实缺失、覆盖与名称/形态状态、来源/具体个体证明。只有本地API请求，无第三方图集镜像；图片缺少或加载失败有具名占位。应用筛选同步隐藏旧结果，取消旧请求，错误清除旧数据并支持重试，客户端验证安全整数、分母/分子/百分比和个体证明。
 
-本地75项单元组件、类型/构建/HTTP smoke/8真实API/29真实Chromium、Go check/race/vet/build/smoke、治理及7回归全部通过。修复首次全套（28通过1失败）暴露的hash更新窗口：旧卡片断言提前满足、下一次选择被上一URL覆盖；现提交即pending并加组件回归，完整29场景通过，未放宽超时/断言。占位图使用CSS避免缺字体图标，额外图鉴3场景复验通过。实现PR/CI/merge待确认。
+本地75项单元组件、类型/构建/HTTP smoke/8真实API/29真实Chromium、Go check/race/vet/build/smoke、治理及7回归全部通过。修复首次全套（28通过1失败）暴露的hash更新窗口：旧卡片断言提前满足、下一次选择被上一URL覆盖；现提交即pending并加组件回归，完整29场景通过，未放宽超时/断言。占位图使用CSS避免缺字体图标，额外图鉴3场景复验通过。[实现PR #37](https://github.com/zl14229/pokemon-shiny-tracker/pull/37)，最终HEAD `f4db8cbe727f6a6c5d5b3b4143a3395786261726`；[PR CI](https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40317598643)、[push CI](https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40317535019)与[dev CI](https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40317953752)全部success。实际双父merge `cdb7e424b3721650388ba74a4135a1065b0ab47b`。最终实现HEAD本机完整29场景也再次通过。T018 verified；最后收尾PR自身检查/合并由其GitHub记录提供。
 
 
 ## 数据保护与运行边界
@@ -71,3 +71,19 @@
 |GitHub实际保护|[2026-10-26实测回读](evidence/github-rulesets-m4.json)：dev默认、4项strict必需检查、无bypass、Merge Commit、保留源分支；pending检查曾实际阻止合并；prod初始SHA不变|
 
 工程功能的verified不表示资料全量可信：52Poké逐条内容核对0、正式合法可获取性0、无核验图集。当前默认完成率和已核实缺失列表仍待资料核验；具体补充归T026及后续授权，M4结束后不开始它。所有正例事实均标明synthetic，只在临时测试环境。
+
+## 全部PR与CI索引
+
+|Task/阶段|PR|最终PR CI|实现或收尾merge|合并后dev CI|
+|---|---|---|---|---|
+|T016实现|[#33](https://github.com/zl14229/pokemon-shiny-tracker/pull/33)|[success](https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40310199039)|25c355fd56756a52c0c8aaf077cdfe620bec5d14|[success](https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40310771281)|
+|T016收尾|[#34](https://github.com/zl14229/pokemon-shiny-tracker/pull/34)|[success](https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40311239858)|decac12a60b1a48f32a31d7455014c287451027b|[success](https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40311651424)|
+|T017实现|[#35](https://github.com/zl14229/pokemon-shiny-tracker/pull/35)|[success](https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40313923837)|edff5bbf1f9e4f0583877d0b466214e34243d17b|[success](https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40314285286)|
+|T017收尾|[#36](https://github.com/zl14229/pokemon-shiny-tracker/pull/36)|[success](https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40314837778)|922781666921e7f58b39be1f974430fea9a393f0|[success](https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40315237032)|
+|T018实现|[#37](https://github.com/zl14229/pokemon-shiny-tracker/pull/37)|[success](https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40317598643)|cdb7e424b3721650388ba74a4135a1065b0ab47b|[success](https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40317953752)|
+
+最后T018收尾PR将在创建后补充固定入口；其自身merge SHA/最后run由GitHub与最终交付记录提供，避免无限自引用。验收报告不将尚未结束的CI写为success；只在检查/合并确已成功后结束本次开发。
+
+## 最终范围
+
+T000–T018已verified；T026/T027/T028及M6/M7全部保持planned。没有Random Hunt、Bingo或完整游戏机制概率库、prod提交、Release/Tag或公网部署。所有M4源分支保留。`prod`仍为初始提交 `dc68988b7c76bf23ae3b68b588d15858f50b742e`。资料授权/覆盖不足的部分保持unknown，未以工程verified替代资料真实性核验。

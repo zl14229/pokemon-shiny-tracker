@@ -111,3 +111,5 @@ source 为 self_hunted / trade / event / other / unknown，holding_status 为 he
 `GET /api/v1/data/export` 返回一致性JSON下载，`GET /api/v1/data/backup` 返回完整校验后的ZIP；生成失败使用统一JSON错误，不返回部分成功。无Web restore接口；格式、大小与隔离恢复方法见 [BACKUP.md](BACKUP.md)。
 
 T016: `GET /api/v1/reference/catalog` 和 `/reference/catalog/coverage` 提供全国物种/形态、多语言、持久形态分类与来源证据；参数/回退/部分核验语义见REFERENCE_DATA.md。源值不是官方交叉核验；所有游戏闪光可获取性仍未知。
+
+T017: `GET /api/v1/dex`返回双层目标、历史/持有、合法子集完成度及覆盖/统计口径；`GET /api/v1/reference/availability`读取最小本地证据表（当前正式数据为空）。完整参数、零分母null、原始/当前位置和未知处理见[DEX.md](DEX.md)。不含写入/联网或机制概率API。

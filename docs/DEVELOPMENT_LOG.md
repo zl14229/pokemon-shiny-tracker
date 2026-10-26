@@ -125,3 +125,7 @@ T010 与 T011 实现均经独立 feature 分支/PR、必需 CI、自审、Merge 
 ## 2026-10-26 T016 / M4
 
 确认T006/T008/T011依赖verified；origin/dev干净起点1a8af61。GitHub实际回读dev默认、4项strict必需CI、无bypass、仅Merge Commit且保留分支；prod不变。固定PokéAPI官方v2同源CSV版本、本地缓存/串行请求/逐文件哈希、全国身份和多语言快照、保守持久形态策略、离线增补及来源覆盖API。52Poké仅规则/许可及待核验链接，不批量抓受限正文；中文与闪光可获取性不假称verified。个人表不写入，旧身份不变；schema5备份包含新资料表。
+
+## 2026-10-26 T017
+
+T016实现/收尾PR #33/#34均已Merge Commit合入；收尾dev CI 40311651424成功。最新dev decac12创建独立T017分支。实现本地双层图鉴引擎与最小ShinyAvailability证据读取、schema6备份集成；原始游戏/当前保存、历史/held、Sleep体系、进化/形态/转移/纠错/未知形态、去重分母分别处理。实际合法性资料仍0，无T026机制库。统计与覆盖口径见DEX.md。

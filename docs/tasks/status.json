@@ -735,8 +735,8 @@
         "T016"
       ],
       "acceptance": "四维过滤、分母口径、未知可获取性、进化历史测试",
-      "status": "planned",
-      "branch": null,
+      "status": "in_review",
+      "branch": "feature/T017-dual-dex",
       "evidence": {
         "implementation": null,
         "checks": [],
@@ -748,7 +748,7 @@
         "pr_url": null,
         "merge_sha": null
       },
-      "record": null
+      "record": "docs/tasks/T017.md"
     },
     {
       "id": "T018",

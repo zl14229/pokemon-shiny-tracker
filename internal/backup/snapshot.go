@@ -17,7 +17,7 @@ import (
 const MaxDatabase int64 = 512 << 20
 const MaxArchive int64 = 2 << 30
 
-var tables = []string{"catalog_entries", "attachments", "external_references", "forms", "games", "hunts", "import_batches", "import_rows", "reference_batches", "shiny_histories", "shiny_records", "species"}
+var tables = []string{"shiny_availabilities", "catalog_entries", "attachments", "external_references", "forms", "games", "hunts", "import_batches", "import_rows", "reference_batches", "shiny_histories", "shiny_records", "species"}
 
 func fileDSN(path, mode string) string {
 	u := url.URL{Scheme: "file", Path: path}

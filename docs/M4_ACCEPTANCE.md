@@ -34,7 +34,7 @@
 
 ## T017
 
-实现[PR #35](https://github.com/zl14229/pokemon-shiny-tracker/pull/35)，最终HEAD `d2b7008e5bae10dc52f5a83a7499f0996a5c4f30`；[PR CI](https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40313923837)与[push CI](https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40313917960)全部success。Merge Commit `edff5bbf1f9e4f0583877d0b466214e34243d17b`，[dev CI](https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40314285286)全部success。T017 verified，收尾PR随后补链接。
+实现[PR #35](https://github.com/zl14229/pokemon-shiny-tracker/pull/35)，最终HEAD `d2b7008e5bae10dc52f5a83a7499f0996a5c4f30`；[PR CI](https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40313923837)与[push CI](https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40313917960)全部success。Merge Commit `edff5bbf1f9e4f0583877d0b466214e34243d17b`，[dev CI](https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40314285286)全部success。T017 verified。[收尾PR #36](https://github.com/zl14229/pokemon-shiny-tracker/pull/36)实际merge `922781666921e7f58b39be1f974430fea9a393f0`，[收尾PR CI](https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40314837778)及[收尾dev CI](https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40315237032)全部success。
 
 只读离线引擎完成物种/持久形态、历史/当前、全系列/主系列/指定游戏/独立体系、完整/合法子集和组合查询。按每个体每目标去重；明确进化/形态事件贡献历史，转移/普通纠错不虚增；当前仅held且当前形态，空form不推断；历史原始游戏与当前保存游戏不混用，Sleep隔离。分母仅本地verified confirmed_available+included，分子取交集、零分母null，未知/争议/仅传送/storage排除；不将个别游戏的仅传送/锁闪事实推广到未覆盖版本。精确口径见[DEX.md](DEX.md)。
 
@@ -44,9 +44,30 @@
 
 ## T018
 
-待T017 verified及收尾后执行图鉴界面与M4端到端验收。
+图鉴页面与收藏卡片已实现：物种/形态、历史/当前、游戏/体系、记录/持有/合法子集、多语言搜索/分页、完成度/分母外/已核实缺失、覆盖与名称/形态状态、来源/具体个体证明。只有本地API请求，无第三方图集镜像；图片缺少或加载失败有具名占位。应用筛选同步隐藏旧结果，取消旧请求，错误清除旧数据并支持重试，客户端验证安全整数、分母/分子/百分比和个体证明。
+
+本地75项单元组件、类型/构建/HTTP smoke/8真实API/29真实Chromium、Go check/race/vet/build/smoke、治理及7回归全部通过。修复首次全套（28通过1失败）暴露的hash更新窗口：旧卡片断言提前满足、下一次选择被上一URL覆盖；现提交即pending并加组件回归，完整29场景通过，未放宽超时/断言。占位图使用CSS避免缺字体图标，额外图鉴3场景复验通过。实现PR/CI/merge待确认。
 
 
 ## 数据保护与运行边界
 
 所有验收只使用自建临时SQLite、匿名个体与临时附件，不触碰真实个人库。基础资料导入不写Hunt/ShinyRecord/历史；内置资料有冲突时事务拒绝并保留旧资料继续运行。当前schema6 ZIP备份/导出含新增资料表；旧schema4/5 ZIP需对应旧版先恢复到新目录后升级，不能在新版本中原地覆盖。Windows原生、跨机器字体/文件系统、全游戏资料完整性及正式发布未验收。
+
+## M4端到端验收矩阵
+
+|验收|证据/结果|
+|---|---|
+|全国ID、地区形态/多语言、离线暂存一致|Go reference/catalog与API测试；离线重建逐字节一致，v2三条抽样匹配；1025/1579计数通过|
+|外部资料不覆盖个人收藏|事务预览/冲突回滚/幂等；已有个体前后JSON/稳定ID一致，只有资料表增补|
+|物种/持久形态去重|同种多形态/多只个体分别计目标与个体，分子只与合法持久分母交集；自动测试通过|
+|连续进化、形态和转移|同一ID保持；历史证明原始/中间/当前形态，转移不新增个体；Go与真实浏览器通过|
+|历史/held/未知、交易/释放、纠错/软删除|历史保留、仅held当前形态计当前；纠错/缺失形态不推断；自动验收通过|
+|原始游戏/当前保存/Sleep独立体系|指定游戏两种口径与未知当前位置体系隔离通过；存储游戏不提供直接可刷分母|
+|未知、冲突、仅传送/锁闪、部分范围|无证据不入分母，部分版本不推广反向状态，0分母null；合成证据正例50%与UI100%仅测试库/组件|
+|前端中文与图片回退|冲突/缺失回退测试；待核实标记可见；图片error切占位/换源重试通过，默认无图集|
+|实际离线重载|真实Chromium禁用外部HTTPS后重载图鉴、中文搜索和个体证明仍可读，通过|
+|缺失目标/分页/移动端/错误|零分母缺失清单待核验、24项稳定页、390px无溢出、失败脱敏/重试/旧数据隐藏通过|
+|MVP完整故事及备份恢复|全部29真实浏览器包含既有MVP创建/导入/附件/导出/ZIP新目录恢复及恢复后UI/API/个体历史一致，通过|
+|GitHub实际保护|[2026-10-26实测回读](evidence/github-rulesets-m4.json)：dev默认、4项strict必需检查、无bypass、Merge Commit、保留源分支；pending检查曾实际阻止合并；prod初始SHA不变|
+
+工程功能的verified不表示资料全量可信：52Poké逐条内容核对0、正式合法可获取性0、无核验图集。当前默认完成率和已核实缺失列表仍待资料核验；具体补充归T026及后续授权，M4结束后不开始它。所有正例事实均标明synthetic，只在临时测试环境。

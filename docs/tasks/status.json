@@ -778,8 +778,8 @@
         "T017"
       ],
       "acceptance": "物种/形态切换、筛选、缺失目标、资料覆盖提示",
-      "status": "planned",
-      "branch": null,
+      "status": "in_review",
+      "branch": "feature/T018-dex-ui",
       "evidence": {
         "implementation": null,
         "checks": [],
@@ -791,7 +791,7 @@
         "pr_url": null,
         "merge_sha": null
       },
-      "record": null
+      "record": "docs/tasks/T018.md"
     },
     {
       "id": "T026",

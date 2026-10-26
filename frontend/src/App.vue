@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import DexPage from './pages/DexPage.vue'
 import BackupPage from './pages/BackupPage.vue'
 import ImportPage from './pages/ImportPage.vue'
 import { computed, ref } from 'vue'
@@ -45,6 +46,7 @@ const collectionId = computed(() =>
           <a href="#/collection" :aria-current="path.startsWith('/collection') ? 'page' : undefined"
             ><span aria-hidden="true">✧</span>闪光收藏</a
           >
+          <a href="#/dex" :aria-current="path === '/dex' ? 'page' : undefined">闪光图鉴</a>
           <a href="#/data/import" :aria-current="path.startsWith('/data') ? 'page' : undefined"
             >数据管理</a
           >
@@ -83,6 +85,7 @@ const collectionId = computed(() =>
           >
           <ServiceStatus />
         </template>
+        <DexPage v-else-if="path === '/dex'" :query="query" />
         <BackupPage v-else-if="path === '/data/backup'" />
         <ImportPage v-else-if="path === '/data/import'" />
         <HuntList v-else-if="path === '/hunts'" :query="query" />

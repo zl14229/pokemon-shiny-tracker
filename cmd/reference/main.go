@@ -45,6 +45,7 @@ func run() error {
 	output := flag.String("output", "", "stage output path")
 	cache := flag.String("cache", "", "absolute cache directory outside Git")
 	offline := flag.Bool("offline", false, "read source cache only")
+	catalog := flag.Bool("catalog", false, "preview/apply the bundled offline national catalog")
 	refresh := flag.Bool("refresh", false, "explicitly refresh source cache, without applying data")
 	flag.Parse()
 	if flag.NArg() != 0 {
@@ -93,8 +94,28 @@ func run() error {
 		fmt.Printf("staged %d validated resources; no database opened\n", len(dataset.Resources))
 		return nil
 	}
-	if (*mode != "preview" && *mode != "apply") || *input == "" {
+	if (*mode != "preview" && *mode != "apply") || (*input == "" && !*catalog) {
 		return errors.New("use stage, or preview/apply with -input")
+	}
+	if *catalog {
+		cfg, err := config.Load()
+		if err != nil {
+			return err
+		}
+		db, err := database.Open(cfg.DBPath)
+		if err != nil {
+			return err
+		}
+		conn, _ := db.DB()
+		defer conn.Close()
+		snapshot, err := reference.CatalogBundled()
+		if err != nil {
+			return err
+		}
+		report, err := reference.ImportCatalog(db, snapshot, *mode == "apply")
+		encoded, _ := json.MarshalIndent(report, "", "  ")
+		fmt.Println(string(encoded))
+		return err
 	}
 	data, err := os.ReadFile(*input)
 	if err != nil {

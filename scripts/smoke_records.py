@@ -73,7 +73,8 @@ def main():
         with server(db_path) as call:
             species = call("GET", "/reference/species")["data"]
             games = call("GET", "/reference/games")["data"]
-            assert len(species) == 3 and len(games) == 4
+            assert len(species) == 100 and len(games) == 4
+            assert call("GET", "/reference/species")["meta"]["total"] == 1025
             assert call("GET", "/reference/coverage")["data"]["coverage"] == "partial"
             first, second = species[0]["id"], species[1]["id"]
             original_game, current_game = games[0]["id"], games[1]["id"]
@@ -126,12 +127,12 @@ def main():
             assert call("GET", f"/shiny-records/{iid}/history")["meta"]["record_deleted"]
         # Reopen the same private test database: startup/query do not call a source.
         with server(db_path) as call:
-            assert len(call("GET", "/reference/species")["data"]) == 3
+            assert call("GET", "/reference/species")["meta"]["total"] == 1025
             assert call("GET", f"/hunts/{hid}")["data"]["status"] == "abandoned"
             assert call("GET", "/shiny-records")["meta"]["total"] == 0
             assert call("GET", f"/shiny-records/{iid}/history")["meta"]["record_deleted"]
         with sqlite3.connect(f"file:{db_path}?mode=ro", uri=True) as db:
-            assert db.execute("PRAGMA user_version").fetchone()[0] == 4
+            assert db.execute("PRAGMA user_version").fetchone()[0] == 5
             assert db.execute("PRAGMA foreign_key_check").fetchall() == []
             assert db.execute("SELECT count(*) FROM shiny_records").fetchone()[0] == 3
             assert db.execute("SELECT count(*) FROM shiny_histories").fetchone()[0] >= 9

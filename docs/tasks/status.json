@@ -694,8 +694,8 @@
         "T006"
       ],
       "acceptance": "物种/形态稳定 ID、中文名核对、52Poké 等来源链接、覆盖率及冲突/缺失状态可查询；合规规则通过",
-      "status": "planned",
-      "branch": null,
+      "status": "in_review",
+      "branch": "feature/T016-national-catalog",
       "evidence": {
         "implementation": null,
         "checks": [],
@@ -707,7 +707,7 @@
         "pr_url": null,
         "merge_sha": null
       },
-      "record": null
+      "record": "docs/tasks/T016.md"
     },
     {
       "id": "T017",

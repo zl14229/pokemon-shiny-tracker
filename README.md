@@ -85,3 +85,5 @@ bash -ic 'make build && cd frontend && npm run test:integration'
 Actions 包含 Go 检查、前端类型/组件/构建/启动、真实 API 联调及 Chromium 浏览器检查，以及治理基线、任务一致性、PR 来源和仓库卫生检查。Go 必需检查中的 make smoke 包含自建临时库的 M1 真实 CRUD/查询/历史/重启验收。当前实现覆盖 Hunt/闪光收藏、Excel预览与确认导入、附件/链接、JSON导出和ZIP备份/隔离恢复；MVP端到端证据见 T015，其余能力按后续 Task 实施。
 
 真实 SQLite 数据、Excel 原始资料、密钥、附件和备份放在仓库外。脱敏且获准入库的测试夹具需在对应任务中明确审查。
+
+M4开发进度见[全国资料](docs/REFERENCE_DATA.md)及[Task状态](docs/tasks/status.json)。全国数据离线可读；中文交叉核验和合法闪光覆盖保持显式未知，不能视为全量可信游戏图鉴。

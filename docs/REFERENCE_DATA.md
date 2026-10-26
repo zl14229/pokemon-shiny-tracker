@@ -60,3 +60,27 @@ M1 是新增/幂等导入：源事实变化、本地资料改写或无映射身�
 ## 验证
 
 真实采集后用离线模式重建，规范化输出逐字节一致。CLI 在自建临时库 preview→apply→重复 apply，结果为未提交、10 新增、0 新增/10 不变。测试覆盖缓存字节/哈希、来源失败/错 ID、节流、名称缺失/冲突、链接、ID 分离、幂等/元数据刷新、可审查的本地冲突、原子回滚、源失败不损坏个人数据、v1 升级及离线查询。CI 不请求真实资料源，使用种子与本机 HTTP fixture，继续 Go/前端/浏览器回归。
+
+## M4 / T016 全国快照
+
+随程序附带 PokéAPI 官方仓库 v2 CSV 固定版本 `2bf639e5572812a67d2b94903fdcb9d095f5aeb2`：1,025物种（全国编号1–1025）、1,579形态；4个已存在游戏种子保持不变。本地内部ID不是全国编号或外部form ID；新增映射由catalog_entries管理，与现有external_references逐条比对。既有资料不改名、不改ID，个人表不写入。首次启动离线事务增补，冲突时回滚并继续使用既有资料，不能宣称此时已全量载入。已有同版本批次幂等跳过；事实变更不自动覆盖，待T024。
+
+采用PokéAPI官方v2同源CSV快照减少逐实体网络请求；这不是1,025次v2 API响应采集。每个文件固定提交URL、SHA256、采集时间保留于批次快照；每条物种/形态含来源文件、稳定外部ID、数据版本和本地校验时间。名称分别来自pokemon_species_names/pokemon_form_names；形态关系经pokemon.csv回溯物种。原始缓存位于仓库外，可重建：
+
+```sh
+python3 scripts/stage_catalog.py --cache /absolute/cache --revision 2bf639e5572812a67d2b94903fdcb9d095f5aeb2 --offline --output /new/catalog.json
+go run ./cmd/reference -catalog -mode preview
+go run ./cmd/reference -catalog -mode apply
+```
+
+暂存输出仅供审查和构建打包；运行时CLI只应用程序内已审核的bundled快照，不自动应用任意输入或联网同步。旧版精简种子仍用于兼容性测试。
+
+主形态口径v1：1,227 included、172 excluded、180 unknown。全国物种、默认形态、地区形态和明确列出的持久变体家族纳入；mega/来源标注的battle-only及特殊皮卡丘外观排除；其他变体待核实。该分类是基于来源标志及本地产品口径的规则，不宣称逐形态已获官方交叉验证，unknown不进入主形态完成率。分类亦不等于闪光可获取性。
+
+语言回退：简体有源值显示但标source_provided/中文待核实；缺少简体不自动转繁体或机器翻译，回退英语再回退slug；来源conflict禁用中文回退。形态只接受完整pokemon_name翻译，不把物种中文名冒充形态译名。保留所有源语言。无跨站核验的条目cross_check_status=unknown，checked_at只是结构/策略检查日期，不是中文官方核对日期。
+
+52Poké于2026-10-26核对[机器读取守则](https://wiki.52poke.com/wiki/神奇宝贝百科:机器读取守则)、[robots](https://wiki.52poke.com/robots.txt)和[常见问题](https://wiki.52poke.com/wiki/神奇宝贝百科:常见问题)。规则存在UA、串行与间隔、robots和CC BY-NC-SA 3.0约束；未据此推断无限制批量/图片使用权。本次未批量复制正文、未镜像图片；每条提供相关中文物种交叉核对链接，但**尚无条目完成52Poké内容交叉核验**。因此中文均不标verified。Serebii/Bulbapedia/官方逐游戏合法性核验待T026；目前全为未知，不能因物种/形态存在就计算合法闪光分母。图片未获复用核验，不打包第三方图集。
+
+PokéAPI版权及再分发条款随[原许可](POKEAPI_LICENSE.md)保留；宝可梦及角色名商标属于Nintendo，无背书宣称。公开/商业发布仍需另审素材条件，本次仅本地开发。
+
+新增API：`GET /api/v1/reference/catalog?kind=species|form&inclusion=included|excluded|unknown&limit=100&offset=0`，返回多语言names、display_name、name_status、分类原因、来源URL/版本/哈希/时间/待核对链接。`GET /api/v1/reference/catalog/coverage`返回实际本地计数、批次checksum和明确的部分核验覆盖提示。基础reference API保持兼容，新增全国数据需要分页读取。

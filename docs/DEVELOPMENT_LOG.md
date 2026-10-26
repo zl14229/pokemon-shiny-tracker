@@ -121,3 +121,7 @@ T010 与 T011 实现均经独立 feature 分支/PR、必需 CI、自审、Merge 
 - 2026-10-25 T015 实现 PR https://github.com/zl14229/pokemon-shiny-tracker/pull/31 merge fc60cbff50d9db93695cae99e184b2ac944b80a7；PR CI https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40178356419、dev CI https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40200048779 已实际成功后才标记verified，进入验收收尾PR。
 
 - 2026-10-25 M3最终验收：T012–T015均在实现PR/四项必需CI/实际merge/dev CI成功后verified；完整回归Go及63组件/8真实API/26浏览器、实际dev上MVP复验1项通过，隔离恢复与恢复后UI通过。真实Excel只读复验8可用/1704错误/2972提示，无个人确认导入、原文件指纹不变。详见M3_ACCEPTANCE.md及Ruleset回读；仅收尾PR归档，保留源分支，prod不变，无正式发布；T016–T028 planned，完成后停止等待M4授权。
+
+## 2026-10-26 T016 / M4
+
+确认T006/T008/T011依赖verified；origin/dev干净起点1a8af61。GitHub实际回读dev默认、4项strict必需CI、无bypass、仅Merge Commit且保留分支；prod不变。固定PokéAPI官方v2同源CSV版本、本地缓存/串行请求/逐文件哈希、全国身份和多语言快照、保守持久形态策略、离线增补及来源覆盖API。52Poké仅规则/许可及待核验链接，不批量抓受限正文；中文与闪光可获取性不假称verified。个人表不写入，旧身份不变；schema5备份包含新资料表。

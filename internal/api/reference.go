@@ -122,6 +122,17 @@ func registerReference[T any](v1 *gin.RouterGroup, db *gorm.DB, path, kind strin
 			storageError(c, err)
 			return
 		}
-		c.JSON(200, gin.H{"data": rows})
+		catalogSources := []model.CatalogEntry{}
+		if kind != "game" {
+			column := "species_id"
+			if kind == "form" {
+				column = "form_id"
+			}
+			if err := db.Where("kind = ? AND "+column+" = ?", kind, id).Find(&catalogSources).Error; err != nil {
+				storageError(c, err)
+				return
+			}
+		}
+		c.JSON(200, gin.H{"data": rows, "catalog_sources": catalogSources})
 	})
 }

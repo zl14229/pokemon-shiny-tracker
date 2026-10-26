@@ -32,10 +32,21 @@
 
 [PR CI](https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40310199039)与[dev CI](https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40310771281)全部success。实际merge `25c355fd56756a52c0c8aaf077cdfe620bec5d14`，最终HEAD `4b806dcd6f7452d0ba1d73907e63993ea8d4b5c2`。T016 verified；[收尾PR #34](https://github.com/zl14229/pokemon-shiny-tracker/pull/34)已Merge Commit `decac12a60b1a48f32a31d7455014c287451027b`，[收尾PR CI](https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40311239858)及[收尾dev CI](https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40311651424)全部success。
 
-## T017 / T018
+## T017
 
-待T016 verified后顺序执行。统计口径、端到端验收、所有PR/CI/merge及最终风险将在各Task实际通过后补全。
+实现[PR #35](https://github.com/zl14229/pokemon-shiny-tracker/pull/35)，最终HEAD `d2b7008e5bae10dc52f5a83a7499f0996a5c4f30`；[PR CI](https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40313923837)与[push CI](https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40313917960)全部success。Merge Commit `edff5bbf1f9e4f0583877d0b466214e34243d17b`，[dev CI](https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40314285286)全部success。T017 verified，收尾PR随后补链接。
+
+只读离线引擎完成物种/持久形态、历史/当前、全系列/主系列/指定游戏/独立体系、完整/合法子集和组合查询。按每个体每目标去重；明确进化/形态事件贡献历史，转移/普通纠错不虚增；当前仅held且当前形态，空form不推断；历史原始游戏与当前保存游戏不混用，Sleep隔离。分母仅本地verified confirmed_available+included，分子取交集、零分母null，未知/争议/仅传送/storage排除；不将个别游戏的仅传送/锁闪事实推广到未覆盖版本。精确口径见[DEX.md](DEX.md)。
+
+本地make check/make smoke、前端typecheck/63单元组件/build/8真实API/26Chromium通过。核心自动验收覆盖物种/形态去重、连续进化/形态、跨游戏转移/交易、历史/held、纠错/软删除、未知形态/持有、Sleep未知当前位置隔离、缺失/争议/不可信证据/仅传送/storage、部分范围不外推、分母交集/零分母、分页/组合/拒绝错误查询。正式可获取性表0行；用于50%等正例的合成事实只在临时测试库，未打包为游戏事实。schema6备份含新表。
+
+初次PR CI成功但重复push的浏览器依赖安装长时运行，GitHub 405实际阻止合并；无bypass。复审发现部分范围transfer-only聚合问题后修复/加测，最终HEAD的PR与push完整成功后才合并。首次本机端口瞬时占用重新独立启动，未停止他人服务。
+
+## T018
+
+待T017 verified及收尾后执行图鉴界面与M4端到端验收。
+
 
 ## 数据保护与运行边界
 
-所有验收只使用自建临时SQLite、匿名个体与临时附件，不触碰真实个人库。基础资料导入不写Hunt/ShinyRecord/历史；内置资料有冲突时事务拒绝并保留旧资料继续运行。schema5 ZIP备份/导出含新增资料表；旧schema4/5 ZIP需对应旧版先恢复到新目录后升级，不能在新版本中原地覆盖。Windows原生、跨机器字体/文件系统、全游戏资料完整性及正式发布未验收。
+所有验收只使用自建临时SQLite、匿名个体与临时附件，不触碰真实个人库。基础资料导入不写Hunt/ShinyRecord/历史；内置资料有冲突时事务拒绝并保留旧资料继续运行。当前schema6 ZIP备份/导出含新增资料表；旧schema4/5 ZIP需对应旧版先恢复到新目录后升级，不能在新版本中原地覆盖。Windows原生、跨机器字体/文件系统、全游戏资料完整性及正式发布未验收。

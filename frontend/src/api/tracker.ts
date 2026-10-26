@@ -78,6 +78,9 @@ export class TrackerAPI {
     ])
     return { species, forms, games }
   }
+  async games(options?: RequestOptions) {
+    return this.references('games', isGame, options)
+  }
   private async references<T>(
     path: string,
     guard: Guard<T>,

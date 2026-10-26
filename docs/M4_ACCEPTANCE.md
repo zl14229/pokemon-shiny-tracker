@@ -30,7 +30,7 @@
 
 本地make check/make smoke、前端typecheck/63测试/build/HTTP smoke/8真实API、26真实Chromium全部通过。首次浏览器缺共享库，解包临时依赖后复验；全国资料扩大暴露旧测试编辑页就绪竞态，改为等待disabled选择器可用后操作并完整通过，未跳过断言/放宽超时。
 
-[PR CI](https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40310199039)与[dev CI](https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40310771281)全部success。实际merge `25c355fd56756a52c0c8aaf077cdfe620bec5d14`，最终HEAD `4b806dcd6f7452d0ba1d73907e63993ea8d4b5c2`。T016 verified；同源分支收尾PR归档，后续补链接。
+[PR CI](https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40310199039)与[dev CI](https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40310771281)全部success。实际merge `25c355fd56756a52c0c8aaf077cdfe620bec5d14`，最终HEAD `4b806dcd6f7452d0ba1d73907e63993ea8d4b5c2`。T016 verified；[收尾PR #34](https://github.com/zl14229/pokemon-shiny-tracker/pull/34)已Merge Commit `decac12a60b1a48f32a31d7455014c287451027b`，[收尾PR CI](https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40311239858)及[收尾dev CI](https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40311651424)全部success。
 
 ## T017 / T018
 
@@ -38,4 +38,4 @@
 
 ## 数据保护与运行边界
 
-所有验收只使用自建临时SQLite、匿名个体与临时附件，不触碰真实个人库。基础资料导入不写Hunt/ShinyRecord/历史；内置资料有冲突时事务拒绝并保留旧资料继续运行。schema5 ZIP备份/导出含新增资料表；旧schema4 ZIP需旧版先恢复到新目录后升级，不能在新版本中原地覆盖。Windows原生、跨机器字体/文件系统、全游戏资料完整性及正式发布未验收。
+所有验收只使用自建临时SQLite、匿名个体与临时附件，不触碰真实个人库。基础资料导入不写Hunt/ShinyRecord/历史；内置资料有冲突时事务拒绝并保留旧资料继续运行。schema5 ZIP备份/导出含新增资料表；旧schema4/5 ZIP需对应旧版先恢复到新目录后升级，不能在新版本中原地覆盖。Windows原生、跨机器字体/文件系统、全游戏资料完整性及正式发布未验收。

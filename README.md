@@ -86,6 +86,6 @@ Actions 包含 Go 检查、前端类型/组件/构建/启动、真实 API 联调
 
 真实 SQLite 数据、Excel 原始资料、密钥、附件和备份放在仓库外。脱敏且获准入库的测试夹具需在对应任务中明确审查。
 
-M4开发进度见[全国资料](docs/REFERENCE_DATA.md)及[Task状态](docs/tasks/status.json)。全国数据离线可读；中文交叉核验和合法闪光覆盖保持显式未知，不能视为全量可信游戏图鉴。
+M4工程验收与已知资料缺口见[全国资料](docs/REFERENCE_DATA.md)及[Task状态](docs/tasks/status.json)。全国数据离线可读；中文交叉核验和合法闪光覆盖保持显式未知，不能视为全量可信游戏图鉴。
 
 图鉴入口：`/#/dex`；双层与持有/历史统计规则见[图鉴口径](docs/DEX.md)，覆盖、来源和端到端证据见[M4验收报告](docs/M4_ACCEPTANCE.md)。0分母保持待核实，不自动推断合法性。

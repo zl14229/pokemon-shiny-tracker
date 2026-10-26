@@ -694,18 +694,35 @@
         "T006"
       ],
       "acceptance": "物种/形态稳定 ID、中文名核对、52Poké 等来源链接、覆盖率及冲突/缺失状态可查询；合规规则通过",
-      "status": "in_review",
+      "status": "verified",
       "branch": "feature/T016-national-catalog",
       "evidence": {
-        "implementation": null,
-        "checks": [],
-        "self_review": null,
-        "risks": [],
+        "implementation": "固定PokéAPI官方v2同源CSV全国1025物种/1579形态离线快照、稳定身份映射、12语言/中文冲突回退、持久形态策略、逐条预览/事务新增/幂等/原子拒绝及来源覆盖API；schema5备份包含资料表",
+        "checks": [
+          "make check（格式/tidy/verify/vet/race/build）与make smoke通过",
+          "前端typecheck/63单元组件/build/HTTP smoke/8真实API/26真实Chromium全部通过",
+          "离线快照重建逐字节一致；3条v2 ID/name实际抽样匹配",
+          "PR CI success https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40310199039",
+          "dev CI success https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40310771281",
+          "Merge Commit双父提交已核实，源分支保留，prod初始SHA不变"
+        ],
+        "self_review": "按code-review技能完成逐文件自审并标code-reviewed；无code-review-*子技能，无伪造人工批准。核对稳定身份/个人不变/原始CSV证据/unknown边界/schema与备份。全国数据暴露旧浏览器就绪竞态，等待选择器启用后真实复验26场景通过。",
+        "risks": [
+          "52Poké正文交叉核验0条，中文源值均待核实；618形态无简体、72无英语完整名称",
+          "主形态纳入1227/排除172/未知180是本地保守规则，非全形态官方核验；合法闪光资料0条、4版本种子",
+          "无第三方图集；旧schema4备份需旧程序先恢复到新目录再升级；Windows原生未验收"
+        ],
         "unverified": [],
-        "documentation": [],
-        "commit": null,
-        "pr_url": null,
-        "merge_sha": null
+        "documentation": [
+          "docs/tasks/T016.md",
+          "docs/REFERENCE_DATA.md",
+          "docs/M4_ACCEPTANCE.md",
+          "docs/POKEAPI_LICENSE.md",
+          "docs/evidence/m4-pokeapi-samples.json"
+        ],
+        "commit": "4b806dcd6f7452d0ba1d73907e63993ea8d4b5c2",
+        "pr_url": "https://github.com/zl14229/pokemon-shiny-tracker/pull/33",
+        "merge_sha": "25c355fd56756a52c0c8aaf077cdfe620bec5d14"
       },
       "record": "docs/tasks/T016.md"
     },

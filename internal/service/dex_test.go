@@ -263,3 +263,22 @@ func TestDexUnknownAvailabilityNullDenominatorFiltersAndEvidence(t *testing.T) {
 		t.Fatal("verified fact without evidence accepted")
 	}
 }
+
+func TestDexPartialLockedAndTransferEvidenceRemainsUnknown(t *testing.T) {
+	f := dexSeed(t)
+	all := getDex(t, f, "")
+	if target(t, all, f.b.ID).Availability != "unknown" || target(t, all, f.d.ID).Availability != "unknown" {
+		t.Fatal("partial evidence generalized across games")
+	}
+	one := getDex(t, f, "scope=game&game_id="+idQuery(f.game.ID))
+	if target(t, one, f.b.ID).Availability != "transfer_only" || target(t, one, f.d.ID).Availability != "confirmed_locked" {
+		t.Fatal("specific verified scope lost")
+	}
+	// All relevant games are now covered, so transfer-only can be summarized.
+	if e := f.db.Model(&model.ShinyAvailability{}).Where("game_id = ? AND form_id = ?", f.other.ID, f.fb.ID).Updates(map[string]any{"status": "confirmed_locked", "verification_status": "verified"}).Error; e != nil {
+		t.Fatal(e)
+	}
+	if target(t, getDex(t, f, ""), f.b.ID).Availability != "transfer_only" {
+		t.Fatal("fully covered transfer scope was not recognized")
+	}
+}

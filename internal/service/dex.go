@@ -323,8 +323,8 @@ func (s Dex) List(ctx context.Context, raw string) (DexResult, error) {
 		}
 		sort.Strings(result.Coverage.Revisions)
 		type availableForm struct {
-			available, transfer bool
-			lockedGames         map[uint64]bool
+			available                  bool
+			lockedGames, transferGames map[uint64]bool
 		}
 		statusByForm := map[uint64]*availableForm{}
 		availabilityVersions := map[string]bool{}
@@ -337,14 +337,14 @@ func (s Dex) List(ctx context.Context, raw string) (DexResult, error) {
 			availabilityVersions[a.DataVersion] = true
 			state := statusByForm[a.FormID]
 			if state == nil {
-				state = &availableForm{lockedGames: map[uint64]bool{}}
+				state = &availableForm{lockedGames: map[uint64]bool{}, transferGames: map[uint64]bool{}}
 				statusByForm[a.FormID] = state
 			}
 			switch a.Status {
 			case "confirmed_available":
 				state.available = true
 			case "transfer_only":
-				state.transfer = true
+				state.transferGames[a.GameID] = true
 			case "confirmed_locked":
 				state.lockedGames[a.GameID] = true
 			}
@@ -361,17 +361,17 @@ func (s Dex) List(ctx context.Context, raw string) (DexResult, error) {
 			if state.available {
 				return "confirmed_available", true
 			}
-			if state.transfer {
-				return "transfer_only", false
-			}
-			if availabilityGameCount > 0 && len(state.lockedGames) == availabilityGameCount {
+			if availabilityGameCount > 0 && len(state.lockedGames)+len(state.transferGames) == availabilityGameCount {
+				if len(state.transferGames) > 0 {
+					return "transfer_only", false
+				}
 				return "confirmed_locked", false
 			}
 			return "unknown", false
 		}
 		eligibleSpecies := map[uint64]bool{}
 		speciesStatuses := map[uint64]string{}
-		includedBySpecies, lockedBySpecies := map[uint64]int{}, map[uint64]int{}
+		includedBySpecies, lockedBySpecies, transferBySpecies := map[uint64]int{}, map[uint64]int{}, map[uint64]int{}
 		for _, f := range forms {
 			status, eligible := availabilityFor(f.ID)
 			if details[fmt.Sprintf("form:%d", f.ID)].Inclusion != "included" {
@@ -386,13 +386,16 @@ func (s Dex) List(ctx context.Context, raw string) (DexResult, error) {
 			}
 			if status == "confirmed_available" {
 				speciesStatuses[f.SpeciesID] = status
-			} else if status == "transfer_only" && speciesStatuses[f.SpeciesID] != "confirmed_available" {
-				speciesStatuses[f.SpeciesID] = status
+			} else if status == "transfer_only" {
+				transferBySpecies[f.SpeciesID]++
 			}
 		}
 		for sid, count := range includedBySpecies {
-			if count > 0 && lockedBySpecies[sid] == count {
+			if count > 0 && lockedBySpecies[sid]+transferBySpecies[sid] == count {
 				speciesStatuses[sid] = "confirmed_locked"
+				if transferBySpecies[sid] > 0 {
+					speciesStatuses[sid] = "transfer_only"
+				}
 			}
 		}
 		targets := []DexTarget{}

@@ -15,3 +15,5 @@
 响应：data返回目标、名称/来源/形态纳入状态、availability/eligible、historical_count/held_count/unknown_holding_count、所选口径obtained与去重record_ids。meta是筛选后列表分页；summary是范围内统计/分母规则；coverage包含本地实际物种/形态、版本分类缺口、核验记录数、资料和可获取性版本、中文待核实及明确partial提示。图鉴不返回第三方图片URL，未核验素材不镜像。
 
 ShinyAvailability为schema6新增最小读取契约：游戏+形态唯一，复合外键防错配，四态与verification_status分开；verified必须有来源、链接、时间和版本。无写入API或自动联网填充；详细来源/方法/条件概率库是T026。备份/导出包括新表；恢复仅支持本程序当前schema，旧schema4/5备份先由对应旧版恢复新目录再升级。
+
+多游戏/多形态聚合：存在一条直接可获取证据即可证明“在范围中至少一处已确认可获取”；反向断言locked/transfer_only需覆盖所有适用游戏及物种的全部已纳入形态。范围中存在未覆盖/冲突状态时保持unknown，不把一条仅传送/锁闪事实外推到整个范围。主形态未审核集合继续独立显示缺口。

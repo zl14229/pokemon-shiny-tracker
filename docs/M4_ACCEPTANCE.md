@@ -81,7 +81,6 @@
 |T017实现|[#35](https://github.com/zl14229/pokemon-shiny-tracker/pull/35)|[success](https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40313923837)|edff5bbf1f9e4f0583877d0b466214e34243d17b|[success](https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40314285286)|
 |T017收尾|[#36](https://github.com/zl14229/pokemon-shiny-tracker/pull/36)|[success](https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40314837778)|922781666921e7f58b39be1f974430fea9a393f0|[success](https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40315237032)|
 |T018实现|[#37](https://github.com/zl14229/pokemon-shiny-tracker/pull/37)|[success](https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40317598643)|cdb7e424b3721650388ba74a4135a1065b0ab47b|[success](https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40317953752)|
-
 |T018/M4最终收尾|[#38](https://github.com/zl14229/pokemon-shiny-tracker/pull/38)|[实际最终checks](https://github.com/zl14229/pokemon-shiny-tracker/pull/38/checks)|自身双父merge以PR实际记录为准|由最终交付记录提供|
 
 最后收尾[PR #38](https://github.com/zl14229/pokemon-shiny-tracker/pull/38)的固定入口已归档；其自身merge SHA/最后run由GitHub与最终交付记录提供，避免无限自引用。报告不将尚未结束的CI写为success；只在最终checks/合并/dev检查确已成功后结束本次开发。

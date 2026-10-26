@@ -41,6 +41,9 @@ func run() error {
 	if err := reference.EnsureSeed(db); err != nil {
 		return err
 	}
+	if err := reference.EnsureCatalog(db); err != nil {
+		slog.Warn("catalog enrichment unavailable; local records remain available")
+	}
 	srv := server.New(cfg, api.NewRouter(db))
 	listener, err := net.Listen("tcp", srv.Addr)
 	if err != nil {

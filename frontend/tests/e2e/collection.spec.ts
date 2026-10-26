@@ -1,6 +1,7 @@
 import { expect, test, type Page } from '@playwright/test'
 async function choose(page: Page, label: string, index = 0) {
   const combo = page.getByRole('combobox', { name: label, exact: true })
+  await expect(combo).toBeEnabled()
   await combo.focus()
   await combo.press('ArrowDown')
   await page
@@ -12,6 +13,7 @@ async function choose(page: Page, label: string, index = 0) {
 }
 async function namedOption(page: Page, label: string, name: string) {
   const combo = page.getByRole('combobox', { name: label, exact: true })
+  await expect(combo).toBeEnabled()
   await combo.focus()
   await combo.press('ArrowDown')
   await page

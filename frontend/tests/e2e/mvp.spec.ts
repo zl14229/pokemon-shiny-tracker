@@ -8,6 +8,7 @@ import { stripVTControlCharacters } from 'node:util'
 
 async function select(page: Page, label: string, option?: string) {
   const input = page.getByRole('combobox', { name: label, exact: true })
+  await expect(input).toBeEnabled()
   await input.focus()
   await input.press('ArrowDown')
   const options = page.getByRole('listbox', { name: label, exact: true }).getByRole('option')

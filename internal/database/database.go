@@ -12,7 +12,7 @@ import (
 	"gorm.io/gorm"
 )
 
-const CurrentVersion = 4
+const CurrentVersion = 5
 
 // ValidatePath rejects relative paths, file symlinks and files inside Git checkouts.
 func ValidatePath(path string) error {
@@ -109,7 +109,15 @@ func preflight(path string) error {
 			return errors.New("attachment schema is incomplete")
 		}
 	}
+	if version >= 5 && !tableExists(db, "catalog_entries") {
+		return errors.New("catalog schema is incomplete")
+	}
 	return nil
+}
+
+func tableExists(db *sql.DB, name string) bool {
+	var n int
+	return db.QueryRow("SELECT count(*) FROM sqlite_master WHERE type='table' AND name=?", name).Scan(&n) == nil && n == 1
 }
 
 // Open initializes only empty/new databases; recognized versions migrate atomically.

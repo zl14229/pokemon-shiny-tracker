@@ -55,3 +55,33 @@ func TestOfflineReferenceQueriesAndEvidence(t *testing.T) {
 		t.Fatal(response.Body.String())
 	}
 }
+
+func TestOfflineNationalCatalogCoverageAndNames(t *testing.T) {
+	db := testutil.DB(t)
+	if err := reference.EnsureCatalog(db); err != nil {
+		t.Fatal(err)
+	}
+	router := NewRouter(db)
+	for _, path := range []string{"/api/v1/reference/catalog?kind=species&limit=1", "/api/v1/reference/catalog?kind=form&inclusion=unknown", "/api/v1/reference/catalog/coverage"} {
+		r := request(router, "GET", path)
+		if r.Code != 200 {
+			t.Fatal(path, r.Code, r.Body.String())
+		}
+	}
+	r := request(router, "GET", "/api/v1/reference/catalog?kind=species&limit=1")
+	var body struct {
+		Data []catalogView
+		Meta struct{ Total int }
+	}
+	if err := json.Unmarshal(r.Body.Bytes(), &body); err != nil {
+		t.Fatal(err)
+	}
+	if body.Meta.Total != 1025 || len(body.Data) != 1 || body.Data[0].DisplayName != "妙蛙种子" || body.Data[0].CrossCheckStatus != "unknown" || body.Data[0].SourceRevision == "" {
+		t.Fatal(r.Body.String())
+	}
+	for _, path := range []string{"/api/v1/reference/catalog?kind=bogus", "/api/v1/reference/catalog?inclusion=bogus", "/api/v1/reference/catalog?offset=-1"} {
+		if r := request(router, "GET", path); r.Code != 400 {
+			t.Fatal(path, r.Code)
+		}
+	}
+}

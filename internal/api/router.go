@@ -36,6 +36,7 @@ func NewRouter(db *gorm.DB) *gin.Engine {
 		c.JSON(http.StatusOK, gin.H{"data": gin.H{"status": "ok"}})
 	})
 	if db != nil {
+		analyticsRoutes(v1, db)
 		referenceRoutes(v1, db)
 		catalogRoutes(v1, db)
 		dexRoutes(v1, db)

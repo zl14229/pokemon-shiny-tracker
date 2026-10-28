@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import DashboardPage from './pages/DashboardPage.vue'
 import BingoCreate from './pages/BingoCreate.vue'
 import PlannerPage from './pages/PlannerPage.vue'
 import DexPage from './pages/DexPage.vue'
@@ -71,6 +72,7 @@ const collectionId = computed(() =>
               <p class="muted">从一个目标开始，把尝试和回忆留在这里。</p>
             </div>
           </header>
+          <DashboardPage />
           <ElCard class="welcome-card" shadow="never"
             ><span class="section-kicker">HUNT JOURNAL</span>
             <h3>下一次闪光，正在路上</h3>

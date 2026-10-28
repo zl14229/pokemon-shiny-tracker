@@ -125,3 +125,7 @@ Random Hunt 的本地候选池、幂等生成／保存、计划列表／详情�
 ## T028 Hunt Bingo
 
 卡片创建／详情、成果刷新、带期望目标的重抽／Hunt 关联、显式时间证据与终态接口见 [BINGO.md](BINGO.md)。自动日期判定和用户补充时间证据分别记录；时间核验不允许绕过来源或合法性。insufficient_candidates 为 409，未知资料不补格。GET 无确认成果副作用，打开卡片由界面显式 POST 刷新。
+
+## T019 Dashboard
+
+`GET /api/v1/dashboard?collection_system=pokemon` 在一致只读事务中返回 `data.collection`（历史／确认持有／持有未知／自刷／来源未知／原始游戏未知的永久个体数）、`data.hunts`（三状态总数与缺失次数／耗时／游戏数量）、`data.dex`（物种／形态 × 历史／当前四组 M4 summary 与 coverage）。仅接受单个 collection_system；未知分母百分比为 null，真实无记录数量为0；错误不返回伪造0。Sleep 等体系隔离，不按当前保存游戏推断原始获得版本。数据只读、本地离线可用。

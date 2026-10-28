@@ -8,7 +8,7 @@ afterEach(() => vi.restoreAllMocks())
 describe('application shell', () => {
   it('renders Chinese guidance and usable Element Plus controls', async () => {
     vi.spyOn(api, 'getHealth').mockResolvedValue({ status: 'ok' })
-    const wrapper = mount(App)
+    const wrapper = mount(App, { global: { stubs: { DashboardPage: true } } })
     expect(wrapper.find('h1').text()).toBe('Pokémon Shiny Tracker')
     expect(wrapper.text()).toContain('查看刷闪任务')
     const button = wrapper.get('button')

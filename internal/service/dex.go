@@ -222,24 +222,7 @@ func (s Dex) List(ctx context.Context, raw string) (DexResult, error) {
 		// A missing original game is never replaced with a current game for a game filter.
 		// Current game can only classify an otherwise unknown collection system in all scope.
 		inScope := func(r model.ShinyRecord, historical bool) bool {
-			game := r.CurrentGameID
-			if historical {
-				game = r.OriginalGameID
-			}
-			if game != nil {
-				return selected[*game]
-			}
-			if q.Scope != "all" {
-				return false
-			}
-			otherGame := r.OriginalGameID
-			if historical {
-				otherGame = r.CurrentGameID
-			}
-			if otherGame != nil {
-				return gameMap[*otherGame].CollectionSystem == q.System
-			}
-			return q.System == "pokemon"
+			return recordInDexScope(r, historical, q, selected, gameMap)
 		}
 		historyProof, heldProof, unknownProof := proofSet{}, proofSet{}, proofSet{}
 		add := func(p proofSet, recordID, sid uint64, fid *uint64) {

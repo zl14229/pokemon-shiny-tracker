@@ -5,6 +5,7 @@ import { mkdtemp, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 import { createServer, preview, type ViteDevServer } from 'vite'
+import { decodeDashboard } from '../../src/api/dashboard'
 import { parsePlan } from '../../src/api/planner'
 import { ApiClient } from '../../src/api/client'
 import { TrackerAPI, huntInput, shinyInput } from '../../src/api/tracker'
@@ -300,6 +301,17 @@ describe('real Go backend through Vite and the actual API client', () => {
         .data,
     )
     expect(refreshed.bingo?.events.some((e) => e.kind === 'rerolled')).toBe(true)
+  })
+  it('reads a dashboard consistent with the real dex and personal records', async () => {
+    const v = decodeDashboard(await client.getJSON('/dashboard'))
+    expect(v.dex).toHaveLength(4)
+    for (const d of v.dex) {
+      const data = (await client.getJSON(`/dex?dimension=${d.dimension}&basis=${d.basis}`)) as {
+        summary: unknown
+      }
+      expect(d.summary).toEqual(data.summary)
+    }
+    expect(v.hunts.total).toBe(v.hunts.in_progress + v.hunts.completed + v.hunts.abandoned)
   })
   it('reports backend shutdown as an error, then succeeds after restart', async () => {
     await stopBackend()

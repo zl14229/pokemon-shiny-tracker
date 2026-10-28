@@ -916,18 +916,44 @@
         "T027"
       ],
       "acceptance": "3×3/5×5、持久化、成果合法性、连线、重抽边界与恢复",
-      "status": "in_review",
+      "status": "verified",
       "branch": "feature/T028-hunt-bingo",
       "evidence": {
-        "implementation": null,
-        "checks": [],
-        "self_review": null,
-        "risks": [],
-        "unverified": [],
-        "documentation": [],
-        "commit": null,
-        "pr_url": null,
-        "merge_sha": null
+        "implementation": "schema9 多卡3×3/5×5 Bingo，无免费／重复格，期望目标与幂等重抽，Hunt关联审计，新个体原始目标／游戏／形态与当前合法性、日历日期自动判定，显式时间核验不绕过来源／合法性，连线和终态历史；完整Vue界面及M5报告",
+        "checks": [
+          "make check（格式／模块／vet／race／build）、make smoke通过",
+          "治理验证及7回归通过；102前端测试、typecheck/build/HTTPsmoke通过",
+          "10真实API集成及最终完整33 Chromium通过（自审修复后完整重验）",
+          "3×3/5×5无免费格与去重、25格12连线、原始游戏／旧收藏／交换／未知来源／日期精度／时区／人工证据、状态与幂等、无替代目标原子取消、来源损坏无部分确认、备份新目录恢复均通过",
+          "最终PR CI success https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40736415489",
+          "最终push CI success https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40736334053",
+          "merge后dev CI success https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40737558145",
+          "GitHub实际回读dev四项strict／无bypass／保留分支；prod SHA仍dc68988b7c76bf23ae3b68b588d15858f50b742e"
+        ],
+        "self_review": "按code-review技能主代理逐文件自审；无子技能未虚报独立审查。复核身份、原始游戏、日期时区、来源、重抽／封存、事务、外键和备份；修复迁移注册、Vue表达式／类型及不明网络结果后请求与已变化目标串用；完成证据不可替换，失败均修复重验。",
+        "risks": [
+          "正式仅12唯一目标，5×5不足25明确拒绝；完整5×5以隔离合成资料验证，不假称正式全量覆盖",
+          "只按有据的原始获得目标核验，不推断后续进化发生游戏／时间；同日日期不足需显式时间证据",
+          "完成证据是当时历史快照，后续编辑或软删除不静默改写；草稿清理器未实现",
+          "全游戏／中文内容交叉核对／补丁构建号／完整方法概率／图片或批量许可未确认，保持未知",
+          "Windows原生／深色主题未验收；旧schema备份以对应旧程序恢复新目录再升级"
+        ],
+        "unverified": [
+          "全游戏可刷库、完整中文与形态跨站核验、复杂条件概率、软件补丁构建号、图像和批量访问再用许可",
+          "Windows原生、深色主题与正式发布"
+        ],
+        "documentation": [
+          "docs/tasks/T028.md",
+          "docs/M5_ACCEPTANCE.md",
+          "docs/BINGO.md",
+          "docs/PLANNER.md",
+          "docs/API.md",
+          "docs/DATABASE.md",
+          "docs/evidence/github-rulesets-m5.json"
+        ],
+        "commit": "bbbd2b2aa19f65c56d8101a757465c5051695636",
+        "pr_url": "https://github.com/zl14229/pokemon-shiny-tracker/pull/43",
+        "merge_sha": "0e3b606c6d42ce636f577ad593ccbc9f3add36e8"
       },
       "record": "docs/tasks/T028.md"
     },

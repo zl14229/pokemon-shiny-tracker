@@ -1,0 +1,77 @@
+{
+  "retrieved_at_utc": "2026-10-28 17:34:00 UTC",
+  "repository": {
+    "url": "https://api.github.com/repos/zl14229/pokemon-shiny-tracker",
+    "default_branch": "dev",
+    "allow_merge_commit": true,
+    "allow_squash_merge": false,
+    "allow_rebase_merge": false,
+    "delete_branch_on_merge": false
+  },
+  "dev_ruleset": {
+    "url": "https://api.github.com/repos/zl14229/pokemon-shiny-tracker/rulesets/25725833",
+    "enforcement": "active",
+    "conditions": {
+      "ref_name": {
+        "exclude": [],
+        "include": [
+          "refs/heads/dev"
+        ]
+      }
+    },
+    "rules": [
+      {
+        "type": "deletion"
+      },
+      {
+        "type": "non_fast_forward"
+      },
+      {
+        "type": "pull_request",
+        "parameters": {
+          "required_approving_review_count": 0,
+          "dismiss_stale_reviews_on_push": false,
+          "required_reviewers": [],
+          "require_code_owner_review": false,
+          "require_last_push_approval": false,
+          "required_review_thread_resolution": true,
+          "require_extra_approval_for_unattributed_changes": false,
+          "allowed_merge_methods": [
+            "merge"
+          ]
+        }
+      },
+      {
+        "type": "required_status_checks",
+        "parameters": {
+          "strict_required_status_checks_policy": true,
+          "do_not_enforce_on_create": false,
+          "required_status_checks": [
+            {
+              "context": "baseline-checks",
+              "integration_id": 15368
+            },
+            {
+              "context": "repository-hygiene",
+              "integration_id": 15368
+            },
+            {
+              "context": "go-checks",
+              "integration_id": 15368
+            },
+            {
+              "context": "frontend-checks",
+              "integration_id": 15368
+            }
+          ]
+        }
+      }
+    ],
+    "bypass_actors": [],
+    "current_user_can_bypass": "never"
+  },
+  "prod": {
+    "url": "https://api.github.com/repos/zl14229/pokemon-shiny-tracker/git/ref/heads/prod",
+    "sha": "dc68988b7c76bf23ae3b68b588d15858f50b742e"
+  }
+}

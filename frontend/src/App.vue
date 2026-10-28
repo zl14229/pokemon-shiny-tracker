@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import PlannerPage from './pages/PlannerPage.vue'
 import DexPage from './pages/DexPage.vue'
 import BackupPage from './pages/BackupPage.vue'
 import ImportPage from './pages/ImportPage.vue'
@@ -21,6 +22,10 @@ const detail = computed(() => /^\/hunts\/([1-9]\d*)(\/edit)?$/.exec(path.value))
 const id = computed(() =>
   detail.value && Number.isSafeInteger(Number(detail.value[1])) ? Number(detail.value[1]) : null,
 )
+const planId = computed(() => {
+  const match = /^\/planner\/plans\/([1-9]\d*)$/.exec(path.value)
+  return match && Number.isSafeInteger(Number(match[1])) ? Number(match[1]) : undefined
+})
 const collectionDetail = computed(() => /^\/collection\/([1-9]\d*)(\/edit)?$/.exec(path.value))
 const collectionId = computed(() =>
   collectionDetail.value && Number.isSafeInteger(Number(collectionDetail.value[1]))
@@ -47,6 +52,9 @@ const collectionId = computed(() =>
             ><span aria-hidden="true">✧</span>闪光收藏</a
           >
           <a href="#/dex" :aria-current="path === '/dex' ? 'page' : undefined">闪光图鉴</a>
+          <a href="#/planner" :aria-current="path.startsWith('/planner') ? 'page' : undefined"
+            >Hunt Planner</a
+          >
           <a href="#/data/import" :aria-current="path.startsWith('/data') ? 'page' : undefined"
             >数据管理</a
           >
@@ -85,6 +93,11 @@ const collectionId = computed(() =>
           >
           <ServiceStatus />
         </template>
+        <PlannerPage
+          v-else-if="path === '/planner' || planId"
+          :key="`plan-${planId || 'new'}`"
+          :id="planId"
+        />
         <DexPage v-else-if="path === '/dex'" :query="query" />
         <BackupPage v-else-if="path === '/data/backup'" />
         <ImportPage v-else-if="path === '/data/import'" />

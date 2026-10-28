@@ -871,18 +871,38 @@
         "T026"
       ],
       "acceptance": "只按本地已核实合法可刷候选生成；双候选池、多游戏去重、均匀抽样、资料覆盖提示、概率未知/方法缺失提示及一键 Hunt",
-      "status": "in_review",
+      "status": "verified",
       "branch": "feature/T027-random-hunt",
       "evidence": {
-        "implementation": null,
-        "checks": [],
-        "self_review": null,
-        "risks": [],
-        "unverified": [],
-        "documentation": [],
-        "commit": null,
-        "pr_url": null,
-        "merge_sha": null
+        "implementation": "schema8 Random Hunt本地候选、复用图鉴历史双缺失池、多游戏唯一目标均匀抽样、默认排除进行中、真实覆盖与不足、来源快照、幂等草稿／保存／逐目标转Hunt及完整界面",
+        "checks": [
+          "make check（含race）/make smoke、治理及7回归通过",
+          "前端88测试、typecheck/build、9真实API集成通过",
+          "本机完整31 Chromium通过，含2个新Random Hunt场景及MVP备份恢复",
+          "最终PR CI success https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40727997060",
+          "最终push CI success https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40727846088",
+          "merge后dev CI success https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40729655636",
+          "固定序列30000次偏权反例、公平选择版本、物种形态去重、原始游戏与进化历史、负面状态、未知概率、空池不足、来源撤回、幂等与备份恢复均通过"
+        ],
+        "self_review": "按code-review技能由主代理逐文件自审；无可用子技能未虚报独立审查。核对抽样、公平版本、历史复用、状态、来源、备份与事务；修复既有进行中Hunt关联受默认过滤、旧结果残留、离页后跳转，并保留分页中的草稿。",
+        "risks": [
+          "仅12唯一正式目标，覆盖partial，不足不补入未知",
+          "生成草稿保留审计且不列入保存历史，未提供清理器",
+          "转换重新检查当前可刷性和缺失规则，已获得／进行中／来源撤回可能拒绝",
+          "T026完整游戏／复杂概率／中文核对缺口仍保留；Windows原生未验收；旧版备份先对应版恢复新目录再升级"
+        ],
+        "unverified": [
+          "全游戏覆盖、全部方法／概率和中文交叉核对、Windows原生"
+        ],
+        "documentation": [
+          "docs/tasks/T027.md",
+          "docs/PLANNER.md",
+          "docs/API.md",
+          "docs/DATABASE.md"
+        ],
+        "commit": "28463f6b924cf75ef5e30950cbaf6067d81ab196",
+        "pr_url": "https://github.com/zl14229/pokemon-shiny-tracker/pull/41",
+        "merge_sha": "c4103561a5995c9c5083c7b6f9f3dd578ead7c2f"
       },
       "record": "docs/tasks/T027.md"
     },

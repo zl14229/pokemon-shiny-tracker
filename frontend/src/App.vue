@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import BingoCreate from './pages/BingoCreate.vue'
 import PlannerPage from './pages/PlannerPage.vue'
 import DexPage from './pages/DexPage.vue'
 import BackupPage from './pages/BackupPage.vue'
@@ -93,6 +94,7 @@ const collectionId = computed(() =>
           >
           <ServiceStatus />
         </template>
+        <BingoCreate v-else-if="path === '/planner/bingo'" />
         <PlannerPage
           v-else-if="path === '/planner' || planId"
           :key="`plan-${planId || 'new'}`"

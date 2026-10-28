@@ -133,7 +133,7 @@ func TestRoundTripAndExportPreserveIDsHistoryImportsAndFiles(t *testing.T) {
 	if e = json.Unmarshal(data, &doc); e != nil {
 		t.Fatal(e, string(data))
 	}
-	if len(doc.Tables) != 18 || len(doc.Tables["import_rows"]) != 1 || len(doc.Tables["attachments"]) != 3 {
+	if len(doc.Tables) != 20 || len(doc.Tables["import_rows"]) != 1 || len(doc.Tables["attachments"]) != 3 {
 		t.Fatal("export lost provenance")
 	}
 	found := false

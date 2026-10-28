@@ -45,7 +45,7 @@ func personalError(c *gin.Context, err error) {
 		if problem.Code == "reference_unavailable" {
 			status = 503
 		}
-		if problem.Code == "conflict" {
+		if problem.Code == "conflict" || problem.Code == "insufficient_candidates" {
 			status = 409
 		}
 		abort(c, status, problem.Code, problem.Message)

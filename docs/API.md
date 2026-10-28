@@ -121,3 +121,7 @@ T017: `GET /api/v1/dex`返回双层目标、历史/持有、合法子集完成�
 ## T027 Hunt Planner
 
 Random Hunt 的本地候选池、幂等生成／保存、计划列表／详情与逐目标创建／关联 Hunt 见 [PLANNER.md](PLANNER.md)。所有写请求严格 JSON、同源限制；未知或来源不完整不进入候选。`reference_unavailable` 返回 503，界面显示资料核对提示。
+
+## T028 Hunt Bingo
+
+卡片创建／详情、成果刷新、带期望目标的重抽／Hunt 关联、显式时间证据与终态接口见 [BINGO.md](BINGO.md)。自动日期判定和用户补充时间证据分别记录；时间核验不允许绕过来源或合法性。insufficient_candidates 为 409，未知资料不补格。GET 无确认成果副作用，打开卡片由界面显式 POST 刷新。

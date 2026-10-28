@@ -827,18 +827,37 @@
         "T017"
       ],
       "acceptance": "按游戏/形态区分直接可刷/锁闪/仅传送/未知，方法/地点/前提/遭遇率与闪光率分开，逐条来源与核对时间可追踪；不批量抓取未经授权内容",
-      "status": "in_review",
+      "status": "verified",
       "branch": "feature/T026-hunt-data",
       "evidence": {
-        "implementation": null,
-        "checks": [],
-        "self_review": null,
-        "risks": [],
-        "unverified": [],
-        "documentation": [],
-        "commit": null,
-        "pr_url": null,
-        "merge_sha": null
+        "implementation": "schema 7 合规本地刷闪资料、条件概率与方法分离、逐条来源和核对时间、稳定映射、24 条朱／紫子集、预览／审核校验和／原子添加／冲突拒绝／撤销、离线查询与备份恢复",
+        "checks": [
+          "make check / make smoke 通过；治理及7回归通过",
+          "前端75测试、build、8真实API集成通过",
+          "本机完整29 Chromium通过；修复中文字体下既有导入说明移动端溢出后完整重验",
+          "最终PR CI success https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40723403175",
+          "最终push CI success https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40723389351",
+          "merge后dev CI success https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40723955544"
+        ],
+        "self_review": "按code-review技能逐文件自审；修复外部映射冲突回退、概览覆盖状态与中文字体移动端溢出。核对镜像可获取性／审核快照校验和／映射，概率条件、批次原子性及个人资料隔离。无可用code-review-*子技能，未虚报独立子审。",
+        "risks": [
+          "仅朱／紫各12目标；初始唯一12，5×5应提示不足",
+          "完整天气时段、补丁构建号、全游戏资料与中文交叉核对尚未核验",
+          "无批量自动读取或正文／图片再分发许可，不提供这些行为",
+          "旧schema备份用对应版本先恢复新目录再升级；Windows原生未验收"
+        ],
+        "unverified": [
+          "全游戏合法性、完整方法及复杂条件概率、52Poké内容核验、批量或媒体再用许可"
+        ],
+        "documentation": [
+          "docs/tasks/T026.md",
+          "docs/HUNT_DATA.md",
+          "docs/API.md",
+          "docs/DATABASE.md"
+        ],
+        "commit": "58a429e3b7e59e6d16815dc57aadc06973adb408",
+        "pr_url": "https://github.com/zl14229/pokemon-shiny-tracker/pull/39",
+        "merge_sha": "0c64c53530877f9b9f88ba908c4ebf504e3c3a26"
       },
       "record": "docs/tasks/T026.md"
     },

@@ -5,6 +5,7 @@ import { mkdtemp, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 import { createServer, preview, type ViteDevServer } from 'vite'
+import { decodeStatistics } from '../../src/api/statistics'
 import { decodeDashboard } from '../../src/api/dashboard'
 import { parsePlan } from '../../src/api/planner'
 import { ApiClient } from '../../src/api/client'
@@ -312,6 +313,12 @@ describe('real Go backend through Vite and the actual API client', () => {
       expect(d.summary).toEqual(data.summary)
     }
     expect(v.hunts.total).toBe(v.hunts.in_progress + v.hunts.completed + v.hunts.abandoned)
+  })
+  it('reads one validated statistics snapshot and rejects incompatible count filtering', async () => {
+    const v = decodeStatistics(await client.getJSON('/statistics'))
+    expect(v.by_game.reduce((sum, g) => sum + g.individuals, 0)).toBe(v.individuals)
+    expect(v.effort.reduce((sum, g) => sum + g.hunts, 0)).toBe(v.hunts)
+    await expect(client.getJSON('/statistics?min_count=1')).rejects.toMatchObject({ status: 400 })
   })
   it('reports backend shutdown as an error, then succeeds after restart', async () => {
     await stopBackend()

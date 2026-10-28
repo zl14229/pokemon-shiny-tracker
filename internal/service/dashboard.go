@@ -79,6 +79,13 @@ type DashboardResult struct {
 }
 type Analytics struct{ DB *gorm.DB }
 
+func huntInCollectionSystem(h model.Hunt, system string, games map[uint64]model.Game) bool {
+	if h.GameID == nil {
+		return system == "pokemon"
+	}
+	return games[*h.GameID].CollectionSystem == system
+}
+
 func dashboardSystem(raw string) (string, error) {
 	q, err := url.ParseQuery(raw)
 	if err != nil {
@@ -135,11 +142,7 @@ func (s Analytics) Dashboard(ctx context.Context, raw string) (DashboardResult, 
 			}
 		}
 		for _, h := range snapshot.Hunts {
-			if h.GameID == nil {
-				if system != "pokemon" {
-					continue
-				}
-			} else if !selected[*h.GameID] {
+			if !huntInCollectionSystem(h, system, snapshot.Games) {
 				continue
 			}
 			v.Hunts.Total++

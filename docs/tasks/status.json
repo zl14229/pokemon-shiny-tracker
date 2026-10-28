@@ -1008,8 +1008,8 @@
         "T019"
       ],
       "acceptance": "游戏、方法、时间、次数与趋势准确，筛选有测试",
-      "status": "planned",
-      "branch": null,
+      "status": "in_review",
+      "branch": "feature/T020-statistics-charts",
       "evidence": {
         "implementation": null,
         "checks": [],
@@ -1021,7 +1021,7 @@
         "pr_url": null,
         "merge_sha": null
       },
-      "record": null
+      "record": "docs/tasks/T020.md"
     },
     {
       "id": "T021",

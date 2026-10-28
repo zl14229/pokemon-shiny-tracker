@@ -4,7 +4,10 @@
   "private": true,
   "type": "module",
   "packageManager": "npm@11.19.1",
-  "engines": { "node": ">=24.22.1 <25", "npm": ">=11 <12" },
+  "engines": {
+    "node": ">=24.22.1 <25",
+    "npm": ">=11 <12"
+  },
   "scripts": {
     "dev": "vite",
     "typecheck": "vue-tsc --noEmit",
@@ -16,6 +19,7 @@
     "test:integration": "vitest run --config vitest.integration.config.ts"
   },
   "dependencies": {
+    "echarts": "6.1.0",
     "element-plus": "2.14.7",
     "vue": "3.5.44"
   },

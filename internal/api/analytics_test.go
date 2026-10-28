@@ -31,3 +31,23 @@ func TestDashboardOfflineAPI(t *testing.T) {
 		t.Fatal(w.Code)
 	}
 }
+
+func TestStatisticsOfflineAPI(t *testing.T) {
+	db := testutil.DB(t)
+	r := NewRouter(db)
+	w := request(r, "GET", "/api/v1/statistics")
+	var v struct {
+		Data service.StatisticsResult `json:"data"`
+	}
+	if e := json.Unmarshal(w.Body.Bytes(), &v); e != nil {
+		t.Fatal(e)
+	}
+	if w.Code != 200 || v.Data.Individuals != 0 || v.Data.Hunts != 0 || v.Data.Effort == nil {
+		t.Fatal(w.Code, w.Body.String())
+	}
+	for _, q := range []string{"?min_count=1", "?source=bad", "?from=2024-02-30", "?method=x&method=y"} {
+		if w := request(r, "GET", "/api/v1/statistics"+q); w.Code != 400 {
+			t.Fatal(q, w.Code)
+		}
+	}
+}

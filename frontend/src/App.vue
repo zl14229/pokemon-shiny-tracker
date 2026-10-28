@@ -5,7 +5,7 @@ import PlannerPage from './pages/PlannerPage.vue'
 import DexPage from './pages/DexPage.vue'
 import BackupPage from './pages/BackupPage.vue'
 import ImportPage from './pages/ImportPage.vue'
-import { computed, ref } from 'vue'
+import { computed, ref, defineAsyncComponent } from 'vue'
 import { ElButton, ElCard, ElConfigProvider } from 'element-plus'
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
 import ServiceStatus from './components/ServiceStatus.vue'
@@ -16,6 +16,7 @@ import ShinyList from './pages/ShinyList.vue'
 import ShinyForm from './pages/ShinyForm.vue'
 import ShinyDetail from './pages/ShinyDetail.vue'
 import { useRoute } from './domain/navigation'
+const StatisticsPage = defineAsyncComponent(() => import('./pages/StatisticsPage.vue'))
 const route = useRoute(),
   showGuide = ref(false)
 const path = computed(() => route.value.split('?')[0] ?? '/home')
@@ -54,6 +55,9 @@ const collectionId = computed(() =>
             ><span aria-hidden="true">✧</span>闪光收藏</a
           >
           <a href="#/dex" :aria-current="path === '/dex' ? 'page' : undefined">闪光图鉴</a>
+          <a href="#/statistics" :aria-current="path === '/statistics' ? 'page' : undefined"
+            >统计中心</a
+          >
           <a href="#/planner" :aria-current="path.startsWith('/planner') ? 'page' : undefined"
             >Hunt Planner</a
           >
@@ -97,6 +101,7 @@ const collectionId = computed(() =>
           <ServiceStatus />
         </template>
         <BingoCreate v-else-if="path === '/planner/bingo'" />
+        <StatisticsPage v-else-if="path === '/statistics'" />
         <PlannerPage
           v-else-if="path === '/planner' || planId"
           :key="`plan-${planId || 'new'}`"

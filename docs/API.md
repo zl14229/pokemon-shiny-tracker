@@ -129,3 +129,7 @@ Random Hunt 的本地候选池、幂等生成／保存、计划列表／详情�
 ## T019 Dashboard
 
 `GET /api/v1/dashboard?collection_system=pokemon` 在一致只读事务中返回 `data.collection`（历史／确认持有／持有未知／自刷／来源未知／原始游戏未知的永久个体数）、`data.hunts`（三状态总数与缺失次数／耗时／游戏数量）、`data.dex`（物种／形态 × 历史／当前四组 M4 summary 与 coverage）。仅接受单个 collection_system；未知分母百分比为 null，真实无记录数量为0；错误不返回伪造0。Sleep 等体系隔离，不按当前保存游戏推断原始获得版本。数据只读、本地离线可用。
+
+## T020 统计中心
+
+`GET /api/v1/statistics` 的游戏／关联方法／来源／状态／日期／同单位次数／标准秒筛选、分组字段、月趋势、已知值覆盖与描述性效率边界见 [STATISTICS.md](STATISTICS.md)。复用T009查询与T019快照，无新个人表或schema；不同计数单位不混合比较，未知累计值和不可计算效率为null。

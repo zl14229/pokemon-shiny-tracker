@@ -155,3 +155,9 @@ M5 收尾 CI 发现旧资料客户端的慢响应节流边界（push 40738662047
 从最新 dev 894a8fea586b3949c9c69daba41253439ded3cc6 创建 feature/T019-dashboard，依赖 T008/T017 verified。只读聚合共享快照、抽取原有 M4 范围判断而不改变语义，Dashboard四组图鉴调用同引擎；个人身份计数不做历史join，未知字段不补0，Sleep体系独立。首页响应式总览、加载空态错误重试，游戏列表失败明确提示。GitHub实际回读dev strict四项／无bypass／merge-only／保留分支，prod基准未变，证据在 evidence/github-rulesets-m6.json。完成本地验收与自审后按PR流程交付。
 
 T019验收：106前端、11真实API、34完整浏览器、后端race/build/smoke及治理通过；PR45四项必需检查和分支push均success，Merge Commit ed3ebc4ef539a2850e3b9c59665c11873c40758c。收尾归档verified；后续从最新dev继续T020，不修改prod。
+
+## 2026-10-29 M6 / T020
+
+T019实现／收尾PR45/46已通过必需CI合入，起点af17ba706b577dff5597e582f619b7af51292426创建feature/T020-statistics-charts。复用快照与已有查询校验，统一统计API／原始游戏分布／来源和关联方法／可信月份趋势／同游戏方法单位的累计覆盖及明确自刷完成子集效率。累计投入不能归属子期间，日期筛选时效率留空；多单位不共图比较。ECharts6.1.0许可证和完整性已查npm registry，按官方模块／SVG／容器resize和dispose文档实现本地组件与延迟统计页，不读个人库或改schema。
+
+T020本地验收：110前端、12真实API、35完整浏览器、后端make check/race/build/smoke及治理通过；自审修复关联任务筛选跨体系边界后相关service/API race、vet/build再次通过。七图使用真实临时库，验证原始游戏、重复个体、期间不拆累计效率、390px和请求失败清旧图；无真实库读写。准备PR与必需CI，未提前标记verified。

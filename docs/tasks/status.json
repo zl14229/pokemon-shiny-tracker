@@ -967,8 +967,8 @@
         "T017"
       ],
       "acceptance": "数据口径准确、数值缺失不被置 0",
-      "status": "planned",
-      "branch": null,
+      "status": "in_review",
+      "branch": "feature/T019-dashboard",
       "evidence": {
         "implementation": null,
         "checks": [],
@@ -980,7 +980,7 @@
         "pr_url": null,
         "merge_sha": null
       },
-      "record": null
+      "record": "docs/tasks/T019.md"
     },
     {
       "id": "T020",

@@ -967,18 +967,36 @@
         "T017"
       ],
       "acceptance": "数据口径准确、数值缺失不被置 0",
-      "status": "in_review",
+      "status": "verified",
       "branch": "feature/T019-dashboard",
       "evidence": {
-        "implementation": null,
-        "checks": [],
-        "self_review": null,
-        "risks": [],
-        "unverified": [],
-        "documentation": [],
-        "commit": null,
-        "pr_url": null,
-        "merge_sha": null
+        "implementation": "本地一致事务Dashboard、永久个体／Hunt状态与缺失覆盖、物种形态×历史当前四组M4图鉴引擎复用、体系隔离、响应式加载空态错误重试",
+        "checks": [
+          "make check（格式／模块／vet／race／build）、make smoke通过",
+          "106前端测试、typecheck/build/HTTPsmoke、11真实API、完整34 Chromium（含桌面390px、MVP备份恢复和M5）通过",
+          "冻结校验及7治理回归通过",
+          "最终PR CI success https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40786398584",
+          "最终push CI success https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40786360585"
+        ],
+        "self_review": "按code-review技能主代理逐文件审查；无配套子技能未虚报独立子审。核对M4范围等价复用／四组引擎一致／永久身份不join倍增／未知与0／Sleep／原始保存游戏／过时请求取消／移动端。补充游戏列表错误反馈；本地服务断言精确限定原服务卡。",
+        "risks": [
+          "资料沿用M5已核实子集，分母百分比不表示全游戏",
+          "次数／耗时只统计缺失覆盖，未按未知补0或生成效率结论",
+          "本机低端口无监听却超时，完整E2E使用有界覆盖45080/45173；应用和CI默认不变",
+          "Windows原生／深色主题未验收；统计不修改真实个人库"
+        ],
+        "unverified": [
+          "全游戏资料和Windows原生／深色主题"
+        ],
+        "documentation": [
+          "docs/tasks/T019.md",
+          "docs/API.md",
+          "docs/FRONTEND_DEVELOPMENT.md",
+          "docs/evidence/github-rulesets-m6.json"
+        ],
+        "commit": "a2363e213c816a0034dbea8ac9f0936b9c6c71ed",
+        "pr_url": "https://github.com/zl14229/pokemon-shiny-tracker/pull/45",
+        "merge_sha": "ed3ebc4ef539a2850e3b9c59665c11873c40758c"
       },
       "record": "docs/tasks/T019.md"
     },

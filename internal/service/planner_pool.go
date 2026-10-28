@@ -9,6 +9,7 @@ import (
 	"net/url"
 	"sort"
 	"strconv"
+	"time"
 
 	"github.com/zl14229/pokemon-shiny-tracker/internal/huntdata"
 	"github.com/zl14229/pokemon-shiny-tracker/internal/model"
@@ -93,6 +94,7 @@ type PlannerPool struct {
 type Planner struct {
 	DB          *gorm.DB
 	RandomIndex func(int) (int, error)
+	Now         func() time.Time
 }
 
 func plannerJSON(v any) string { b, _ := json.Marshal(v); return string(b) }

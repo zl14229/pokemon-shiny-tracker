@@ -25,7 +25,9 @@ var migrations = []migration{{1, func(tx *gorm.DB) error {
 	return tx.Migrator().CreateTable(&model.ReferenceBatch{}, &model.ExternalReference{})
 }}, {3, func(tx *gorm.DB) error { return tx.Migrator().CreateTable(&model.ImportBatch{}, &model.ImportRow{}) }}, {4, func(tx *gorm.DB) error { return tx.Migrator().CreateTable(&model.Attachment{}) }}, {5, func(tx *gorm.DB) error { return tx.Migrator().CreateTable(&model.CatalogEntry{}) }}, {6, func(tx *gorm.DB) error { return tx.Migrator().CreateTable(&model.ShinyAvailability{}) }}, {7, func(tx *gorm.DB) error {
 	return tx.Migrator().CreateTable(&model.HuntDataBatch{}, &model.HuntFact{}, &model.PokemonHuntMethod{})
-}}, {8, func(tx *gorm.DB) error { return tx.Migrator().CreateTable(&model.HuntPlan{}, &model.HuntPlanTarget{}) }}}
+}}, {8, func(tx *gorm.DB) error { return tx.Migrator().CreateTable(&model.HuntPlan{}, &model.HuntPlanTarget{}) }}, {9, func(tx *gorm.DB) error {
+	return tx.Migrator().CreateTable(&model.BingoChallenge{}, &model.BingoEvent{})
+}}}
 
 func Migrate(db *gorm.DB) error {
 	return migrate(db, migrations)

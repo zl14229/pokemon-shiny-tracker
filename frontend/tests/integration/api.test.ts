@@ -268,6 +268,39 @@ describe('real Go backend through Vite and the actual API client', () => {
     expect(a.targets[0]!.hunt_id).toBe(b.targets[0]!.hunt_id)
     expect(a.targets[0]!.snapshot.choice.evidence[0]!.fact.methods[0]!.encounter_rate).toBeNull()
   })
+  it('round trips a real persisted Bingo card, reviews and a unique reroll', async () => {
+    const gs = await new TrackerAPI(client).games()
+    const ids = gs.filter((g) => ['scarlet', 'violet'].includes(g.slug)).map((g) => g.id)
+    const created = parsePlan(
+      (
+        (await client.postJSON('/planner/bingo', {
+          request_id: 'integration-bingo-001',
+          rules: { game_ids: ids },
+          size: 3,
+          calendar_zone: 'UTC',
+        })) as { data: unknown }
+      ).data,
+    )
+    expect(created.kind).toBe('bingo')
+    expect(created.targets).toHaveLength(9)
+    expect(created.bingo?.lines).toEqual([])
+    const target = created.targets[8]!
+    const changed = parsePlan(
+      (
+        (await client.postJSON(`/planner/plans/${created.id}/targets/${target.id}/reroll`, {
+          request_id: 'integration-reroll-001',
+          expected_target_key: target.target_key,
+        })) as { data: unknown }
+      ).data,
+    )
+    expect(changed.targets[8]!.target_key).not.toBe(target.target_key)
+    expect(new Set(changed.targets.map((t) => t.target_key)).size).toBe(9)
+    const refreshed = parsePlan(
+      ((await client.postJSON(`/planner/plans/${created.id}/refresh`, {})) as { data: unknown })
+        .data,
+    )
+    expect(refreshed.bingo?.events.some((e) => e.kind === 'rerolled')).toBe(true)
+  })
   it('reports backend shutdown as an error, then succeeds after restart', async () => {
     await stopBackend()
     await expect(client.getHealth()).rejects.toMatchObject({ kind: 'http', status: 502 })

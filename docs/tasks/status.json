@@ -916,8 +916,8 @@
         "T027"
       ],
       "acceptance": "3×3/5×5、持久化、成果合法性、连线、重抽边界与恢复",
-      "status": "planned",
-      "branch": null,
+      "status": "in_review",
+      "branch": "feature/T028-hunt-bingo",
       "evidence": {
         "implementation": null,
         "checks": [],
@@ -929,7 +929,7 @@
         "pr_url": null,
         "merge_sha": null
       },
-      "record": null
+      "record": "docs/tasks/T028.md"
     },
     {
       "id": "T019",

@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"fmt"
 
 	"regexp"
 	"strconv"
@@ -26,6 +27,7 @@ type PlannerView struct {
 	Rules    PlannerRules        `json:"rules"`
 	Coverage PlannerCoverage     `json:"coverage"`
 	Targets  []PlannerTargetView `json:"targets"`
+	Bingo    *BingoDetails       `json:"bingo,omitempty"`
 }
 
 var plannerRequestPattern = regexp.MustCompile(`^[a-zA-Z0-9-]{8,80}$`)
@@ -52,6 +54,11 @@ func plannerView(tx *gorm.DB, id uint64) (PlannerView, error) {
 			return out, e
 		}
 		out.Targets = append(out.Targets, v)
+	}
+	if out.Kind == "bingo" {
+		if e := attachBingo(tx, &out); e != nil {
+			return out, e
+		}
 	}
 	return out, nil
 }
@@ -166,7 +173,7 @@ func (s Planner) currentPick(ctx context.Context, tx *gorm.DB, v PlannerView, t 
 	}
 	return PlannerPick{}, conflict("目标不再符合当前已核实资料或缺失池，请重新查看候选")
 }
-func (s Planner) StartHunt(ctx context.Context, planID, targetID uint64, existing *uint64) (PlannerView, error) {
+func (s Planner) StartHunt(ctx context.Context, planID, targetID uint64, existing *uint64, expectedKey ...string) (PlannerView, error) {
 	var out PlannerView
 	e := s.DB.WithContext(ctx).Transaction(func(tx *gorm.DB) error {
 		v, e := plannerView(tx, planID)
@@ -179,6 +186,9 @@ func (s Planner) StartHunt(ctx context.Context, planID, targetID uint64, existin
 		var target model.HuntPlanTarget
 		if e = tx.Where("plan_id = ? AND id = ?", planID, targetID).First(&target).Error; e != nil {
 			return e
+		}
+		if v.Kind == "bingo" && (len(expectedKey) != 1 || expectedKey[0] != target.TargetKey) {
+			return conflict("格子目标已改变，请重新读取")
 		}
 		if target.HuntID != nil {
 			if existing != nil && *existing != *target.HuntID {
@@ -232,8 +242,17 @@ func (s Planner) StartHunt(ctx context.Context, planID, targetID uint64, existin
 				return e
 			}
 		}
+		beforeTarget := target
 		if e = tx.Model(&target).Updates(map[string]any{"hunt_id": hunt.ID, "status": "started"}).Error; e != nil {
 			return e
+		}
+		if v.Kind == "bingo" {
+			after := target
+			after.HuntID = &hunt.ID
+			after.Status = "started"
+			if e = bingoEvent(tx, planID, &target.ID, "hunt_linked", fmt.Sprintf("格子 %d 关联 Hunt #%d", target.Position, hunt.ID), beforeTarget, after, nil); e != nil {
+				return e
+			}
 		}
 		out, e = plannerView(tx, planID)
 		return e

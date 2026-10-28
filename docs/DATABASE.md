@@ -64,3 +64,5 @@ T017 schema6：新增shiny_availabilities，游戏+形态唯一、物种/形态�
 T026 schema 7：新增 hunt_data_batches（审核快照、校验和、应用／撤销）、hunt_facts（唯一 availability 与批次、direct_hunt、攻略状态）、pokemon_hunt_methods（方法、地点、条件、来源、分开的 nullable 遭遇率和闪光率 JSON）。事务添加、冲突取消、批次撤销；个人表不参与资料更新。备份／导出包含新表；旧版备份先用对应旧程序恢复新目录再升级。
 
 T027 schema 8：hunt_plans 保存生成规则、request_id、覆盖快照和草稿／已保存状态；hunt_plan_targets 使用物种、可选形态、游戏与 Hunt 外键，唯一 plan+position 和 plan+target_key，保留来源快照。备份表总数18，恢复保持关联与快照。生成不创建 Hunt，转 Hunt 事务幂等。
+
+T028 schema 9：新增 bingo_challenges（唯一 plan_id、3／5尺寸、不可变 started_at、calendar_zone）及 bingo_events（创建／Hunt关联／重抽／成果／终态、完整前后快照和可选唯一重抽请求）。目标表 proof_json 保存自动日期或用户显式时间核验及来源快照，不修改个体。备份／导出20表，完整5×5新目录恢复验证。封存挑战与已完成证据不静默改写。

@@ -10,6 +10,7 @@ import (
 func plannerRoutes(v1 *gin.RouterGroup, db *gorm.DB) {
 	s := service.Planner{DB: db}
 	r := v1.Group("/planner", localOrigin)
+	bingoRoutes(r, s)
 	r.POST("/pool", func(c *gin.Context) {
 		in, ok := body[struct {
 			Rules service.PlannerRules `json:"rules"`
@@ -90,12 +91,17 @@ func plannerRoutes(v1 *gin.RouterGroup, db *gorm.DB) {
 			return
 		}
 		in, ok := body[struct {
-			HuntID *uint64 `json:"hunt_id"`
+			HuntID            *uint64 `json:"hunt_id"`
+			ExpectedTargetKey *string `json:"expected_target_key"`
 		}](c)
 		if !ok {
 			return
 		}
-		out, e := s.StartHunt(c.Request.Context(), id, target, in.HuntID)
+		expected := []string{}
+		if in.ExpectedTargetKey != nil {
+			expected = append(expected, *in.ExpectedTargetKey)
+		}
+		out, e := s.StartHunt(c.Request.Context(), id, target, in.HuntID, expected...)
 		if e != nil {
 			personalError(c, e)
 			return

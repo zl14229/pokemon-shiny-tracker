@@ -1,6 +1,6 @@
 # Pokémon Shiny Tracker
 
-基于 Baseline V1.1 的个人闪光收藏与 Hunt 管理项目。当前后端提供 SQLite、部分离线基础资料、Hunt 与闪光个体 CRUD、轻量历史和组合查询/分页 API；Vue 前端提供 Hunt 与闪光收藏列表、表单、详情、筛选分页及关联管理，保留未知资料和轻量历史。任务的实际验收与合并状态见任务证据。
+基于 Baseline V1.1 的个人闪光收藏与 Hunt 管理项目。当前后端提供 SQLite、部分离线基础资料、Hunt 与闪光个体 CRUD、轻量历史和组合查询/分页 API；Vue 前端提供 Hunt 与闪光收藏列表、表单、详情、筛选分页及关联管理，保留未知资料和轻量历史。新增离线双层图鉴、已核实可刷子集、Random Hunt 和持久化 Bingo。任务的实际验收与合并状态见任务证据。
 
 ## 冻结需求
 
@@ -31,6 +31,8 @@
 - [M1 集成验收报告](docs/M1_ACCEPTANCE.md)
 - [M2 集成验收报告](docs/M2_ACCEPTANCE.md)
 - [M3 功能验收报告](docs/M3_ACCEPTANCE.md)
+- [M4 图鉴验收报告](docs/M4_ACCEPTANCE.md)、[M5 集成与资料覆盖报告](docs/M5_ACCEPTANCE.md)
+- [游戏刷闪资料与来源](docs/HUNT_DATA.md)、[Random Hunt](docs/PLANNER.md)、[Hunt Bingo](docs/BINGO.md)
 - [T010](docs/tasks/T010.md)、[T011](docs/tasks/T011.md) 界面执行证据
 - [T012](docs/tasks/T012.md)、[T013](docs/tasks/T013.md)、[T014](docs/tasks/T014.md)、[T015](docs/tasks/T015.md) 数据与MVP执行证据
 - [T002](docs/tasks/T002.md)、[T003](docs/tasks/T003.md)、[T004](docs/tasks/T004.md) 执行证据
@@ -86,6 +88,8 @@ Actions 包含 Go 检查、前端类型/组件/构建/启动、真实 API 联调
 
 真实 SQLite 数据、Excel 原始资料、密钥、附件和备份放在仓库外。脱敏且获准入库的测试夹具需在对应任务中明确审查。
 
-M4工程验收与已知资料缺口见[全国资料](docs/REFERENCE_DATA.md)及[Task状态](docs/tasks/status.json)。全国数据离线可读；中文交叉核验和合法闪光覆盖保持显式未知，不能视为全量可信游戏图鉴。
+M4工程验收与已知资料缺口见[全国资料](docs/REFERENCE_DATA.md)及[Task状态](docs/tasks/status.json)。全国数据离线可读；中文交叉核验和完整合法闪光覆盖仍未完成，仅朱／紫12个唯一目标具备本轮逐条核验资料，不能视为全量游戏图鉴。
 
 图鉴入口：`/#/dex`；双层与持有/历史统计规则见[图鉴口径](docs/DEX.md)，覆盖、来源和端到端证据见[M4验收报告](docs/M4_ACCEPTANCE.md)。0分母保持待核实，不自动推断合法性。
+
+Hunt Planner入口：`/#/planner`；Bingo创建：`/#/planner/bingo`。正式初始候选只有12个唯一目标，3×3须筛选后至少9个，5×5不足25时明确拒绝。不会因数量不足加入未知或锁闪目标；同日仅有日期的新成果先待核验，可显式补充时间证据。详情见[M5报告](docs/M5_ACCEPTANCE.md)。

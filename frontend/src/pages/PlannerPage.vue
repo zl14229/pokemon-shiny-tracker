@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { onBeforeUnmount, onMounted, ref, shallowRef } from 'vue'
+import BingoCard from '../components/BingoCard.vue'
 import { ElButton } from 'element-plus'
 import { planner, type Plan, type PlannerRules, type PlanListItem } from '../api/planner'
 import { tracker } from '../api/tracker'
@@ -134,7 +135,7 @@ onBeforeUnmount(() => {
       <h2>下一次闪光目标</h2>
       <p class="muted">从已核实的本地候选中，找一个新的相遇。</p>
     </div>
-    <a v-if="id" href="#/planner">返回生成器</a>
+    <a v-if="id" href="#/planner">返回生成器</a><a v-else href="#/planner/bingo">创建 Bingo 挑战</a>
   </header>
   <p v-if="error" role="alert">
     {{ error }}
@@ -204,7 +205,8 @@ onBeforeUnmount(() => {
         <ElButton type="primary" native-type="submit" :loading="busy">生成随机目标</ElButton>
       </form>
     </section>
-    <section v-if="plan" class="surface" aria-label="生成结果">
+    <BingoCard v-if="plan?.kind === 'bingo'" :plan="plan" @updated="plan = $event" />
+    <section v-else-if="plan" class="surface" aria-label="生成结果">
       <h3>
         {{ plan.status === 'draft' ? '本次结果' : `已保存计划 #${plan.id}` }}
       </h3>

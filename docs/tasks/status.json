@@ -1008,18 +1008,38 @@
         "T019"
       ],
       "acceptance": "游戏、方法、时间、次数与趋势准确，筛选有测试",
-      "status": "in_review",
+      "status": "verified",
       "branch": "feature/T020-statistics-charts",
       "evidence": {
-        "implementation": null,
-        "checks": [],
-        "self_review": null,
-        "risks": [],
-        "unverified": [],
-        "documentation": [],
-        "commit": null,
-        "pr_url": null,
-        "merge_sha": null
+        "implementation": "统一只读统计API复用T009筛选／T019快照，七个本地ECharts SVG图、游戏／关联方法／来源／日期／同单位次数／秒筛选、部分日期覆盖、独立样本效率、响应式明细、延迟加载与dispose",
+        "checks": [
+          "make check（含race）/make smoke通过；自审体系边界修复后Statistics/Dashboard/Dex定向race、全量vet/build再验通过",
+          "110前端测试、typecheck/build/HTTPsmoke、12真实API、完整35 Chromium通过",
+          "冻结校验及7治理回归通过",
+          "最终PR CI success https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40789003802",
+          "最终push CI success https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40788975707"
+        ],
+        "self_review": "code-review主代理逐文件审查，无配套子技能未虚报独立审查。核对身份去重／原始游戏／现有筛选／日期精度／同单位分组／样本分母／0和未知／安全整数／过时请求／SVG resize dispose／richText无用户HTML。修复关联Hunt筛选跨体系并回归；无范围内未解决项。",
+        "risks": [
+          "累计Hunt无M7会话明细，不能绘制每日投入；日期筛选效率null",
+          "效率仅符合条件的已记录自刷完成子集，不代表总体概率；次数和时间样本分别显示",
+          "统计页约577KB gzip197KB延迟加载；构建体积建议不影响构建通过",
+          "Windows原生／深色主题未验收；全游戏／中文／机制资料缺口沿用M5"
+        ],
+        "unverified": [
+          "全游戏机制概率及完整资料覆盖",
+          "Windows原生与深色主题"
+        ],
+        "documentation": [
+          "docs/tasks/T020.md",
+          "docs/STATISTICS.md",
+          "docs/API.md",
+          "docs/FRONTEND_DEVELOPMENT.md",
+          "docs/licenses/README.md"
+        ],
+        "commit": "154f1d81eb7b755d939e00a06ac734add765965a",
+        "pr_url": "https://github.com/zl14229/pokemon-shiny-tracker/pull/47",
+        "merge_sha": "d57f5aa5b6612e728f429e5d7acef633a6b34144"
       },
       "record": "docs/tasks/T020.md"
     },

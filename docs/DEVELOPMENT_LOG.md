@@ -161,3 +161,5 @@ T019验收：106前端、11真实API、34完整浏览器、后端race/build/smok
 T019实现／收尾PR45/46已通过必需CI合入，起点af17ba706b577dff5597e582f619b7af51292426创建feature/T020-statistics-charts。复用快照与已有查询校验，统一统计API／原始游戏分布／来源和关联方法／可信月份趋势／同游戏方法单位的累计覆盖及明确自刷完成子集效率。累计投入不能归属子期间，日期筛选时效率留空；多单位不共图比较。ECharts6.1.0许可证和完整性已查npm registry，按官方模块／SVG／容器resize和dispose文档实现本地组件与延迟统计页，不读个人库或改schema。
 
 T020本地验收：110前端、12真实API、35完整浏览器、后端make check/race/build/smoke及治理通过；自审修复关联任务筛选跨体系边界后相关service/API race、vet/build再次通过。七图使用真实临时库，验证原始游戏、重复个体、期间不拆累计效率、390px和请求失败清旧图；无真实库读写。准备PR与必需CI，未提前标记verified。
+
+T020实现PR47的四项必需CI与push CI均success，以Merge Commit d57f5aa5b6612e728f429e5d7acef633a6b34144合入dev；验收收尾归档verified，治理与7回归通过。无bypass、保留分支，后续仅T021。

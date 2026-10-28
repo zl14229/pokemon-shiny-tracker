@@ -153,3 +153,5 @@ M5 收尾 CI 发现旧资料客户端的慢响应节流边界（push 40738662047
 ## 2026-10-29 M6 / T019
 
 从最新 dev 894a8fea586b3949c9c69daba41253439ded3cc6 创建 feature/T019-dashboard，依赖 T008/T017 verified。只读聚合共享快照、抽取原有 M4 范围判断而不改变语义，Dashboard四组图鉴调用同引擎；个人身份计数不做历史join，未知字段不补0，Sleep体系独立。首页响应式总览、加载空态错误重试，游戏列表失败明确提示。GitHub实际回读dev strict四项／无bypass／merge-only／保留分支，prod基准未变，证据在 evidence/github-rulesets-m6.json。完成本地验收与自审后按PR流程交付。
+
+T019验收：106前端、11真实API、34完整浏览器、后端race/build/smoke及治理通过；PR45四项必需检查和分支push均success，Merge Commit ed3ebc4ef539a2850e3b9c59665c11873c40758c。收尾归档verified；后续从最新dev继续T020，不修改prod。

@@ -42,7 +42,7 @@ test('M4 dual dex follows one evolving and transferred identity and works offlin
       })
     ).status(),
   ).toBe(200)
-  await page.goto('/#/dex?q=bulbasaur')
+  await page.goto('/#/dex?scope=game&game_id=1&q=bulbasaur')
   const card = page.getByRole('article', { name: '妙蛙种子', exact: true })
   await expect(card).toBeVisible()
   await expect(card).toContainText('历史 1 · 当前持有 0')
@@ -73,7 +73,7 @@ test('M4 dual dex follows one evolving and transferred identity and works offlin
 test('M4 verified missing list stays unknown, pagination and mobile do not overflow', async ({
   page,
 }) => {
-  await page.goto('/#/dex')
+  await page.goto('/#/dex?scope=game&game_id=1')
   await expect(page.getByRole('heading', { name: '闪光图鉴', exact: true })).toBeVisible()
   await expect(page.getByRole('article')).toHaveCount(24)
   const first = await page.getByRole('article').first().getAttribute('aria-label')

@@ -60,3 +60,5 @@ Go 数据库/关系测试使用 `t.TempDir()`。后端 smoke、前端真实集�
 T016 schema5：新增catalog_entries，只关联稳定物种/形态身份，存多语言、形态纳入状态、同源CSV版本与交叉核对状态。迁移不改个人表/原始和当前物种字段；个人备份/JSON导出包含新表，ZIP恢复要求本程序当前schema（旧schema4备份需旧版本先恢复到新目录再升级，不原地覆盖）。
 
 T017 schema6：新增shiny_availabilities，游戏+形态唯一、物种/形态复合外键，状态和核验状态分离，verified必须具备来源/URL/核对时间/版本。M4只读取契约，实际游戏资料0条，合成测试不作为种子。备份/JSON含该表；旧schema4/5备份用对应旧版先恢复新目录再升级。
+
+T026 schema 7：新增 hunt_data_batches（审核快照、校验和、应用／撤销）、hunt_facts（唯一 availability 与批次、direct_hunt、攻略状态）、pokemon_hunt_methods（方法、地点、条件、来源、分开的 nullable 遭遇率和闪光率 JSON）。事务添加、冲突取消、批次撤销；个人表不参与资料更新。备份／导出包含新表；旧版备份先用对应旧程序恢复新目录再升级。

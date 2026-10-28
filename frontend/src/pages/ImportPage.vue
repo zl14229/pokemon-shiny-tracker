@@ -290,7 +290,7 @@ onBeforeUnmount(() => {
               :value="key" /></ElSelect
         ></label>
       </div>
-      <label
+      <label class="mapping-help"
         >可选值映射（JSON；如 source 的原值映射到
         self_hunted/trade/event/other/unknown，holding_status 映射到
         held/traded/released/unknown；游戏/形态映射到经核对的内部ID）<ElInput
@@ -403,3 +403,11 @@ onBeforeUnmount(() => {
     </p>
   </section>
 </template>
+
+<style scoped>
+.mapping-help {
+  display: block;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+</style>

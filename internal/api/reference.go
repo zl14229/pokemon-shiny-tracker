@@ -62,7 +62,16 @@ func referenceRoutes(v1 *gin.RouterGroup, db *gorm.DB) {
 			}
 			counts[name] = count
 		}
-		c.JSON(200, gin.H{"data": gin.H{"coverage": "partial", "counts": counts, "shiny_availability": "not_verified", "configured_source": reference.Source, "chinese_names": "source_provided_or_unknown_or_conflict"}})
+		var verified int64
+		if err := db.Model(&model.ShinyAvailability{}).Where("verification_status = ?", "verified").Count(&verified).Error; err != nil {
+			storageError(c, err)
+			return
+		}
+		state := "not_verified"
+		if verified > 0 {
+			state = "partial"
+		}
+		c.JSON(200, gin.H{"data": gin.H{"coverage": "partial", "counts": counts, "shiny_availability": state, "verified_availability": verified, "configured_source": reference.Source, "chinese_names": "source_provided_or_unknown_or_conflict"}})
 	})
 }
 

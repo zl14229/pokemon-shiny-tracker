@@ -827,8 +827,8 @@
         "T017"
       ],
       "acceptance": "按游戏/形态区分直接可刷/锁闪/仅传送/未知，方法/地点/前提/遭遇率与闪光率分开，逐条来源与核对时间可追踪；不批量抓取未经授权内容",
-      "status": "planned",
-      "branch": null,
+      "status": "in_review",
+      "branch": "feature/T026-hunt-data",
       "evidence": {
         "implementation": null,
         "checks": [],
@@ -840,7 +840,7 @@
         "pr_url": null,
         "merge_sha": null
       },
-      "record": null
+      "record": "docs/tasks/T026.md"
     },
     {
       "id": "T027",

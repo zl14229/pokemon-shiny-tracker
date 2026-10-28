@@ -46,9 +46,9 @@ test('Excel mapping preview, row errors, explicit confirmation and no fabricated
   expect(batch.selected_json).toBe('[2]')
   await page.screenshot({ path: 'test-results/import-desktop.png', fullPage: true })
   await page.setViewportSize({ width: 390, height: 844 })
-  expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(
-    true,
-  )
+  await expect
+    .poll(() => page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth))
+    .toBe(true)
   await page.screenshot({ path: 'test-results/import-mobile.png', fullPage: true })
 })
 test('committed confirmation with lost response retries same token without duplicate', async ({

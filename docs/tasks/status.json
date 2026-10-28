@@ -919,7 +919,7 @@
       "status": "verified",
       "branch": "feature/T028-hunt-bingo",
       "evidence": {
-        "implementation": "schema9 多卡3×3/5×5 Bingo，无免费／重复格，期望目标与幂等重抽，Hunt关联审计，新个体原始目标／游戏／形态与当前合法性、日历日期自动判定，显式时间核验不绕过来源／合法性，连线和终态历史；完整Vue界面及M5报告",
+        "implementation": "schema9 多卡3×3/5×5 Bingo，无免费／重复格，期望目标与幂等重抽，Hunt关联审计，新个体原始目标／游戏／形态与当前合法性、日历日期自动判定，显式时间核验不绕过来源／合法性，连线和终态历史；完整Vue界面及M5报告；收尾修复慢响应后的资料客户端节流边界",
         "checks": [
           "make check（格式／模块／vet／race／build）、make smoke通过",
           "治理验证及7回归通过；102前端测试、typecheck/build/HTTPsmoke通过",
@@ -928,9 +928,10 @@
           "最终PR CI success https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40736415489",
           "最终push CI success https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40736334053",
           "merge后dev CI success https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40737558145",
-          "GitHub实际回读dev四项strict／无bypass／保留分支；prod SHA仍dc68988b7c76bf23ae3b68b588d15858f50b742e"
+          "GitHub实际回读dev四项strict／无bypass／保留分支；prod SHA仍dc68988b7c76bf23ae3b68b588d15858f50b742e",
+          "收尾首次push40738662047发现旧源客户端冷却边界；修复后20次延迟响应race、reference全量race、完整make check/make smoke通过，收尾PR44完整CI再验"
         ],
-        "self_review": "按code-review技能主代理逐文件自审；无子技能未虚报独立审查。复核身份、原始游戏、日期时区、来源、重抽／封存、事务、外键和备份；修复迁移注册、Vue表达式／类型及不明网络结果后请求与已变化目标串用；完成证据不可替换，失败均修复重验。",
+        "self_review": "按code-review技能主代理逐文件自审；无子技能未虚报独立审查。复核身份、原始游戏、日期时区、来源、重抽／封存、事务、外键和备份；修复迁移注册、Vue表达式／类型及不明网络结果后请求与已变化目标串用；完成证据不可替换，失败均修复重验。 PR44追加修复慢响应消耗起始冷却的真实边界；从响应完整结束后执行原间隔，强化回归而未放宽标准。",
         "risks": [
           "正式仅12唯一目标，5×5不足25明确拒绝；完整5×5以隔离合成资料验证，不假称正式全量覆盖",
           "只按有据的原始获得目标核验，不推断后续进化发生游戏／时间；同日日期不足需显式时间证据",

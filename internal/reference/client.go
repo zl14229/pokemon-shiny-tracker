@@ -25,14 +25,14 @@ type cachedResponse struct {
 }
 
 type Client struct {
-	CacheDir    string
-	Offline     bool
-	Refresh     bool
-	baseURL     string
-	interval    time.Duration
-	http        *http.Client
-	mu          sync.Mutex
-	lastRequest time.Time
+	CacheDir            string
+	Offline             bool
+	Refresh             bool
+	baseURL             string
+	interval            time.Duration
+	http                *http.Client
+	mu                  sync.Mutex
+	lastRequestFinished time.Time
 }
 
 func NewClient(cacheDir string) (*Client, error) {
@@ -77,7 +77,7 @@ func (c *Client) fetch(ctx context.Context, resource string, id int) (cachedResp
 	if c.Offline {
 		return cachedResponse{}, errors.New("offline source resource is not cached")
 	}
-	if wait := time.Until(c.lastRequest.Add(c.interval)); wait > 0 {
+	if wait := time.Until(c.lastRequestFinished.Add(c.interval)); wait > 0 {
 		timer := time.NewTimer(wait)
 		defer timer.Stop()
 		select {
@@ -92,7 +92,10 @@ func (c *Client) fetch(ctx context.Context, resource string, id int) (cachedResp
 	}
 	request.Header.Set("User-Agent", "PokemonShinyTracker/0.1 (+https://github.com/zl14229/pokemon-shiny-tracker)")
 	request.Header.Set("Accept", "application/json")
-	c.lastRequest = time.Now()
+	// Pace from the end of the previous network attempt, after its body is
+	// closed. A slow connection or response must not consume the cooldown
+	// and cause an immediate follow-up request at the source.
+	defer func() { c.lastRequestFinished = time.Now() }()
 	response, err := c.http.Do(request)
 	if err != nil {
 		return cachedResponse{}, err

@@ -30,6 +30,7 @@ func sourceFixture(path string) string {
 func TestSourceCacheOfflineAndPacing(t *testing.T) {
 	var mu sync.Mutex
 	starts := []time.Time{}
+	finishes := []time.Time{}
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		mu.Lock()
 		starts = append(starts, time.Now())
@@ -37,8 +38,16 @@ func TestSourceCacheOfflineAndPacing(t *testing.T) {
 		if !strings.Contains(r.UserAgent(), "PokemonShinyTracker") {
 			t.Error("unidentified source client")
 		}
+		// A delayed first response reproduces the CI failure: spacing only
+		// client starts can let the next source request follow immediately.
+		if r.URL.Path == "/api/v2/pokemon-species/25/" {
+			time.Sleep(30 * time.Millisecond)
+		}
 		w.Header().Set("Content-Type", "application/json")
 		fmt.Fprint(w, sourceFixture(r.URL.Path))
+		mu.Lock()
+		finishes = append(finishes, time.Now())
+		mu.Unlock()
 	}))
 	defer server.Close()
 	client, err := NewClient(t.TempDir())
@@ -54,13 +63,20 @@ func TestSourceCacheOfflineAndPacing(t *testing.T) {
 	if len(d.Resources) != 3 || d.Resources[0].Facts.NameStatus != "source_provided" || *d.Resources[0].Facts.NameZh != "测试皮卡丘" {
 		t.Fatal("localized source value lost")
 	}
-	for i := 1; i < len(starts); i++ {
-		if starts[i].Sub(starts[i-1]) < 8*time.Millisecond {
+	mu.Lock()
+	gotStarts := append([]time.Time{}, starts...)
+	gotFinishes := append([]time.Time{}, finishes...)
+	mu.Unlock()
+	if len(gotStarts) != 4 || len(gotFinishes) != 4 {
+		t.Fatalf("source requests starts=%d finishes=%d", len(gotStarts), len(gotFinishes))
+	}
+	for i := 1; i < len(gotStarts); i++ {
+		if gotStarts[i].Sub(gotStarts[i-1]) < 8*time.Millisecond {
 			t.Fatal("unpaced requests")
 		}
-	}
-	if len(starts) != 4 {
-		t.Fatal(len(starts))
+		if gotStarts[i].Sub(gotFinishes[i-1]) < 8*time.Millisecond {
+			t.Fatal("response latency consumed the source cooldown")
+		}
 	}
 	server.Close()
 	client.Offline = true

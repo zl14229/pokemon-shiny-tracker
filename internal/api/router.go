@@ -40,6 +40,7 @@ func NewRouter(db *gorm.DB) *gin.Engine {
 		catalogRoutes(v1, db)
 		dexRoutes(v1, db)
 		huntDataRoutes(v1, db)
+		plannerRoutes(v1, db)
 		huntRoutes(v1, db)
 		shinyRoutes(v1, db)
 		importRoutes(v1, db)

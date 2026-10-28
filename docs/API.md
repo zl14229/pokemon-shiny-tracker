@@ -117,3 +117,7 @@ T017: `GET /api/v1/dex`返回双层目标、历史/持有、合法子集完成�
 ## T026 游戏刷闪资料
 
 `GET /api/v1/reference/hunt-data`（可选 game_id、limit 1..500、offset）：返回本地逐条来源、游戏／物种／形态映射、独立可获取性、直接可刷、方法及条件概率，meta.coverage 固定 partial。无写入 HTTP 接口。结构、覆盖和维护预览／应用／撤销见 [HUNT_DATA.md](HUNT_DATA.md)。
+
+## T027 Hunt Planner
+
+Random Hunt 的本地候选池、幂等生成／保存、计划列表／详情与逐目标创建／关联 Hunt 见 [PLANNER.md](PLANNER.md)。所有写请求严格 JSON、同源限制；未知或来源不完整不进入候选。`reference_unavailable` 返回 503，界面显示资料核对提示。

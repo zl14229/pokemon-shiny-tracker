@@ -42,6 +42,9 @@ func personalError(c *gin.Context, err error) {
 	var problem *service.Error
 	if errors.As(err, &problem) {
 		status := 400
+		if problem.Code == "reference_unavailable" {
+			status = 503
+		}
 		if problem.Code == "conflict" {
 			status = 409
 		}

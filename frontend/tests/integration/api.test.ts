@@ -5,6 +5,7 @@ import { mkdtemp, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 import { createServer, preview, type ViteDevServer } from 'vite'
+import { parsePlan } from '../../src/api/planner'
 import { ApiClient } from '../../src/api/client'
 import { TrackerAPI, huntInput, shinyInput } from '../../src/api/tracker'
 
@@ -247,6 +248,25 @@ describe('real Go backend through Vite and the actual API client', () => {
     await expect(
       records.updateShiny(linked.id, { ...shinyInput(linked), level: 101 }, linked.updated_at),
     ).rejects.toMatchObject({ status: 400, code: 'invalid_request' })
+  })
+  it('preserves a real reviewed Random Hunt snapshot through save and idempotent Hunt conversion', async () => {
+    const games = await new TrackerAPI(client).games()
+    const ids = games.filter((g) => ['scarlet', 'violet'].includes(g.slug)).map((g) => g.id)
+    const input = { request_id: 'integration-random-001', rules: { game_ids: ids, count: 2 } }
+    const raw = (await client.postJSON('/planner/random', input)) as { data: unknown }
+    const draw = parsePlan(raw.data)
+    expect(draw.targets).toHaveLength(2)
+    expect(draw.coverage.status).toBe('partial')
+    expect(new Set(draw.targets.map((t) => t.target_key)).size).toBe(2)
+    const saved = parsePlan(
+      ((await client.postJSON(`/planner/plans/${draw.id}/save`, {})) as { data: unknown }).data,
+    )
+    expect(saved.status).toBe('active')
+    const route = `/planner/plans/${draw.id}/targets/${draw.targets[0]!.id}/hunt`
+    const a = parsePlan(((await client.postJSON(route, {})) as { data: unknown }).data),
+      b = parsePlan(((await client.postJSON(route, {})) as { data: unknown }).data)
+    expect(a.targets[0]!.hunt_id).toBe(b.targets[0]!.hunt_id)
+    expect(a.targets[0]!.snapshot.choice.evidence[0]!.fact.methods[0]!.encounter_rate).toBeNull()
   })
   it('reports backend shutdown as an error, then succeeds after restart', async () => {
     await stopBackend()

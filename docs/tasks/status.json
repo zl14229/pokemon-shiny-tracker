@@ -871,8 +871,8 @@
         "T026"
       ],
       "acceptance": "只按本地已核实合法可刷候选生成；双候选池、多游戏去重、均匀抽样、资料覆盖提示、概率未知/方法缺失提示及一键 Hunt",
-      "status": "planned",
-      "branch": null,
+      "status": "in_review",
+      "branch": "feature/T027-random-hunt",
       "evidence": {
         "implementation": null,
         "checks": [],
@@ -884,7 +884,7 @@
         "pr_url": null,
         "merge_sha": null
       },
-      "record": null
+      "record": "docs/tasks/T027.md"
     },
     {
       "id": "T028",

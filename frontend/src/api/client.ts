@@ -23,6 +23,8 @@ function isRecord(value: unknown): value is Record<string, unknown> {
 
 function httpError(status: number, body: unknown): ApiError {
   const messages: Record<string, string> = {
+    reference_unavailable: '本地刷闪资料来源或映射不完整，请核对资料；不会补入未知目标。',
+    insufficient_candidates: '已核实候选数量不足，请查看资料覆盖与候选数量。',
     not_found: '记录不存在、已删除或接口不可用，请刷新后确认。',
     method_not_allowed: '服务不支持此操作，请确认应用版本。',
     internal_error: '本地服务暂时不可用，请稍后重试。',
@@ -92,7 +94,10 @@ export class ApiClient {
         headers:
           data === undefined || data instanceof FormData
             ? { Accept: 'application/json' }
-            : { Accept: 'application/json', 'Content-Type': 'application/json' },
+            : {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+              },
         ...(data === undefined
           ? {}
           : { body: data instanceof FormData ? data : JSON.stringify(data) }),

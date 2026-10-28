@@ -39,6 +39,17 @@ func TestOfflineReviewedHuntDataAPI(t *testing.T) {
 	if len(out.Data) != 5 || out.Meta.Total != 24 || out.Meta.Coverage != "partial" || !out.Data[0].Fact.Huntable() {
 		t.Fatal(out)
 	}
+	w = httptest.NewRecorder()
+	r.ServeHTTP(w, httptest.NewRequest("GET", "/api/v1/reference/coverage", nil))
+	var coverage struct {
+		Data struct {
+			Status string `json:"shiny_availability"`
+			Count  int    `json:"verified_availability"`
+		} `json:"data"`
+	}
+	if e := json.Unmarshal(w.Body.Bytes(), &coverage); e != nil || coverage.Data.Status != "partial" || coverage.Data.Count != 24 {
+		t.Fatal(w.Body.String(), e)
+	}
 	for _, path := range []string{"/api/v1/reference/hunt-data?game_id=0", "/api/v1/reference/hunt-data?limit=0"} {
 		w = httptest.NewRecorder()
 		r.ServeHTTP(w, httptest.NewRequest("GET", path, nil))

@@ -63,7 +63,7 @@ T028：3×3／5×5，无免费格和重复格；多卡持久化、关联 Hunt、
 
 ## PR、CI 与 Merge Commit
 
-以下实现及前三个已完成收尾阶段为工具实际确认的证据。最后收尾 PR 自身的检查与 Merge Commit 使用实际 GitHub 记录链接，最终 dev CI 和自身 merge SHA 在交付回复中确认，避免文件引用包含自身的提交哈希循环。
+已合并的实现与收尾阶段均为工具实际确认的证据。最后收尾 PR 自身的检查与 Merge Commit 使用实际 GitHub 记录链接，最终 dev CI 和自身 merge SHA 在交付回复中确认，避免文件引用包含自身的提交哈希循环。
 
 |任务／阶段|PR|最终PR CI|Merge Commit|合并后dev CI|
 |---|---|---|---|---|
@@ -72,7 +72,7 @@ T028：3×3／5×5，无免费格和重复格；多卡持久化、关联 Hunt、
 |T027 实现|[#41](https://github.com/zl14229/pokemon-shiny-tracker/pull/41)|[success](https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40727997060)|c4103561a5995c9c5083c7b6f9f3dd578ead7c2f|[success](https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40729655636)|
 |T027 收尾|[#42](https://github.com/zl14229/pokemon-shiny-tracker/pull/42)|[success](https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40730314957)|770a96a288186bc62cd16af6f569b3705138b979|[success](https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40731222456)|
 |T028 实现|[#43](https://github.com/zl14229/pokemon-shiny-tracker/pull/43)|[success](https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40736415489)|0e3b606c6d42ce636f577ad593ccbc9f3add36e8|[success](https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40737558145)|
-|T028 收尾|待创建|未确认|未合并|未确认|
+|T028 / M5 收尾|[#44](https://github.com/zl14229/pokemon-shiny-tracker/pull/44)|[实际检查记录](https://github.com/zl14229/pokemon-shiny-tracker/pull/44/checks)|[实际 Merge Commit 记录](https://github.com/zl14229/pokemon-shiny-tracker/pull/44)|[dev 运行记录](https://github.com/zl14229/pokemon-shiny-tracker/actions?query=branch%3Adev)，精确运行见交付回复|
 
 T026最终实现HEAD58a429e3b7e59e6d16815dc57aadc06973adb408；T027最终实现HEAD28463f6b924cf75ef5e30950cbaf6067d81ab196；T028最终实现HEADbbbd2b2aa19f65c56d8101a757465c5051695636。任务记录保留push CI等细节。每个实现和收尾均要求实际四项必需检查成功、主代理逐文件自审；仅有code-review orchestrator而无子技能，不虚报独立子审。没有绕过GitHub规则或虚报成功。
 
@@ -80,4 +80,4 @@ T026最终实现HEAD58a429e3b7e59e6d16815dc57aadc06973adb408；T027最终实现H
 
 资料未覆盖全游戏；中文内容交叉核对、全部天气时段／路线、补丁构建号、条件加成概率、图片再用与批量访问授权仍未核实。默认保持未知，未添加完整概率库或未经授权的采集。生成草稿保留审计，尚无清理器。已确认格子使用历史证据快照，后续编辑或删除个人记录不会静默改写挑战历史。
 
-schema9备份包含20表；旧schema备份应以对应旧版恢复到新目录后升级，不覆盖真实数据。M6 T019–T021和后续Task保持planned。prod实际回读仍为dc68988b7c76bf23ae3b68b588d15858f50b742e，本轮未修改。GitHub规则回读见[evidence/github-rulesets-m5.json](evidence/github-rulesets-m5.json)：dev默认、四项strict必需检查、无bypass、Merge Commit、合并后不删除源分支。最终交付再核对三个源分支和prod。
+schema9备份包含20表；旧schema备份应以对应旧版恢复到新目录后升级，不覆盖真实数据。M6 T019–T021和后续Task保持planned。prod实际回读仍为dc68988b7c76bf23ae3b68b588d15858f50b742e，本轮未修改。GitHub规则回读见[evidence/github-rulesets-m5.json](evidence/github-rulesets-m5.json)：dev默认、四项strict必需检查、无bypass、Merge Commit、合并后不删除源分支。最终交付附三个源分支保留及prod不变的实际核对结果。

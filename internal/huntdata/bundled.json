@@ -1,0 +1,1589 @@
+{
+  "version": "m5-sv-wild-2026-10-28-v1",
+  "targets": [
+    {
+      "game_version_id": 40,
+      "species_id": 172,
+      "form_id": 172,
+      "availability": "confirmed_available",
+      "direct_hunt": "yes",
+      "verification": "verified",
+      "guide_status": "partial",
+      "evidence": {
+        "source": "Serebii",
+        "url": "https://www.serebii.net/pokearth/paldea/southprovinceareaone.shtml",
+        "scope": "朱／紫本篇南第一区普通野外出现；不含活动、赠送和太晶团体战；软件构建号未固定",
+        "version": "sv-base-wild-review-2026-10-28",
+        "checked_at": "2026-10-28T16:00:44Z"
+      },
+      "cross_checks": [
+        {
+          "source": "Bulbapedia",
+          "url": "https://bulbapedia.bulbagarden.net/wiki/South_Province_(Area_One)",
+          "scope": "朱／紫南第一区普通野外表交叉核对；仅确认出现，不将权重当作遭遇率",
+          "version": "sv-base-wild-review-2026-10-28",
+          "checked_at": "2026-10-28T16:00:44Z"
+        },
+        {
+          "source": "Serebii",
+          "url": "https://www.serebii.net/scarletviolet/shinypokemon.shtml",
+          "scope": "朱／紫普通野外基础闪光机制；无闪耀护符、闪耀力、大量出现加成和活动",
+          "version": "sv-base-wild-review-2026-10-28",
+          "checked_at": "2026-10-28T16:00:44Z"
+        },
+        {
+          "source": "Bulbapedia",
+          "url": "https://bulbapedia.bulbagarden.net/wiki/Shiny_Pok%C3%A9mon#Generation_IX",
+          "scope": "朱／紫普通野外可闪和基础1/4096交叉核对；不含团体战",
+          "version": "sv-base-wild-review-2026-10-28",
+          "checked_at": "2026-10-28T16:00:44Z"
+        }
+      ],
+      "methods": [
+        {
+          "name": "ordinary_wild",
+          "location": "South Province (Area One)",
+          "conditions": "朱／紫本篇普通野外遭遇；进入南第一区并寻找对应栖息地；不含开场教学、活动、赠送、团体战；完整时间和天气细节待补充",
+          "evidence": {
+            "source": "Bulbapedia",
+            "url": "https://bulbapedia.bulbagarden.net/wiki/South_Province_(Area_One)",
+            "scope": "朱／紫南第一区普通野外表交叉核对；仅确认出现，不将权重当作遭遇率",
+            "version": "sv-base-wild-review-2026-10-28",
+            "checked_at": "2026-10-28T16:00:44Z"
+          },
+          "encounter_rate": null,
+          "shiny_rate": {
+            "numerator": 1,
+            "denominator": 4096,
+            "conditions": "仅朱／紫普通野外基础单次判定；无闪耀护符、闪耀力、大量出现加成和活动；不推广至其他版本或方法",
+            "evidence": {
+              "source": "Serebii",
+              "url": "https://www.serebii.net/scarletviolet/shinypokemon.shtml",
+              "scope": "朱／紫普通野外基础闪光机制；无闪耀护符、闪耀力、大量出现加成和活动",
+              "version": "sv-base-wild-review-2026-10-28",
+              "checked_at": "2026-10-28T16:00:44Z"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "game_version_id": 40,
+      "species_id": 187,
+      "form_id": 187,
+      "availability": "confirmed_available",
+      "direct_hunt": "yes",
+      "verification": "verified",
+      "guide_status": "partial",
+      "evidence": {
+        "source": "Serebii",
+        "url": "https://www.serebii.net/pokearth/paldea/southprovinceareaone.shtml",
+        "scope": "朱／紫本篇南第一区普通野外出现；不含活动、赠送和太晶团体战；软件构建号未固定",
+        "version": "sv-base-wild-review-2026-10-28",
+        "checked_at": "2026-10-28T16:00:44Z"
+      },
+      "cross_checks": [
+        {
+          "source": "Bulbapedia",
+          "url": "https://bulbapedia.bulbagarden.net/wiki/South_Province_(Area_One)",
+          "scope": "朱／紫南第一区普通野外表交叉核对；仅确认出现，不将权重当作遭遇率",
+          "version": "sv-base-wild-review-2026-10-28",
+          "checked_at": "2026-10-28T16:00:44Z"
+        },
+        {
+          "source": "Serebii",
+          "url": "https://www.serebii.net/scarletviolet/shinypokemon.shtml",
+          "scope": "朱／紫普通野外基础闪光机制；无闪耀护符、闪耀力、大量出现加成和活动",
+          "version": "sv-base-wild-review-2026-10-28",
+          "checked_at": "2026-10-28T16:00:44Z"
+        },
+        {
+          "source": "Bulbapedia",
+          "url": "https://bulbapedia.bulbagarden.net/wiki/Shiny_Pok%C3%A9mon#Generation_IX",
+          "scope": "朱／紫普通野外可闪和基础1/4096交叉核对；不含团体战",
+          "version": "sv-base-wild-review-2026-10-28",
+          "checked_at": "2026-10-28T16:00:44Z"
+        }
+      ],
+      "methods": [
+        {
+          "name": "ordinary_wild",
+          "location": "South Province (Area One)",
+          "conditions": "朱／紫本篇普通野外遭遇；进入南第一区并寻找对应栖息地；不含开场教学、活动、赠送、团体战；完整时间和天气细节待补充",
+          "evidence": {
+            "source": "Bulbapedia",
+            "url": "https://bulbapedia.bulbagarden.net/wiki/South_Province_(Area_One)",
+            "scope": "朱／紫南第一区普通野外表交叉核对；仅确认出现，不将权重当作遭遇率",
+            "version": "sv-base-wild-review-2026-10-28",
+            "checked_at": "2026-10-28T16:00:44Z"
+          },
+          "encounter_rate": null,
+          "shiny_rate": {
+            "numerator": 1,
+            "denominator": 4096,
+            "conditions": "仅朱／紫普通野外基础单次判定；无闪耀护符、闪耀力、大量出现加成和活动；不推广至其他版本或方法",
+            "evidence": {
+              "source": "Serebii",
+              "url": "https://www.serebii.net/scarletviolet/shinypokemon.shtml",
+              "scope": "朱／紫普通野外基础闪光机制；无闪耀护符、闪耀力、大量出现加成和活动",
+              "version": "sv-base-wild-review-2026-10-28",
+              "checked_at": "2026-10-28T16:00:44Z"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "game_version_id": 40,
+      "species_id": 438,
+      "form_id": 438,
+      "availability": "confirmed_available",
+      "direct_hunt": "yes",
+      "verification": "verified",
+      "guide_status": "partial",
+      "evidence": {
+        "source": "Serebii",
+        "url": "https://www.serebii.net/pokearth/paldea/southprovinceareaone.shtml",
+        "scope": "朱／紫本篇南第一区普通野外出现；不含活动、赠送和太晶团体战；软件构建号未固定",
+        "version": "sv-base-wild-review-2026-10-28",
+        "checked_at": "2026-10-28T16:00:44Z"
+      },
+      "cross_checks": [
+        {
+          "source": "Bulbapedia",
+          "url": "https://bulbapedia.bulbagarden.net/wiki/South_Province_(Area_One)",
+          "scope": "朱／紫南第一区普通野外表交叉核对；仅确认出现，不将权重当作遭遇率",
+          "version": "sv-base-wild-review-2026-10-28",
+          "checked_at": "2026-10-28T16:00:44Z"
+        },
+        {
+          "source": "Serebii",
+          "url": "https://www.serebii.net/scarletviolet/shinypokemon.shtml",
+          "scope": "朱／紫普通野外基础闪光机制；无闪耀护符、闪耀力、大量出现加成和活动",
+          "version": "sv-base-wild-review-2026-10-28",
+          "checked_at": "2026-10-28T16:00:44Z"
+        },
+        {
+          "source": "Bulbapedia",
+          "url": "https://bulbapedia.bulbagarden.net/wiki/Shiny_Pok%C3%A9mon#Generation_IX",
+          "scope": "朱／紫普通野外可闪和基础1/4096交叉核对；不含团体战",
+          "version": "sv-base-wild-review-2026-10-28",
+          "checked_at": "2026-10-28T16:00:44Z"
+        }
+      ],
+      "methods": [
+        {
+          "name": "ordinary_wild",
+          "location": "South Province (Area One)",
+          "conditions": "朱／紫本篇普通野外遭遇；进入南第一区并寻找对应栖息地；不含开场教学、活动、赠送、团体战；完整时间和天气细节待补充",
+          "evidence": {
+            "source": "Bulbapedia",
+            "url": "https://bulbapedia.bulbagarden.net/wiki/South_Province_(Area_One)",
+            "scope": "朱／紫南第一区普通野外表交叉核对；仅确认出现，不将权重当作遭遇率",
+            "version": "sv-base-wild-review-2026-10-28",
+            "checked_at": "2026-10-28T16:00:44Z"
+          },
+          "encounter_rate": null,
+          "shiny_rate": {
+            "numerator": 1,
+            "denominator": 4096,
+            "conditions": "仅朱／紫普通野外基础单次判定；无闪耀护符、闪耀力、大量出现加成和活动；不推广至其他版本或方法",
+            "evidence": {
+              "source": "Serebii",
+              "url": "https://www.serebii.net/scarletviolet/shinypokemon.shtml",
+              "scope": "朱／紫普通野外基础闪光机制；无闪耀护符、闪耀力、大量出现加成和活动",
+              "version": "sv-base-wild-review-2026-10-28",
+              "checked_at": "2026-10-28T16:00:44Z"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "game_version_id": 40,
+      "species_id": 440,
+      "form_id": 440,
+      "availability": "confirmed_available",
+      "direct_hunt": "yes",
+      "verification": "verified",
+      "guide_status": "partial",
+      "evidence": {
+        "source": "Serebii",
+        "url": "https://www.serebii.net/pokearth/paldea/southprovinceareaone.shtml",
+        "scope": "朱／紫本篇南第一区普通野外出现；不含活动、赠送和太晶团体战；软件构建号未固定",
+        "version": "sv-base-wild-review-2026-10-28",
+        "checked_at": "2026-10-28T16:00:44Z"
+      },
+      "cross_checks": [
+        {
+          "source": "Bulbapedia",
+          "url": "https://bulbapedia.bulbagarden.net/wiki/South_Province_(Area_One)",
+          "scope": "朱／紫南第一区普通野外表交叉核对；仅确认出现，不将权重当作遭遇率",
+          "version": "sv-base-wild-review-2026-10-28",
+          "checked_at": "2026-10-28T16:00:44Z"
+        },
+        {
+          "source": "Serebii",
+          "url": "https://www.serebii.net/scarletviolet/shinypokemon.shtml",
+          "scope": "朱／紫普通野外基础闪光机制；无闪耀护符、闪耀力、大量出现加成和活动",
+          "version": "sv-base-wild-review-2026-10-28",
+          "checked_at": "2026-10-28T16:00:44Z"
+        },
+        {
+          "source": "Bulbapedia",
+          "url": "https://bulbapedia.bulbagarden.net/wiki/Shiny_Pok%C3%A9mon#Generation_IX",
+          "scope": "朱／紫普通野外可闪和基础1/4096交叉核对；不含团体战",
+          "version": "sv-base-wild-review-2026-10-28",
+          "checked_at": "2026-10-28T16:00:44Z"
+        }
+      ],
+      "methods": [
+        {
+          "name": "ordinary_wild",
+          "location": "South Province (Area One)",
+          "conditions": "朱／紫本篇普通野外遭遇；进入南第一区并寻找对应栖息地；不含开场教学、活动、赠送、团体战；完整时间和天气细节待补充",
+          "evidence": {
+            "source": "Bulbapedia",
+            "url": "https://bulbapedia.bulbagarden.net/wiki/South_Province_(Area_One)",
+            "scope": "朱／紫南第一区普通野外表交叉核对；仅确认出现，不将权重当作遭遇率",
+            "version": "sv-base-wild-review-2026-10-28",
+            "checked_at": "2026-10-28T16:00:44Z"
+          },
+          "encounter_rate": null,
+          "shiny_rate": {
+            "numerator": 1,
+            "denominator": 4096,
+            "conditions": "仅朱／紫普通野外基础单次判定；无闪耀护符、闪耀力、大量出现加成和活动；不推广至其他版本或方法",
+            "evidence": {
+              "source": "Serebii",
+              "url": "https://www.serebii.net/scarletviolet/shinypokemon.shtml",
+              "scope": "朱／紫普通野外基础闪光机制；无闪耀护符、闪耀力、大量出现加成和活动",
+              "version": "sv-base-wild-review-2026-10-28",
+              "checked_at": "2026-10-28T16:00:44Z"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "game_version_id": 40,
+      "species_id": 661,
+      "form_id": 661,
+      "availability": "confirmed_available",
+      "direct_hunt": "yes",
+      "verification": "verified",
+      "guide_status": "partial",
+      "evidence": {
+        "source": "Serebii",
+        "url": "https://www.serebii.net/pokearth/paldea/southprovinceareaone.shtml",
+        "scope": "朱／紫本篇南第一区普通野外出现；不含活动、赠送和太晶团体战；软件构建号未固定",
+        "version": "sv-base-wild-review-2026-10-28",
+        "checked_at": "2026-10-28T16:00:44Z"
+      },
+      "cross_checks": [
+        {
+          "source": "Bulbapedia",
+          "url": "https://bulbapedia.bulbagarden.net/wiki/South_Province_(Area_One)",
+          "scope": "朱／紫南第一区普通野外表交叉核对；仅确认出现，不将权重当作遭遇率",
+          "version": "sv-base-wild-review-2026-10-28",
+          "checked_at": "2026-10-28T16:00:44Z"
+        },
+        {
+          "source": "Serebii",
+          "url": "https://www.serebii.net/scarletviolet/shinypokemon.shtml",
+          "scope": "朱／紫普通野外基础闪光机制；无闪耀护符、闪耀力、大量出现加成和活动",
+          "version": "sv-base-wild-review-2026-10-28",
+          "checked_at": "2026-10-28T16:00:44Z"
+        },
+        {
+          "source": "Bulbapedia",
+          "url": "https://bulbapedia.bulbagarden.net/wiki/Shiny_Pok%C3%A9mon#Generation_IX",
+          "scope": "朱／紫普通野外可闪和基础1/4096交叉核对；不含团体战",
+          "version": "sv-base-wild-review-2026-10-28",
+          "checked_at": "2026-10-28T16:00:44Z"
+        }
+      ],
+      "methods": [
+        {
+          "name": "ordinary_wild",
+          "location": "South Province (Area One)",
+          "conditions": "朱／紫本篇普通野外遭遇；进入南第一区并寻找对应栖息地；不含开场教学、活动、赠送、团体战；完整时间和天气细节待补充",
+          "evidence": {
+            "source": "Bulbapedia",
+            "url": "https://bulbapedia.bulbagarden.net/wiki/South_Province_(Area_One)",
+            "scope": "朱／紫南第一区普通野外表交叉核对；仅确认出现，不将权重当作遭遇率",
+            "version": "sv-base-wild-review-2026-10-28",
+            "checked_at": "2026-10-28T16:00:44Z"
+          },
+          "encounter_rate": null,
+          "shiny_rate": {
+            "numerator": 1,
+            "denominator": 4096,
+            "conditions": "仅朱／紫普通野外基础单次判定；无闪耀护符、闪耀力、大量出现加成和活动；不推广至其他版本或方法",
+            "evidence": {
+              "source": "Serebii",
+              "url": "https://www.serebii.net/scarletviolet/shinypokemon.shtml",
+              "scope": "朱／紫普通野外基础闪光机制；无闪耀护符、闪耀力、大量出现加成和活动",
+              "version": "sv-base-wild-review-2026-10-28",
+              "checked_at": "2026-10-28T16:00:44Z"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "game_version_id": 40,
+      "species_id": 761,
+      "form_id": 761,
+      "availability": "confirmed_available",
+      "direct_hunt": "yes",
+      "verification": "verified",
+      "guide_status": "partial",
+      "evidence": {
+        "source": "Serebii",
+        "url": "https://www.serebii.net/pokearth/paldea/southprovinceareaone.shtml",
+        "scope": "朱／紫本篇南第一区普通野外出现；不含活动、赠送和太晶团体战；软件构建号未固定",
+        "version": "sv-base-wild-review-2026-10-28",
+        "checked_at": "2026-10-28T16:00:44Z"
+      },
+      "cross_checks": [
+        {
+          "source": "Bulbapedia",
+          "url": "https://bulbapedia.bulbagarden.net/wiki/South_Province_(Area_One)",
+          "scope": "朱／紫南第一区普通野外表交叉核对；仅确认出现，不将权重当作遭遇率",
+          "version": "sv-base-wild-review-2026-10-28",
+          "checked_at": "2026-10-28T16:00:44Z"
+        },
+        {
+          "source": "Serebii",
+          "url": "https://www.serebii.net/scarletviolet/shinypokemon.shtml",
+          "scope": "朱／紫普通野外基础闪光机制；无闪耀护符、闪耀力、大量出现加成和活动",
+          "version": "sv-base-wild-review-2026-10-28",
+          "checked_at": "2026-10-28T16:00:44Z"
+        },
+        {
+          "source": "Bulbapedia",
+          "url": "https://bulbapedia.bulbagarden.net/wiki/Shiny_Pok%C3%A9mon#Generation_IX",
+          "scope": "朱／紫普通野外可闪和基础1/4096交叉核对；不含团体战",
+          "version": "sv-base-wild-review-2026-10-28",
+          "checked_at": "2026-10-28T16:00:44Z"
+        }
+      ],
+      "methods": [
+        {
+          "name": "ordinary_wild",
+          "location": "South Province (Area One)",
+          "conditions": "朱／紫本篇普通野外遭遇；进入南第一区并寻找对应栖息地；不含开场教学、活动、赠送、团体战；完整时间和天气细节待补充",
+          "evidence": {
+            "source": "Bulbapedia",
+            "url": "https://bulbapedia.bulbagarden.net/wiki/South_Province_(Area_One)",
+            "scope": "朱／紫南第一区普通野外表交叉核对；仅确认出现，不将权重当作遭遇率",
+            "version": "sv-base-wild-review-2026-10-28",
+            "checked_at": "2026-10-28T16:00:44Z"
+          },
+          "encounter_rate": null,
+          "shiny_rate": {
+            "numerator": 1,
+            "denominator": 4096,
+            "conditions": "仅朱／紫普通野外基础单次判定；无闪耀护符、闪耀力、大量出现加成和活动；不推广至其他版本或方法",
+            "evidence": {
+              "source": "Serebii",
+              "url": "https://www.serebii.net/scarletviolet/shinypokemon.shtml",
+              "scope": "朱／紫普通野外基础闪光机制；无闪耀护符、闪耀力、大量出现加成和活动",
+              "version": "sv-base-wild-review-2026-10-28",
+              "checked_at": "2026-10-28T16:00:44Z"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "game_version_id": 40,
+      "species_id": 819,
+      "form_id": 819,
+      "availability": "confirmed_available",
+      "direct_hunt": "yes",
+      "verification": "verified",
+      "guide_status": "partial",
+      "evidence": {
+        "source": "Serebii",
+        "url": "https://www.serebii.net/pokearth/paldea/southprovinceareaone.shtml",
+        "scope": "朱／紫本篇南第一区普通野外出现；不含活动、赠送和太晶团体战；软件构建号未固定",
+        "version": "sv-base-wild-review-2026-10-28",
+        "checked_at": "2026-10-28T16:00:44Z"
+      },
+      "cross_checks": [
+        {
+          "source": "Bulbapedia",
+          "url": "https://bulbapedia.bulbagarden.net/wiki/South_Province_(Area_One)",
+          "scope": "朱／紫南第一区普通野外表交叉核对；仅确认出现，不将权重当作遭遇率",
+          "version": "sv-base-wild-review-2026-10-28",
+          "checked_at": "2026-10-28T16:00:44Z"
+        },
+        {
+          "source": "Serebii",
+          "url": "https://www.serebii.net/scarletviolet/shinypokemon.shtml",
+          "scope": "朱／紫普通野外基础闪光机制；无闪耀护符、闪耀力、大量出现加成和活动",
+          "version": "sv-base-wild-review-2026-10-28",
+          "checked_at": "2026-10-28T16:00:44Z"
+        },
+        {
+          "source": "Bulbapedia",
+          "url": "https://bulbapedia.bulbagarden.net/wiki/Shiny_Pok%C3%A9mon#Generation_IX",
+          "scope": "朱／紫普通野外可闪和基础1/4096交叉核对；不含团体战",
+          "version": "sv-base-wild-review-2026-10-28",
+          "checked_at": "2026-10-28T16:00:44Z"
+        }
+      ],
+      "methods": [
+        {
+          "name": "ordinary_wild",
+          "location": "South Province (Area One)",
+          "conditions": "朱／紫本篇普通野外遭遇；进入南第一区并寻找对应栖息地；不含开场教学、活动、赠送、团体战；完整时间和天气细节待补充",
+          "evidence": {
+            "source": "Bulbapedia",
+            "url": "https://bulbapedia.bulbagarden.net/wiki/South_Province_(Area_One)",
+            "scope": "朱／紫南第一区普通野外表交叉核对；仅确认出现，不将权重当作遭遇率",
+            "version": "sv-base-wild-review-2026-10-28",
+            "checked_at": "2026-10-28T16:00:44Z"
+          },
+          "encounter_rate": null,
+          "shiny_rate": {
+            "numerator": 1,
+            "denominator": 4096,
+            "conditions": "仅朱／紫普通野外基础单次判定；无闪耀护符、闪耀力、大量出现加成和活动；不推广至其他版本或方法",
+            "evidence": {
+              "source": "Serebii",
+              "url": "https://www.serebii.net/scarletviolet/shinypokemon.shtml",
+              "scope": "朱／紫普通野外基础闪光机制；无闪耀护符、闪耀力、大量出现加成和活动",
+              "version": "sv-base-wild-review-2026-10-28",
+              "checked_at": "2026-10-28T16:00:44Z"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "game_version_id": 40,
+      "species_id": 915,
+      "form_id": 915,
+      "availability": "confirmed_available",
+      "direct_hunt": "yes",
+      "verification": "verified",
+      "guide_status": "partial",
+      "evidence": {
+        "source": "Serebii",
+        "url": "https://www.serebii.net/pokearth/paldea/southprovinceareaone.shtml",
+        "scope": "朱／紫本篇南第一区普通野外出现；不含活动、赠送和太晶团体战；软件构建号未固定",
+        "version": "sv-base-wild-review-2026-10-28",
+        "checked_at": "2026-10-28T16:00:44Z"
+      },
+      "cross_checks": [
+        {
+          "source": "Bulbapedia",
+          "url": "https://bulbapedia.bulbagarden.net/wiki/South_Province_(Area_One)",
+          "scope": "朱／紫南第一区普通野外表交叉核对；仅确认出现，不将权重当作遭遇率",
+          "version": "sv-base-wild-review-2026-10-28",
+          "checked_at": "2026-10-28T16:00:44Z"
+        },
+        {
+          "source": "Serebii",
+          "url": "https://www.serebii.net/scarletviolet/shinypokemon.shtml",
+          "scope": "朱／紫普通野外基础闪光机制；无闪耀护符、闪耀力、大量出现加成和活动",
+          "version": "sv-base-wild-review-2026-10-28",
+          "checked_at": "2026-10-28T16:00:44Z"
+        },
+        {
+          "source": "Bulbapedia",
+          "url": "https://bulbapedia.bulbagarden.net/wiki/Shiny_Pok%C3%A9mon#Generation_IX",
+          "scope": "朱／紫普通野外可闪和基础1/4096交叉核对；不含团体战",
+          "version": "sv-base-wild-review-2026-10-28",
+          "checked_at": "2026-10-28T16:00:44Z"
+        }
+      ],
+      "methods": [
+        {
+          "name": "ordinary_wild",
+          "location": "South Province (Area One)",
+          "conditions": "朱／紫本篇普通野外遭遇；进入南第一区并寻找对应栖息地；不含开场教学、活动、赠送、团体战；完整时间和天气细节待补充",
+          "evidence": {
+            "source": "Bulbapedia",
+            "url": "https://bulbapedia.bulbagarden.net/wiki/South_Province_(Area_One)",
+            "scope": "朱／紫南第一区普通野外表交叉核对；仅确认出现，不将权重当作遭遇率",
+            "version": "sv-base-wild-review-2026-10-28",
+            "checked_at": "2026-10-28T16:00:44Z"
+          },
+          "encounter_rate": null,
+          "shiny_rate": {
+            "numerator": 1,
+            "denominator": 4096,
+            "conditions": "仅朱／紫普通野外基础单次判定；无闪耀护符、闪耀力、大量出现加成和活动；不推广至其他版本或方法",
+            "evidence": {
+              "source": "Serebii",
+              "url": "https://www.serebii.net/scarletviolet/shinypokemon.shtml",
+              "scope": "朱／紫普通野外基础闪光机制；无闪耀护符、闪耀力、大量出现加成和活动",
+              "version": "sv-base-wild-review-2026-10-28",
+              "checked_at": "2026-10-28T16:00:44Z"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "game_version_id": 40,
+      "species_id": 917,
+      "form_id": 917,
+      "availability": "confirmed_available",
+      "direct_hunt": "yes",
+      "verification": "verified",
+      "guide_status": "partial",
+      "evidence": {
+        "source": "Serebii",
+        "url": "https://www.serebii.net/pokearth/paldea/southprovinceareaone.shtml",
+        "scope": "朱／紫本篇南第一区普通野外出现；不含活动、赠送和太晶团体战；软件构建号未固定",
+        "version": "sv-base-wild-review-2026-10-28",
+        "checked_at": "2026-10-28T16:00:44Z"
+      },
+      "cross_checks": [
+        {
+          "source": "Bulbapedia",
+          "url": "https://bulbapedia.bulbagarden.net/wiki/South_Province_(Area_One)",
+          "scope": "朱／紫南第一区普通野外表交叉核对；仅确认出现，不将权重当作遭遇率",
+          "version": "sv-base-wild-review-2026-10-28",
+          "checked_at": "2026-10-28T16:00:44Z"
+        },
+        {
+          "source": "Serebii",
+          "url": "https://www.serebii.net/scarletviolet/shinypokemon.shtml",
+          "scope": "朱／紫普通野外基础闪光机制；无闪耀护符、闪耀力、大量出现加成和活动",
+          "version": "sv-base-wild-review-2026-10-28",
+          "checked_at": "2026-10-28T16:00:44Z"
+        },
+        {
+          "source": "Bulbapedia",
+          "url": "https://bulbapedia.bulbagarden.net/wiki/Shiny_Pok%C3%A9mon#Generation_IX",
+          "scope": "朱／紫普通野外可闪和基础1/4096交叉核对；不含团体战",
+          "version": "sv-base-wild-review-2026-10-28",
+          "checked_at": "2026-10-28T16:00:44Z"
+        }
+      ],
+      "methods": [
+        {
+          "name": "ordinary_wild",
+          "location": "South Province (Area One)",
+          "conditions": "朱／紫本篇普通野外遭遇；进入南第一区并寻找对应栖息地；不含开场教学、活动、赠送、团体战；完整时间和天气细节待补充",
+          "evidence": {
+            "source": "Bulbapedia",
+            "url": "https://bulbapedia.bulbagarden.net/wiki/South_Province_(Area_One)",
+            "scope": "朱／紫南第一区普通野外表交叉核对；仅确认出现，不将权重当作遭遇率",
+            "version": "sv-base-wild-review-2026-10-28",
+            "checked_at": "2026-10-28T16:00:44Z"
+          },
+          "encounter_rate": null,
+          "shiny_rate": {
+            "numerator": 1,
+            "denominator": 4096,
+            "conditions": "仅朱／紫普通野外基础单次判定；无闪耀护符、闪耀力、大量出现加成和活动；不推广至其他版本或方法",
+            "evidence": {
+              "source": "Serebii",
+              "url": "https://www.serebii.net/scarletviolet/shinypokemon.shtml",
+              "scope": "朱／紫普通野外基础闪光机制；无闪耀护符、闪耀力、大量出现加成和活动",
+              "version": "sv-base-wild-review-2026-10-28",
+              "checked_at": "2026-10-28T16:00:44Z"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "game_version_id": 40,
+      "species_id": 921,
+      "form_id": 921,
+      "availability": "confirmed_available",
+      "direct_hunt": "yes",
+      "verification": "verified",
+      "guide_status": "partial",
+      "evidence": {
+        "source": "Serebii",
+        "url": "https://www.serebii.net/pokearth/paldea/southprovinceareaone.shtml",
+        "scope": "朱／紫本篇南第一区普通野外出现；不含活动、赠送和太晶团体战；软件构建号未固定",
+        "version": "sv-base-wild-review-2026-10-28",
+        "checked_at": "2026-10-28T16:00:44Z"
+      },
+      "cross_checks": [
+        {
+          "source": "Bulbapedia",
+          "url": "https://bulbapedia.bulbagarden.net/wiki/South_Province_(Area_One)",
+          "scope": "朱／紫南第一区普通野外表交叉核对；仅确认出现，不将权重当作遭遇率",
+          "version": "sv-base-wild-review-2026-10-28",
+          "checked_at": "2026-10-28T16:00:44Z"
+        },
+        {
+          "source": "Serebii",
+          "url": "https://www.serebii.net/scarletviolet/shinypokemon.shtml",
+          "scope": "朱／紫普通野外基础闪光机制；无闪耀护符、闪耀力、大量出现加成和活动",
+          "version": "sv-base-wild-review-2026-10-28",
+          "checked_at": "2026-10-28T16:00:44Z"
+        },
+        {
+          "source": "Bulbapedia",
+          "url": "https://bulbapedia.bulbagarden.net/wiki/Shiny_Pok%C3%A9mon#Generation_IX",
+          "scope": "朱／紫普通野外可闪和基础1/4096交叉核对；不含团体战",
+          "version": "sv-base-wild-review-2026-10-28",
+          "checked_at": "2026-10-28T16:00:44Z"
+        }
+      ],
+      "methods": [
+        {
+          "name": "ordinary_wild",
+          "location": "South Province (Area One)",
+          "conditions": "朱／紫本篇普通野外遭遇；进入南第一区并寻找对应栖息地；不含开场教学、活动、赠送、团体战；完整时间和天气细节待补充",
+          "evidence": {
+            "source": "Bulbapedia",
+            "url": "https://bulbapedia.bulbagarden.net/wiki/South_Province_(Area_One)",
+            "scope": "朱／紫南第一区普通野外表交叉核对；仅确认出现，不将权重当作遭遇率",
+            "version": "sv-base-wild-review-2026-10-28",
+            "checked_at": "2026-10-28T16:00:44Z"
+          },
+          "encounter_rate": null,
+          "shiny_rate": {
+            "numerator": 1,
+            "denominator": 4096,
+            "conditions": "仅朱／紫普通野外基础单次判定；无闪耀护符、闪耀力、大量出现加成和活动；不推广至其他版本或方法",
+            "evidence": {
+              "source": "Serebii",
+              "url": "https://www.serebii.net/scarletviolet/shinypokemon.shtml",
+              "scope": "朱／紫普通野外基础闪光机制；无闪耀护符、闪耀力、大量出现加成和活动",
+              "version": "sv-base-wild-review-2026-10-28",
+              "checked_at": "2026-10-28T16:00:44Z"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "game_version_id": 40,
+      "species_id": 944,
+      "form_id": 944,
+      "availability": "confirmed_available",
+      "direct_hunt": "yes",
+      "verification": "verified",
+      "guide_status": "partial",
+      "evidence": {
+        "source": "Serebii",
+        "url": "https://www.serebii.net/pokearth/paldea/southprovinceareaone.shtml",
+        "scope": "朱／紫本篇南第一区普通野外出现；不含活动、赠送和太晶团体战；软件构建号未固定",
+        "version": "sv-base-wild-review-2026-10-28",
+        "checked_at": "2026-10-28T16:00:44Z"
+      },
+      "cross_checks": [
+        {
+          "source": "Bulbapedia",
+          "url": "https://bulbapedia.bulbagarden.net/wiki/South_Province_(Area_One)",
+          "scope": "朱／紫南第一区普通野外表交叉核对；仅确认出现，不将权重当作遭遇率",
+          "version": "sv-base-wild-review-2026-10-28",
+          "checked_at": "2026-10-28T16:00:44Z"
+        },
+        {
+          "source": "Serebii",
+          "url": "https://www.serebii.net/scarletviolet/shinypokemon.shtml",
+          "scope": "朱／紫普通野外基础闪光机制；无闪耀护符、闪耀力、大量出现加成和活动",
+          "version": "sv-base-wild-review-2026-10-28",
+          "checked_at": "2026-10-28T16:00:44Z"
+        },
+        {
+          "source": "Bulbapedia",
+          "url": "https://bulbapedia.bulbagarden.net/wiki/Shiny_Pok%C3%A9mon#Generation_IX",
+          "scope": "朱／紫普通野外可闪和基础1/4096交叉核对；不含团体战",
+          "version": "sv-base-wild-review-2026-10-28",
+          "checked_at": "2026-10-28T16:00:44Z"
+        }
+      ],
+      "methods": [
+        {
+          "name": "ordinary_wild",
+          "location": "South Province (Area One)",
+          "conditions": "朱／紫本篇普通野外遭遇；进入南第一区并寻找对应栖息地；不含开场教学、活动、赠送、团体战；完整时间和天气细节待补充",
+          "evidence": {
+            "source": "Bulbapedia",
+            "url": "https://bulbapedia.bulbagarden.net/wiki/South_Province_(Area_One)",
+            "scope": "朱／紫南第一区普通野外表交叉核对；仅确认出现，不将权重当作遭遇率",
+            "version": "sv-base-wild-review-2026-10-28",
+            "checked_at": "2026-10-28T16:00:44Z"
+          },
+          "encounter_rate": null,
+          "shiny_rate": {
+            "numerator": 1,
+            "denominator": 4096,
+            "conditions": "仅朱／紫普通野外基础单次判定；无闪耀护符、闪耀力、大量出现加成和活动；不推广至其他版本或方法",
+            "evidence": {
+              "source": "Serebii",
+              "url": "https://www.serebii.net/scarletviolet/shinypokemon.shtml",
+              "scope": "朱／紫普通野外基础闪光机制；无闪耀护符、闪耀力、大量出现加成和活动",
+              "version": "sv-base-wild-review-2026-10-28",
+              "checked_at": "2026-10-28T16:00:44Z"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "game_version_id": 40,
+      "species_id": 194,
+      "form_id": 10422,
+      "availability": "confirmed_available",
+      "direct_hunt": "yes",
+      "verification": "verified",
+      "guide_status": "partial",
+      "evidence": {
+        "source": "Serebii",
+        "url": "https://www.serebii.net/pokearth/paldea/southprovinceareaone.shtml",
+        "scope": "朱／紫本篇南第一区普通野外出现；不含活动、赠送和太晶团体战；软件构建号未固定",
+        "version": "sv-base-wild-review-2026-10-28",
+        "checked_at": "2026-10-28T16:00:44Z"
+      },
+      "cross_checks": [
+        {
+          "source": "Bulbapedia",
+          "url": "https://bulbapedia.bulbagarden.net/wiki/South_Province_(Area_One)",
+          "scope": "朱／紫南第一区普通野外表交叉核对；仅确认出现，不将权重当作遭遇率",
+          "version": "sv-base-wild-review-2026-10-28",
+          "checked_at": "2026-10-28T16:00:44Z"
+        },
+        {
+          "source": "Serebii",
+          "url": "https://www.serebii.net/scarletviolet/shinypokemon.shtml",
+          "scope": "朱／紫普通野外基础闪光机制；无闪耀护符、闪耀力、大量出现加成和活动",
+          "version": "sv-base-wild-review-2026-10-28",
+          "checked_at": "2026-10-28T16:00:44Z"
+        },
+        {
+          "source": "Bulbapedia",
+          "url": "https://bulbapedia.bulbagarden.net/wiki/Shiny_Pok%C3%A9mon#Generation_IX",
+          "scope": "朱／紫普通野外可闪和基础1/4096交叉核对；不含团体战",
+          "version": "sv-base-wild-review-2026-10-28",
+          "checked_at": "2026-10-28T16:00:44Z"
+        }
+      ],
+      "methods": [
+        {
+          "name": "ordinary_wild",
+          "location": "South Province (Area One)",
+          "conditions": "朱／紫本篇普通野外遭遇；进入南第一区并寻找对应栖息地；不含开场教学、活动、赠送、团体战；完整时间和天气细节待补充",
+          "evidence": {
+            "source": "Bulbapedia",
+            "url": "https://bulbapedia.bulbagarden.net/wiki/South_Province_(Area_One)",
+            "scope": "朱／紫南第一区普通野外表交叉核对；仅确认出现，不将权重当作遭遇率",
+            "version": "sv-base-wild-review-2026-10-28",
+            "checked_at": "2026-10-28T16:00:44Z"
+          },
+          "encounter_rate": null,
+          "shiny_rate": {
+            "numerator": 1,
+            "denominator": 4096,
+            "conditions": "仅朱／紫普通野外基础单次判定；无闪耀护符、闪耀力、大量出现加成和活动；不推广至其他版本或方法",
+            "evidence": {
+              "source": "Serebii",
+              "url": "https://www.serebii.net/scarletviolet/shinypokemon.shtml",
+              "scope": "朱／紫普通野外基础闪光机制；无闪耀护符、闪耀力、大量出现加成和活动",
+              "version": "sv-base-wild-review-2026-10-28",
+              "checked_at": "2026-10-28T16:00:44Z"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "game_version_id": 41,
+      "species_id": 172,
+      "form_id": 172,
+      "availability": "confirmed_available",
+      "direct_hunt": "yes",
+      "verification": "verified",
+      "guide_status": "partial",
+      "evidence": {
+        "source": "Serebii",
+        "url": "https://www.serebii.net/pokearth/paldea/southprovinceareaone.shtml",
+        "scope": "朱／紫本篇南第一区普通野外出现；不含活动、赠送和太晶团体战；软件构建号未固定",
+        "version": "sv-base-wild-review-2026-10-28",
+        "checked_at": "2026-10-28T16:00:44Z"
+      },
+      "cross_checks": [
+        {
+          "source": "Bulbapedia",
+          "url": "https://bulbapedia.bulbagarden.net/wiki/South_Province_(Area_One)",
+          "scope": "朱／紫南第一区普通野外表交叉核对；仅确认出现，不将权重当作遭遇率",
+          "version": "sv-base-wild-review-2026-10-28",
+          "checked_at": "2026-10-28T16:00:44Z"
+        },
+        {
+          "source": "Serebii",
+          "url": "https://www.serebii.net/scarletviolet/shinypokemon.shtml",
+          "scope": "朱／紫普通野外基础闪光机制；无闪耀护符、闪耀力、大量出现加成和活动",
+          "version": "sv-base-wild-review-2026-10-28",
+          "checked_at": "2026-10-28T16:00:44Z"
+        },
+        {
+          "source": "Bulbapedia",
+          "url": "https://bulbapedia.bulbagarden.net/wiki/Shiny_Pok%C3%A9mon#Generation_IX",
+          "scope": "朱／紫普通野外可闪和基础1/4096交叉核对；不含团体战",
+          "version": "sv-base-wild-review-2026-10-28",
+          "checked_at": "2026-10-28T16:00:44Z"
+        }
+      ],
+      "methods": [
+        {
+          "name": "ordinary_wild",
+          "location": "South Province (Area One)",
+          "conditions": "朱／紫本篇普通野外遭遇；进入南第一区并寻找对应栖息地；不含开场教学、活动、赠送、团体战；完整时间和天气细节待补充",
+          "evidence": {
+            "source": "Bulbapedia",
+            "url": "https://bulbapedia.bulbagarden.net/wiki/South_Province_(Area_One)",
+            "scope": "朱／紫南第一区普通野外表交叉核对；仅确认出现，不将权重当作遭遇率",
+            "version": "sv-base-wild-review-2026-10-28",
+            "checked_at": "2026-10-28T16:00:44Z"
+          },
+          "encounter_rate": null,
+          "shiny_rate": {
+            "numerator": 1,
+            "denominator": 4096,
+            "conditions": "仅朱／紫普通野外基础单次判定；无闪耀护符、闪耀力、大量出现加成和活动；不推广至其他版本或方法",
+            "evidence": {
+              "source": "Serebii",
+              "url": "https://www.serebii.net/scarletviolet/shinypokemon.shtml",
+              "scope": "朱／紫普通野外基础闪光机制；无闪耀护符、闪耀力、大量出现加成和活动",
+              "version": "sv-base-wild-review-2026-10-28",
+              "checked_at": "2026-10-28T16:00:44Z"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "game_version_id": 41,
+      "species_id": 187,
+      "form_id": 187,
+      "availability": "confirmed_available",
+      "direct_hunt": "yes",
+      "verification": "verified",
+      "guide_status": "partial",
+      "evidence": {
+        "source": "Serebii",
+        "url": "https://www.serebii.net/pokearth/paldea/southprovinceareaone.shtml",
+        "scope": "朱／紫本篇南第一区普通野外出现；不含活动、赠送和太晶团体战；软件构建号未固定",
+        "version": "sv-base-wild-review-2026-10-28",
+        "checked_at": "2026-10-28T16:00:44Z"
+      },
+      "cross_checks": [
+        {
+          "source": "Bulbapedia",
+          "url": "https://bulbapedia.bulbagarden.net/wiki/South_Province_(Area_One)",
+          "scope": "朱／紫南第一区普通野外表交叉核对；仅确认出现，不将权重当作遭遇率",
+          "version": "sv-base-wild-review-2026-10-28",
+          "checked_at": "2026-10-28T16:00:44Z"
+        },
+        {
+          "source": "Serebii",
+          "url": "https://www.serebii.net/scarletviolet/shinypokemon.shtml",
+          "scope": "朱／紫普通野外基础闪光机制；无闪耀护符、闪耀力、大量出现加成和活动",
+          "version": "sv-base-wild-review-2026-10-28",
+          "checked_at": "2026-10-28T16:00:44Z"
+        },
+        {
+          "source": "Bulbapedia",
+          "url": "https://bulbapedia.bulbagarden.net/wiki/Shiny_Pok%C3%A9mon#Generation_IX",
+          "scope": "朱／紫普通野外可闪和基础1/4096交叉核对；不含团体战",
+          "version": "sv-base-wild-review-2026-10-28",
+          "checked_at": "2026-10-28T16:00:44Z"
+        }
+      ],
+      "methods": [
+        {
+          "name": "ordinary_wild",
+          "location": "South Province (Area One)",
+          "conditions": "朱／紫本篇普通野外遭遇；进入南第一区并寻找对应栖息地；不含开场教学、活动、赠送、团体战；完整时间和天气细节待补充",
+          "evidence": {
+            "source": "Bulbapedia",
+            "url": "https://bulbapedia.bulbagarden.net/wiki/South_Province_(Area_One)",
+            "scope": "朱／紫南第一区普通野外表交叉核对；仅确认出现，不将权重当作遭遇率",
+            "version": "sv-base-wild-review-2026-10-28",
+            "checked_at": "2026-10-28T16:00:44Z"
+          },
+          "encounter_rate": null,
+          "shiny_rate": {
+            "numerator": 1,
+            "denominator": 4096,
+            "conditions": "仅朱／紫普通野外基础单次判定；无闪耀护符、闪耀力、大量出现加成和活动；不推广至其他版本或方法",
+            "evidence": {
+              "source": "Serebii",
+              "url": "https://www.serebii.net/scarletviolet/shinypokemon.shtml",
+              "scope": "朱／紫普通野外基础闪光机制；无闪耀护符、闪耀力、大量出现加成和活动",
+              "version": "sv-base-wild-review-2026-10-28",
+              "checked_at": "2026-10-28T16:00:44Z"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "game_version_id": 41,
+      "species_id": 438,
+      "form_id": 438,
+      "availability": "confirmed_available",
+      "direct_hunt": "yes",
+      "verification": "verified",
+      "guide_status": "partial",
+      "evidence": {
+        "source": "Serebii",
+        "url": "https://www.serebii.net/pokearth/paldea/southprovinceareaone.shtml",
+        "scope": "朱／紫本篇南第一区普通野外出现；不含活动、赠送和太晶团体战；软件构建号未固定",
+        "version": "sv-base-wild-review-2026-10-28",
+        "checked_at": "2026-10-28T16:00:44Z"
+      },
+      "cross_checks": [
+        {
+          "source": "Bulbapedia",
+          "url": "https://bulbapedia.bulbagarden.net/wiki/South_Province_(Area_One)",
+          "scope": "朱／紫南第一区普通野外表交叉核对；仅确认出现，不将权重当作遭遇率",
+          "version": "sv-base-wild-review-2026-10-28",
+          "checked_at": "2026-10-28T16:00:44Z"
+        },
+        {
+          "source": "Serebii",
+          "url": "https://www.serebii.net/scarletviolet/shinypokemon.shtml",
+          "scope": "朱／紫普通野外基础闪光机制；无闪耀护符、闪耀力、大量出现加成和活动",
+          "version": "sv-base-wild-review-2026-10-28",
+          "checked_at": "2026-10-28T16:00:44Z"
+        },
+        {
+          "source": "Bulbapedia",
+          "url": "https://bulbapedia.bulbagarden.net/wiki/Shiny_Pok%C3%A9mon#Generation_IX",
+          "scope": "朱／紫普通野外可闪和基础1/4096交叉核对；不含团体战",
+          "version": "sv-base-wild-review-2026-10-28",
+          "checked_at": "2026-10-28T16:00:44Z"
+        }
+      ],
+      "methods": [
+        {
+          "name": "ordinary_wild",
+          "location": "South Province (Area One)",
+          "conditions": "朱／紫本篇普通野外遭遇；进入南第一区并寻找对应栖息地；不含开场教学、活动、赠送、团体战；完整时间和天气细节待补充",
+          "evidence": {
+            "source": "Bulbapedia",
+            "url": "https://bulbapedia.bulbagarden.net/wiki/South_Province_(Area_One)",
+            "scope": "朱／紫南第一区普通野外表交叉核对；仅确认出现，不将权重当作遭遇率",
+            "version": "sv-base-wild-review-2026-10-28",
+            "checked_at": "2026-10-28T16:00:44Z"
+          },
+          "encounter_rate": null,
+          "shiny_rate": {
+            "numerator": 1,
+            "denominator": 4096,
+            "conditions": "仅朱／紫普通野外基础单次判定；无闪耀护符、闪耀力、大量出现加成和活动；不推广至其他版本或方法",
+            "evidence": {
+              "source": "Serebii",
+              "url": "https://www.serebii.net/scarletviolet/shinypokemon.shtml",
+              "scope": "朱／紫普通野外基础闪光机制；无闪耀护符、闪耀力、大量出现加成和活动",
+              "version": "sv-base-wild-review-2026-10-28",
+              "checked_at": "2026-10-28T16:00:44Z"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "game_version_id": 41,
+      "species_id": 440,
+      "form_id": 440,
+      "availability": "confirmed_available",
+      "direct_hunt": "yes",
+      "verification": "verified",
+      "guide_status": "partial",
+      "evidence": {
+        "source": "Serebii",
+        "url": "https://www.serebii.net/pokearth/paldea/southprovinceareaone.shtml",
+        "scope": "朱／紫本篇南第一区普通野外出现；不含活动、赠送和太晶团体战；软件构建号未固定",
+        "version": "sv-base-wild-review-2026-10-28",
+        "checked_at": "2026-10-28T16:00:44Z"
+      },
+      "cross_checks": [
+        {
+          "source": "Bulbapedia",
+          "url": "https://bulbapedia.bulbagarden.net/wiki/South_Province_(Area_One)",
+          "scope": "朱／紫南第一区普通野外表交叉核对；仅确认出现，不将权重当作遭遇率",
+          "version": "sv-base-wild-review-2026-10-28",
+          "checked_at": "2026-10-28T16:00:44Z"
+        },
+        {
+          "source": "Serebii",
+          "url": "https://www.serebii.net/scarletviolet/shinypokemon.shtml",
+          "scope": "朱／紫普通野外基础闪光机制；无闪耀护符、闪耀力、大量出现加成和活动",
+          "version": "sv-base-wild-review-2026-10-28",
+          "checked_at": "2026-10-28T16:00:44Z"
+        },
+        {
+          "source": "Bulbapedia",
+          "url": "https://bulbapedia.bulbagarden.net/wiki/Shiny_Pok%C3%A9mon#Generation_IX",
+          "scope": "朱／紫普通野外可闪和基础1/4096交叉核对；不含团体战",
+          "version": "sv-base-wild-review-2026-10-28",
+          "checked_at": "2026-10-28T16:00:44Z"
+        }
+      ],
+      "methods": [
+        {
+          "name": "ordinary_wild",
+          "location": "South Province (Area One)",
+          "conditions": "朱／紫本篇普通野外遭遇；进入南第一区并寻找对应栖息地；不含开场教学、活动、赠送、团体战；完整时间和天气细节待补充",
+          "evidence": {
+            "source": "Bulbapedia",
+            "url": "https://bulbapedia.bulbagarden.net/wiki/South_Province_(Area_One)",
+            "scope": "朱／紫南第一区普通野外表交叉核对；仅确认出现，不将权重当作遭遇率",
+            "version": "sv-base-wild-review-2026-10-28",
+            "checked_at": "2026-10-28T16:00:44Z"
+          },
+          "encounter_rate": null,
+          "shiny_rate": {
+            "numerator": 1,
+            "denominator": 4096,
+            "conditions": "仅朱／紫普通野外基础单次判定；无闪耀护符、闪耀力、大量出现加成和活动；不推广至其他版本或方法",
+            "evidence": {
+              "source": "Serebii",
+              "url": "https://www.serebii.net/scarletviolet/shinypokemon.shtml",
+              "scope": "朱／紫普通野外基础闪光机制；无闪耀护符、闪耀力、大量出现加成和活动",
+              "version": "sv-base-wild-review-2026-10-28",
+              "checked_at": "2026-10-28T16:00:44Z"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "game_version_id": 41,
+      "species_id": 661,
+      "form_id": 661,
+      "availability": "confirmed_available",
+      "direct_hunt": "yes",
+      "verification": "verified",
+      "guide_status": "partial",
+      "evidence": {
+        "source": "Serebii",
+        "url": "https://www.serebii.net/pokearth/paldea/southprovinceareaone.shtml",
+        "scope": "朱／紫本篇南第一区普通野外出现；不含活动、赠送和太晶团体战；软件构建号未固定",
+        "version": "sv-base-wild-review-2026-10-28",
+        "checked_at": "2026-10-28T16:00:44Z"
+      },
+      "cross_checks": [
+        {
+          "source": "Bulbapedia",
+          "url": "https://bulbapedia.bulbagarden.net/wiki/South_Province_(Area_One)",
+          "scope": "朱／紫南第一区普通野外表交叉核对；仅确认出现，不将权重当作遭遇率",
+          "version": "sv-base-wild-review-2026-10-28",
+          "checked_at": "2026-10-28T16:00:44Z"
+        },
+        {
+          "source": "Serebii",
+          "url": "https://www.serebii.net/scarletviolet/shinypokemon.shtml",
+          "scope": "朱／紫普通野外基础闪光机制；无闪耀护符、闪耀力、大量出现加成和活动",
+          "version": "sv-base-wild-review-2026-10-28",
+          "checked_at": "2026-10-28T16:00:44Z"
+        },
+        {
+          "source": "Bulbapedia",
+          "url": "https://bulbapedia.bulbagarden.net/wiki/Shiny_Pok%C3%A9mon#Generation_IX",
+          "scope": "朱／紫普通野外可闪和基础1/4096交叉核对；不含团体战",
+          "version": "sv-base-wild-review-2026-10-28",
+          "checked_at": "2026-10-28T16:00:44Z"
+        }
+      ],
+      "methods": [
+        {
+          "name": "ordinary_wild",
+          "location": "South Province (Area One)",
+          "conditions": "朱／紫本篇普通野外遭遇；进入南第一区并寻找对应栖息地；不含开场教学、活动、赠送、团体战；完整时间和天气细节待补充",
+          "evidence": {
+            "source": "Bulbapedia",
+            "url": "https://bulbapedia.bulbagarden.net/wiki/South_Province_(Area_One)",
+            "scope": "朱／紫南第一区普通野外表交叉核对；仅确认出现，不将权重当作遭遇率",
+            "version": "sv-base-wild-review-2026-10-28",
+            "checked_at": "2026-10-28T16:00:44Z"
+          },
+          "encounter_rate": null,
+          "shiny_rate": {
+            "numerator": 1,
+            "denominator": 4096,
+            "conditions": "仅朱／紫普通野外基础单次判定；无闪耀护符、闪耀力、大量出现加成和活动；不推广至其他版本或方法",
+            "evidence": {
+              "source": "Serebii",
+              "url": "https://www.serebii.net/scarletviolet/shinypokemon.shtml",
+              "scope": "朱／紫普通野外基础闪光机制；无闪耀护符、闪耀力、大量出现加成和活动",
+              "version": "sv-base-wild-review-2026-10-28",
+              "checked_at": "2026-10-28T16:00:44Z"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "game_version_id": 41,
+      "species_id": 761,
+      "form_id": 761,
+      "availability": "confirmed_available",
+      "direct_hunt": "yes",
+      "verification": "verified",
+      "guide_status": "partial",
+      "evidence": {
+        "source": "Serebii",
+        "url": "https://www.serebii.net/pokearth/paldea/southprovinceareaone.shtml",
+        "scope": "朱／紫本篇南第一区普通野外出现；不含活动、赠送和太晶团体战；软件构建号未固定",
+        "version": "sv-base-wild-review-2026-10-28",
+        "checked_at": "2026-10-28T16:00:44Z"
+      },
+      "cross_checks": [
+        {
+          "source": "Bulbapedia",
+          "url": "https://bulbapedia.bulbagarden.net/wiki/South_Province_(Area_One)",
+          "scope": "朱／紫南第一区普通野外表交叉核对；仅确认出现，不将权重当作遭遇率",
+          "version": "sv-base-wild-review-2026-10-28",
+          "checked_at": "2026-10-28T16:00:44Z"
+        },
+        {
+          "source": "Serebii",
+          "url": "https://www.serebii.net/scarletviolet/shinypokemon.shtml",
+          "scope": "朱／紫普通野外基础闪光机制；无闪耀护符、闪耀力、大量出现加成和活动",
+          "version": "sv-base-wild-review-2026-10-28",
+          "checked_at": "2026-10-28T16:00:44Z"
+        },
+        {
+          "source": "Bulbapedia",
+          "url": "https://bulbapedia.bulbagarden.net/wiki/Shiny_Pok%C3%A9mon#Generation_IX",
+          "scope": "朱／紫普通野外可闪和基础1/4096交叉核对；不含团体战",
+          "version": "sv-base-wild-review-2026-10-28",
+          "checked_at": "2026-10-28T16:00:44Z"
+        }
+      ],
+      "methods": [
+        {
+          "name": "ordinary_wild",
+          "location": "South Province (Area One)",
+          "conditions": "朱／紫本篇普通野外遭遇；进入南第一区并寻找对应栖息地；不含开场教学、活动、赠送、团体战；完整时间和天气细节待补充",
+          "evidence": {
+            "source": "Bulbapedia",
+            "url": "https://bulbapedia.bulbagarden.net/wiki/South_Province_(Area_One)",
+            "scope": "朱／紫南第一区普通野外表交叉核对；仅确认出现，不将权重当作遭遇率",
+            "version": "sv-base-wild-review-2026-10-28",
+            "checked_at": "2026-10-28T16:00:44Z"
+          },
+          "encounter_rate": null,
+          "shiny_rate": {
+            "numerator": 1,
+            "denominator": 4096,
+            "conditions": "仅朱／紫普通野外基础单次判定；无闪耀护符、闪耀力、大量出现加成和活动；不推广至其他版本或方法",
+            "evidence": {
+              "source": "Serebii",
+              "url": "https://www.serebii.net/scarletviolet/shinypokemon.shtml",
+              "scope": "朱／紫普通野外基础闪光机制；无闪耀护符、闪耀力、大量出现加成和活动",
+              "version": "sv-base-wild-review-2026-10-28",
+              "checked_at": "2026-10-28T16:00:44Z"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "game_version_id": 41,
+      "species_id": 819,
+      "form_id": 819,
+      "availability": "confirmed_available",
+      "direct_hunt": "yes",
+      "verification": "verified",
+      "guide_status": "partial",
+      "evidence": {
+        "source": "Serebii",
+        "url": "https://www.serebii.net/pokearth/paldea/southprovinceareaone.shtml",
+        "scope": "朱／紫本篇南第一区普通野外出现；不含活动、赠送和太晶团体战；软件构建号未固定",
+        "version": "sv-base-wild-review-2026-10-28",
+        "checked_at": "2026-10-28T16:00:44Z"
+      },
+      "cross_checks": [
+        {
+          "source": "Bulbapedia",
+          "url": "https://bulbapedia.bulbagarden.net/wiki/South_Province_(Area_One)",
+          "scope": "朱／紫南第一区普通野外表交叉核对；仅确认出现，不将权重当作遭遇率",
+          "version": "sv-base-wild-review-2026-10-28",
+          "checked_at": "2026-10-28T16:00:44Z"
+        },
+        {
+          "source": "Serebii",
+          "url": "https://www.serebii.net/scarletviolet/shinypokemon.shtml",
+          "scope": "朱／紫普通野外基础闪光机制；无闪耀护符、闪耀力、大量出现加成和活动",
+          "version": "sv-base-wild-review-2026-10-28",
+          "checked_at": "2026-10-28T16:00:44Z"
+        },
+        {
+          "source": "Bulbapedia",
+          "url": "https://bulbapedia.bulbagarden.net/wiki/Shiny_Pok%C3%A9mon#Generation_IX",
+          "scope": "朱／紫普通野外可闪和基础1/4096交叉核对；不含团体战",
+          "version": "sv-base-wild-review-2026-10-28",
+          "checked_at": "2026-10-28T16:00:44Z"
+        }
+      ],
+      "methods": [
+        {
+          "name": "ordinary_wild",
+          "location": "South Province (Area One)",
+          "conditions": "朱／紫本篇普通野外遭遇；进入南第一区并寻找对应栖息地；不含开场教学、活动、赠送、团体战；完整时间和天气细节待补充",
+          "evidence": {
+            "source": "Bulbapedia",
+            "url": "https://bulbapedia.bulbagarden.net/wiki/South_Province_(Area_One)",
+            "scope": "朱／紫南第一区普通野外表交叉核对；仅确认出现，不将权重当作遭遇率",
+            "version": "sv-base-wild-review-2026-10-28",
+            "checked_at": "2026-10-28T16:00:44Z"
+          },
+          "encounter_rate": null,
+          "shiny_rate": {
+            "numerator": 1,
+            "denominator": 4096,
+            "conditions": "仅朱／紫普通野外基础单次判定；无闪耀护符、闪耀力、大量出现加成和活动；不推广至其他版本或方法",
+            "evidence": {
+              "source": "Serebii",
+              "url": "https://www.serebii.net/scarletviolet/shinypokemon.shtml",
+              "scope": "朱／紫普通野外基础闪光机制；无闪耀护符、闪耀力、大量出现加成和活动",
+              "version": "sv-base-wild-review-2026-10-28",
+              "checked_at": "2026-10-28T16:00:44Z"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "game_version_id": 41,
+      "species_id": 915,
+      "form_id": 915,
+      "availability": "confirmed_available",
+      "direct_hunt": "yes",
+      "verification": "verified",
+      "guide_status": "partial",
+      "evidence": {
+        "source": "Serebii",
+        "url": "https://www.serebii.net/pokearth/paldea/southprovinceareaone.shtml",
+        "scope": "朱／紫本篇南第一区普通野外出现；不含活动、赠送和太晶团体战；软件构建号未固定",
+        "version": "sv-base-wild-review-2026-10-28",
+        "checked_at": "2026-10-28T16:00:44Z"
+      },
+      "cross_checks": [
+        {
+          "source": "Bulbapedia",
+          "url": "https://bulbapedia.bulbagarden.net/wiki/South_Province_(Area_One)",
+          "scope": "朱／紫南第一区普通野外表交叉核对；仅确认出现，不将权重当作遭遇率",
+          "version": "sv-base-wild-review-2026-10-28",
+          "checked_at": "2026-10-28T16:00:44Z"
+        },
+        {
+          "source": "Serebii",
+          "url": "https://www.serebii.net/scarletviolet/shinypokemon.shtml",
+          "scope": "朱／紫普通野外基础闪光机制；无闪耀护符、闪耀力、大量出现加成和活动",
+          "version": "sv-base-wild-review-2026-10-28",
+          "checked_at": "2026-10-28T16:00:44Z"
+        },
+        {
+          "source": "Bulbapedia",
+          "url": "https://bulbapedia.bulbagarden.net/wiki/Shiny_Pok%C3%A9mon#Generation_IX",
+          "scope": "朱／紫普通野外可闪和基础1/4096交叉核对；不含团体战",
+          "version": "sv-base-wild-review-2026-10-28",
+          "checked_at": "2026-10-28T16:00:44Z"
+        }
+      ],
+      "methods": [
+        {
+          "name": "ordinary_wild",
+          "location": "South Province (Area One)",
+          "conditions": "朱／紫本篇普通野外遭遇；进入南第一区并寻找对应栖息地；不含开场教学、活动、赠送、团体战；完整时间和天气细节待补充",
+          "evidence": {
+            "source": "Bulbapedia",
+            "url": "https://bulbapedia.bulbagarden.net/wiki/South_Province_(Area_One)",
+            "scope": "朱／紫南第一区普通野外表交叉核对；仅确认出现，不将权重当作遭遇率",
+            "version": "sv-base-wild-review-2026-10-28",
+            "checked_at": "2026-10-28T16:00:44Z"
+          },
+          "encounter_rate": null,
+          "shiny_rate": {
+            "numerator": 1,
+            "denominator": 4096,
+            "conditions": "仅朱／紫普通野外基础单次判定；无闪耀护符、闪耀力、大量出现加成和活动；不推广至其他版本或方法",
+            "evidence": {
+              "source": "Serebii",
+              "url": "https://www.serebii.net/scarletviolet/shinypokemon.shtml",
+              "scope": "朱／紫普通野外基础闪光机制；无闪耀护符、闪耀力、大量出现加成和活动",
+              "version": "sv-base-wild-review-2026-10-28",
+              "checked_at": "2026-10-28T16:00:44Z"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "game_version_id": 41,
+      "species_id": 917,
+      "form_id": 917,
+      "availability": "confirmed_available",
+      "direct_hunt": "yes",
+      "verification": "verified",
+      "guide_status": "partial",
+      "evidence": {
+        "source": "Serebii",
+        "url": "https://www.serebii.net/pokearth/paldea/southprovinceareaone.shtml",
+        "scope": "朱／紫本篇南第一区普通野外出现；不含活动、赠送和太晶团体战；软件构建号未固定",
+        "version": "sv-base-wild-review-2026-10-28",
+        "checked_at": "2026-10-28T16:00:44Z"
+      },
+      "cross_checks": [
+        {
+          "source": "Bulbapedia",
+          "url": "https://bulbapedia.bulbagarden.net/wiki/South_Province_(Area_One)",
+          "scope": "朱／紫南第一区普通野外表交叉核对；仅确认出现，不将权重当作遭遇率",
+          "version": "sv-base-wild-review-2026-10-28",
+          "checked_at": "2026-10-28T16:00:44Z"
+        },
+        {
+          "source": "Serebii",
+          "url": "https://www.serebii.net/scarletviolet/shinypokemon.shtml",
+          "scope": "朱／紫普通野外基础闪光机制；无闪耀护符、闪耀力、大量出现加成和活动",
+          "version": "sv-base-wild-review-2026-10-28",
+          "checked_at": "2026-10-28T16:00:44Z"
+        },
+        {
+          "source": "Bulbapedia",
+          "url": "https://bulbapedia.bulbagarden.net/wiki/Shiny_Pok%C3%A9mon#Generation_IX",
+          "scope": "朱／紫普通野外可闪和基础1/4096交叉核对；不含团体战",
+          "version": "sv-base-wild-review-2026-10-28",
+          "checked_at": "2026-10-28T16:00:44Z"
+        }
+      ],
+      "methods": [
+        {
+          "name": "ordinary_wild",
+          "location": "South Province (Area One)",
+          "conditions": "朱／紫本篇普通野外遭遇；进入南第一区并寻找对应栖息地；不含开场教学、活动、赠送、团体战；完整时间和天气细节待补充",
+          "evidence": {
+            "source": "Bulbapedia",
+            "url": "https://bulbapedia.bulbagarden.net/wiki/South_Province_(Area_One)",
+            "scope": "朱／紫南第一区普通野外表交叉核对；仅确认出现，不将权重当作遭遇率",
+            "version": "sv-base-wild-review-2026-10-28",
+            "checked_at": "2026-10-28T16:00:44Z"
+          },
+          "encounter_rate": null,
+          "shiny_rate": {
+            "numerator": 1,
+            "denominator": 4096,
+            "conditions": "仅朱／紫普通野外基础单次判定；无闪耀护符、闪耀力、大量出现加成和活动；不推广至其他版本或方法",
+            "evidence": {
+              "source": "Serebii",
+              "url": "https://www.serebii.net/scarletviolet/shinypokemon.shtml",
+              "scope": "朱／紫普通野外基础闪光机制；无闪耀护符、闪耀力、大量出现加成和活动",
+              "version": "sv-base-wild-review-2026-10-28",
+              "checked_at": "2026-10-28T16:00:44Z"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "game_version_id": 41,
+      "species_id": 921,
+      "form_id": 921,
+      "availability": "confirmed_available",
+      "direct_hunt": "yes",
+      "verification": "verified",
+      "guide_status": "partial",
+      "evidence": {
+        "source": "Serebii",
+        "url": "https://www.serebii.net/pokearth/paldea/southprovinceareaone.shtml",
+        "scope": "朱／紫本篇南第一区普通野外出现；不含活动、赠送和太晶团体战；软件构建号未固定",
+        "version": "sv-base-wild-review-2026-10-28",
+        "checked_at": "2026-10-28T16:00:44Z"
+      },
+      "cross_checks": [
+        {
+          "source": "Bulbapedia",
+          "url": "https://bulbapedia.bulbagarden.net/wiki/South_Province_(Area_One)",
+          "scope": "朱／紫南第一区普通野外表交叉核对；仅确认出现，不将权重当作遭遇率",
+          "version": "sv-base-wild-review-2026-10-28",
+          "checked_at": "2026-10-28T16:00:44Z"
+        },
+        {
+          "source": "Serebii",
+          "url": "https://www.serebii.net/scarletviolet/shinypokemon.shtml",
+          "scope": "朱／紫普通野外基础闪光机制；无闪耀护符、闪耀力、大量出现加成和活动",
+          "version": "sv-base-wild-review-2026-10-28",
+          "checked_at": "2026-10-28T16:00:44Z"
+        },
+        {
+          "source": "Bulbapedia",
+          "url": "https://bulbapedia.bulbagarden.net/wiki/Shiny_Pok%C3%A9mon#Generation_IX",
+          "scope": "朱／紫普通野外可闪和基础1/4096交叉核对；不含团体战",
+          "version": "sv-base-wild-review-2026-10-28",
+          "checked_at": "2026-10-28T16:00:44Z"
+        }
+      ],
+      "methods": [
+        {
+          "name": "ordinary_wild",
+          "location": "South Province (Area One)",
+          "conditions": "朱／紫本篇普通野外遭遇；进入南第一区并寻找对应栖息地；不含开场教学、活动、赠送、团体战；完整时间和天气细节待补充",
+          "evidence": {
+            "source": "Bulbapedia",
+            "url": "https://bulbapedia.bulbagarden.net/wiki/South_Province_(Area_One)",
+            "scope": "朱／紫南第一区普通野外表交叉核对；仅确认出现，不将权重当作遭遇率",
+            "version": "sv-base-wild-review-2026-10-28",
+            "checked_at": "2026-10-28T16:00:44Z"
+          },
+          "encounter_rate": null,
+          "shiny_rate": {
+            "numerator": 1,
+            "denominator": 4096,
+            "conditions": "仅朱／紫普通野外基础单次判定；无闪耀护符、闪耀力、大量出现加成和活动；不推广至其他版本或方法",
+            "evidence": {
+              "source": "Serebii",
+              "url": "https://www.serebii.net/scarletviolet/shinypokemon.shtml",
+              "scope": "朱／紫普通野外基础闪光机制；无闪耀护符、闪耀力、大量出现加成和活动",
+              "version": "sv-base-wild-review-2026-10-28",
+              "checked_at": "2026-10-28T16:00:44Z"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "game_version_id": 41,
+      "species_id": 944,
+      "form_id": 944,
+      "availability": "confirmed_available",
+      "direct_hunt": "yes",
+      "verification": "verified",
+      "guide_status": "partial",
+      "evidence": {
+        "source": "Serebii",
+        "url": "https://www.serebii.net/pokearth/paldea/southprovinceareaone.shtml",
+        "scope": "朱／紫本篇南第一区普通野外出现；不含活动、赠送和太晶团体战；软件构建号未固定",
+        "version": "sv-base-wild-review-2026-10-28",
+        "checked_at": "2026-10-28T16:00:44Z"
+      },
+      "cross_checks": [
+        {
+          "source": "Bulbapedia",
+          "url": "https://bulbapedia.bulbagarden.net/wiki/South_Province_(Area_One)",
+          "scope": "朱／紫南第一区普通野外表交叉核对；仅确认出现，不将权重当作遭遇率",
+          "version": "sv-base-wild-review-2026-10-28",
+          "checked_at": "2026-10-28T16:00:44Z"
+        },
+        {
+          "source": "Serebii",
+          "url": "https://www.serebii.net/scarletviolet/shinypokemon.shtml",
+          "scope": "朱／紫普通野外基础闪光机制；无闪耀护符、闪耀力、大量出现加成和活动",
+          "version": "sv-base-wild-review-2026-10-28",
+          "checked_at": "2026-10-28T16:00:44Z"
+        },
+        {
+          "source": "Bulbapedia",
+          "url": "https://bulbapedia.bulbagarden.net/wiki/Shiny_Pok%C3%A9mon#Generation_IX",
+          "scope": "朱／紫普通野外可闪和基础1/4096交叉核对；不含团体战",
+          "version": "sv-base-wild-review-2026-10-28",
+          "checked_at": "2026-10-28T16:00:44Z"
+        }
+      ],
+      "methods": [
+        {
+          "name": "ordinary_wild",
+          "location": "South Province (Area One)",
+          "conditions": "朱／紫本篇普通野外遭遇；进入南第一区并寻找对应栖息地；不含开场教学、活动、赠送、团体战；完整时间和天气细节待补充",
+          "evidence": {
+            "source": "Bulbapedia",
+            "url": "https://bulbapedia.bulbagarden.net/wiki/South_Province_(Area_One)",
+            "scope": "朱／紫南第一区普通野外表交叉核对；仅确认出现，不将权重当作遭遇率",
+            "version": "sv-base-wild-review-2026-10-28",
+            "checked_at": "2026-10-28T16:00:44Z"
+          },
+          "encounter_rate": null,
+          "shiny_rate": {
+            "numerator": 1,
+            "denominator": 4096,
+            "conditions": "仅朱／紫普通野外基础单次判定；无闪耀护符、闪耀力、大量出现加成和活动；不推广至其他版本或方法",
+            "evidence": {
+              "source": "Serebii",
+              "url": "https://www.serebii.net/scarletviolet/shinypokemon.shtml",
+              "scope": "朱／紫普通野外基础闪光机制；无闪耀护符、闪耀力、大量出现加成和活动",
+              "version": "sv-base-wild-review-2026-10-28",
+              "checked_at": "2026-10-28T16:00:44Z"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "game_version_id": 41,
+      "species_id": 194,
+      "form_id": 10422,
+      "availability": "confirmed_available",
+      "direct_hunt": "yes",
+      "verification": "verified",
+      "guide_status": "partial",
+      "evidence": {
+        "source": "Serebii",
+        "url": "https://www.serebii.net/pokearth/paldea/southprovinceareaone.shtml",
+        "scope": "朱／紫本篇南第一区普通野外出现；不含活动、赠送和太晶团体战；软件构建号未固定",
+        "version": "sv-base-wild-review-2026-10-28",
+        "checked_at": "2026-10-28T16:00:44Z"
+      },
+      "cross_checks": [
+        {
+          "source": "Bulbapedia",
+          "url": "https://bulbapedia.bulbagarden.net/wiki/South_Province_(Area_One)",
+          "scope": "朱／紫南第一区普通野外表交叉核对；仅确认出现，不将权重当作遭遇率",
+          "version": "sv-base-wild-review-2026-10-28",
+          "checked_at": "2026-10-28T16:00:44Z"
+        },
+        {
+          "source": "Serebii",
+          "url": "https://www.serebii.net/scarletviolet/shinypokemon.shtml",
+          "scope": "朱／紫普通野外基础闪光机制；无闪耀护符、闪耀力、大量出现加成和活动",
+          "version": "sv-base-wild-review-2026-10-28",
+          "checked_at": "2026-10-28T16:00:44Z"
+        },
+        {
+          "source": "Bulbapedia",
+          "url": "https://bulbapedia.bulbagarden.net/wiki/Shiny_Pok%C3%A9mon#Generation_IX",
+          "scope": "朱／紫普通野外可闪和基础1/4096交叉核对；不含团体战",
+          "version": "sv-base-wild-review-2026-10-28",
+          "checked_at": "2026-10-28T16:00:44Z"
+        }
+      ],
+      "methods": [
+        {
+          "name": "ordinary_wild",
+          "location": "South Province (Area One)",
+          "conditions": "朱／紫本篇普通野外遭遇；进入南第一区并寻找对应栖息地；不含开场教学、活动、赠送、团体战；完整时间和天气细节待补充",
+          "evidence": {
+            "source": "Bulbapedia",
+            "url": "https://bulbapedia.bulbagarden.net/wiki/South_Province_(Area_One)",
+            "scope": "朱／紫南第一区普通野外表交叉核对；仅确认出现，不将权重当作遭遇率",
+            "version": "sv-base-wild-review-2026-10-28",
+            "checked_at": "2026-10-28T16:00:44Z"
+          },
+          "encounter_rate": null,
+          "shiny_rate": {
+            "numerator": 1,
+            "denominator": 4096,
+            "conditions": "仅朱／紫普通野外基础单次判定；无闪耀护符、闪耀力、大量出现加成和活动；不推广至其他版本或方法",
+            "evidence": {
+              "source": "Serebii",
+              "url": "https://www.serebii.net/scarletviolet/shinypokemon.shtml",
+              "scope": "朱／紫普通野外基础闪光机制；无闪耀护符、闪耀力、大量出现加成和活动",
+              "version": "sv-base-wild-review-2026-10-28",
+              "checked_at": "2026-10-28T16:00:44Z"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

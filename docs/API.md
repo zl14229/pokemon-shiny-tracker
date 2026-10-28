@@ -113,3 +113,7 @@ source 为 self_hunted / trade / event / other / unknown，holding_status 为 he
 T016: `GET /api/v1/reference/catalog` 和 `/reference/catalog/coverage` 提供全国物种/形态、多语言、持久形态分类与来源证据；参数/回退/部分核验语义见REFERENCE_DATA.md。源值不是官方交叉核验；所有游戏闪光可获取性仍未知。
 
 T017: `GET /api/v1/dex`返回双层目标、历史/持有、合法子集完成度及覆盖/统计口径；`GET /api/v1/reference/availability`读取最小本地证据表（当前正式数据为空）。完整参数、零分母null、原始/当前位置和未知处理见[DEX.md](DEX.md)。不含写入/联网或机制概率API。
+
+## T026 游戏刷闪资料
+
+`GET /api/v1/reference/hunt-data`（可选 game_id、limit 1..500、offset）：返回本地逐条来源、游戏／物种／形态映射、独立可获取性、直接可刷、方法及条件概率，meta.coverage 固定 partial。无写入 HTTP 接口。结构、覆盖和维护预览／应用／撤销见 [HUNT_DATA.md](HUNT_DATA.md)。

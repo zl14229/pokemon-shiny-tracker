@@ -132,7 +132,7 @@ def main():
             assert call("GET", "/shiny-records")["meta"]["total"] == 0
             assert call("GET", f"/shiny-records/{iid}/history")["meta"]["record_deleted"]
         with sqlite3.connect(f"file:{db_path}?mode=ro", uri=True) as db:
-            assert db.execute("PRAGMA user_version").fetchone()[0] == 6
+            assert db.execute("PRAGMA user_version").fetchone()[0] == 7
             assert db.execute("PRAGMA foreign_key_check").fetchall() == []
             assert db.execute("SELECT count(*) FROM shiny_records").fetchone()[0] == 3
             assert db.execute("SELECT count(*) FROM shiny_histories").fetchone()[0] >= 9

@@ -3,10 +3,13 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
 	"flag"
 	"fmt"
 	"github.com/zl14229/pokemon-shiny-tracker/internal/backup"
+	"github.com/zl14229/pokemon-shiny-tracker/internal/database"
+	"github.com/zl14229/pokemon-shiny-tracker/internal/huntdata"
 	"io"
 	"os"
 	"time"
@@ -22,6 +25,9 @@ func run(args []string, out io.Writer) error {
 	db := f.String("database", "", "source database")
 	output := f.String("output", "", "new file")
 	archive := f.String("archive", "", "backup ZIP")
+	snapshot := f.String("snapshot", "", "staged hunt JSON; empty uses bundled snapshot")
+	reviewed := f.String("reviewed-sha", "", "checksum from reviewed preview")
+	version := f.String("version", "", "batch to retract")
 	dest := f.String("destination", "", "new restore directory")
 	if e := f.Parse(args[1:]); e != nil || f.NArg() != 0 {
 		return errors.New("invalid command flags")
@@ -30,6 +36,40 @@ func run(args []string, out io.Writer) error {
 	defer cancel()
 	var e error
 	switch cmd {
+	case "hunt-preview", "hunt-apply", "hunt-rollback":
+		if *db == "" {
+			return errors.New("hunt reference operation requires --database")
+		}
+		store, err := database.Open(*db)
+		if err != nil {
+			return err
+		}
+		conn, _ := store.DB()
+		defer conn.Close()
+		if cmd == "hunt-rollback" {
+			if *version == "" || *reviewed == "" {
+				return errors.New("rollback requires --version and --reviewed-sha")
+			}
+			e = huntdata.Rollback(store, *version, *reviewed)
+			break
+		}
+		d, err := huntdata.Bundled()
+		if *snapshot != "" {
+			input, openErr := os.Open(*snapshot)
+			if openErr != nil {
+				return openErr
+			}
+			d, err = huntdata.Decode(input)
+			_ = input.Close()
+		}
+		if err != nil {
+			return err
+		}
+		report, err := huntdata.Import(store, d, cmd == "hunt-apply", *reviewed)
+		if err != nil {
+			return err
+		}
+		return json.NewEncoder(out).Encode(report)
 	case "backup":
 		if *db == "" || *output == "" {
 			return errors.New("backup requires --database and --output")

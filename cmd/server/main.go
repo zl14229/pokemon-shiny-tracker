@@ -12,6 +12,7 @@ import (
 	"github.com/zl14229/pokemon-shiny-tracker/internal/api"
 	"github.com/zl14229/pokemon-shiny-tracker/internal/config"
 	"github.com/zl14229/pokemon-shiny-tracker/internal/database"
+	"github.com/zl14229/pokemon-shiny-tracker/internal/huntdata"
 	"github.com/zl14229/pokemon-shiny-tracker/internal/reference"
 	"github.com/zl14229/pokemon-shiny-tracker/internal/server"
 )
@@ -43,6 +44,9 @@ func run() error {
 	}
 	if err := reference.EnsureCatalog(db); err != nil {
 		slog.Warn("catalog enrichment unavailable; local records remain available")
+	}
+	if err := huntdata.EnsureBundled(db); err != nil {
+		slog.Warn("hunt reference unavailable; personal records remain available")
 	}
 	srv := server.New(cfg, api.NewRouter(db))
 	listener, err := net.Listen("tcp", srv.Addr)

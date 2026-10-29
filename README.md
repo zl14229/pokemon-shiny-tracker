@@ -93,3 +93,5 @@ M4工程验收与已知资料缺口见[全国资料](docs/REFERENCE_DATA.md)及[
 图鉴入口：`/#/dex`；双层与持有/历史统计规则见[图鉴口径](docs/DEX.md)，覆盖、来源和端到端证据见[M4验收报告](docs/M4_ACCEPTANCE.md)。0分母保持待核实，不自动推断合法性。
 
 Hunt Planner入口：`/#/planner`；Bingo创建：`/#/planner/bingo`。正式初始候选只有12个唯一目标，3×3须筛选后至少9个，5×5不足25时明确拒绝。不会因数量不足加入未知或锁闪目标；同日仅有日期的新成果先待核验，可显式补充时间证据。详情见[M5报告](docs/M5_ACCEPTANCE.md)。
+
+M6：首页 `/#/home` 展示收藏总览与四组M4图鉴完成度；统计中心 `/#/statistics` 提供七张本地ECharts图、筛选、投入覆盖、样本与身份核对。未知值不补0，不跨不同含义的计数单位比较；累计投入不拆成每日活动。见[统计口径](docs/STATISTICS.md)和[M6验收报告](docs/M6_ACCEPTANCE.md)。无新schema或prod发布，后续M7尚未实施。

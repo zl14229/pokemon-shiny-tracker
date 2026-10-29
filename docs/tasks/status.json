@@ -976,7 +976,8 @@
           "106前端测试、typecheck/build/HTTPsmoke、11真实API、完整34 Chromium（含桌面390px、MVP备份恢复和M5）通过",
           "冻结校验及7治理回归通过",
           "最终PR CI success https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40786398584",
-          "最终push CI success https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40786360585"
+          "最终push CI success https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40786360585",
+          "实现dev CI40787093786及收尾dev CI40787777389均success；收尾PR46 merge af17ba706b577dff5597e582f619b7af51292426"
         ],
         "self_review": "按code-review技能主代理逐文件审查；无配套子技能未虚报独立子审。核对M4范围等价复用／四组引擎一致／永久身份不join倍增／未知与0／Sleep／原始保存游戏／过时请求取消／移动端。补充游戏列表错误反馈；本地服务断言精确限定原服务卡。",
         "risks": [
@@ -1017,7 +1018,8 @@
           "110前端测试、typecheck/build/HTTPsmoke、12真实API、完整35 Chromium通过",
           "冻结校验及7治理回归通过",
           "最终PR CI success https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40789003802",
-          "最终push CI success https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40788975707"
+          "最终push CI success https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40788975707",
+          "实现dev CI40789648343及收尾dev CI40790417292均success；收尾PR48 merge 119beb986c02b651361c5b9acb73c1b9f81f3088"
         ],
         "self_review": "code-review主代理逐文件审查，无配套子技能未虚报独立审查。核对身份去重／原始游戏／现有筛选／日期精度／同单位分组／样本分母／0和未知／安全整数／过时请求／SVG resize dispose／richText无用户HTML。修复关联Hunt筛选跨体系并回归；无范围内未解决项。",
         "risks": [
@@ -1051,18 +1053,39 @@
         "T020"
       ],
       "acceptance": "跨单位比较限制、重复数据、筛选回归",
-      "status": "in_review",
+      "status": "verified",
       "branch": "feature/T021-statistics-validation",
       "evidence": {
-        "implementation": null,
-        "checks": [],
-        "self_review": null,
-        "risks": [],
-        "unverified": [],
-        "documentation": [],
-        "commit": null,
-        "pr_url": null,
-        "merge_sha": null
+        "implementation": "复用原统计事务／分组与Excel候选规则，独立样本状态／逐Hunt中位数／排除原因／身份候选限量与完整计数；跨游戏方法同名单位不比较；严格响应未知／样本校验与完整边界回归",
+        "checks": [
+          "make check（格式／模块／vet／race／build）、make smoke通过；无新schema",
+          "113前端测试、typecheck/build/HTTPsmoke、12真实API、完整36 Chromium通过；最终响应校验后HTTP／12接口／2统计旅程重验通过",
+          "首次push40791611786旧Bingo夹具整秒前提失败；只修测试时间前提及新增明确断言，完整36/36再次通过，保留原业务和完成断言",
+          "冻结校验及7治理回归通过",
+          "最终PR CI success https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40792367276",
+          "最终push CI success https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40792361688"
+        ],
+        "self_review": "code-review主代理逐文件审查，无配套子技能未虚报独立子审。复核样本谓词与T020一致／分开指标分母／加权均值和逐Hunt中位数／至少2样本／已知0与未知／上溢／跨上下文次数／Excel候选不作身份断言或扣除／读不写历史／M4一致／日期边界／响应与390px。加强缺失耗时伪0、样本／中位数前提拒绝；CI发现夹具时序后仅修前提并全套重验，无未解决范围内问题。",
+        "risks": [
+          "累计值不能拆分每日或子期间投入，日期筛选效率null；单样本不足，多样本也只描述已记录子集",
+          "疑似重复含未知和可能不同形态，仅核对不合并／扣除；列表20组／每组100ID并明确截断",
+          "统计页约581KB gzip199KB延迟加载，构建体积建议；Windows原生／深色主题未验收",
+          "资料沿用M5已核实有限子集，完整游戏机制／中文／图像资料仍未知；无真实个人库读写或prod改动"
+        ],
+        "unverified": [
+          "真实总体闪光概率／完整游戏机制与资料覆盖",
+          "Windows原生与深色主题"
+        ],
+        "documentation": [
+          "docs/tasks/T021.md",
+          "docs/STATISTICS.md",
+          "docs/M6_ACCEPTANCE.md",
+          "docs/API.md",
+          "docs/FRONTEND_DEVELOPMENT.md"
+        ],
+        "commit": "c35bb5f9c75e0fd5bb0d85163e0ba0e228011bea",
+        "pr_url": "https://github.com/zl14229/pokemon-shiny-tracker/pull/49",
+        "merge_sha": "786c9b4e1350d07ec1506c6452abf9a9dc28fb45"
       },
       "record": "docs/tasks/T021.md"
     },

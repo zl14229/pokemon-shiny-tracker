@@ -60,7 +60,7 @@ Dashboard在一致只读事务中汇总永久个体、Hunt状态与缺失字段�
 |T020实现|[#47](https://github.com/zl14229/pokemon-shiny-tracker/pull/47)|[success](https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40789003802)|d57f5aa5b6612e728f429e5d7acef633a6b34144|[success](https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40789648343)|
 |T020收尾|[#48](https://github.com/zl14229/pokemon-shiny-tracker/pull/48)|[success](https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40789718067)|119beb986c02b651361c5b9acb73c1b9f81f3088|[success](https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40790417292)|
 |T021实现|[#49](https://github.com/zl14229/pokemon-shiny-tracker/pull/49)|[success](https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40792367276)|786c9b4e1350d07ec1506c6452abf9a9dc28fb45|[实际运行](https://github.com/zl14229/pokemon-shiny-tracker/actions/runs/40793219031)|
-|T021／M6收尾|待创建|待确认|待确认|待确认|
+|T021／M6收尾|[#50](https://github.com/zl14229/pokemon-shiny-tracker/pull/50)|[实际检查记录](https://github.com/zl14229/pokemon-shiny-tracker/pull/50/checks)|[实际合并记录](https://github.com/zl14229/pokemon-shiny-tracker/pull/50)|[dev运行记录](https://github.com/zl14229/pokemon-shiny-tracker/actions?query=branch%3Adev)，精确运行见交付回复|
 
 最终实现HEAD：T019 a2363e213c816a0034dbea8ac9f0936b9c6c71ed；T020 154f1d81eb7b755d939e00a06ac734add765965a；T021 c35bb5f9c75e0fd5bb0d85163e0ba0e228011bea。各Task记录包含push CI和逐项自审。收尾自身的精确merge SHA与最终dev CI在交付回复中提供，避免文件包含自身提交哈希的循环。
 

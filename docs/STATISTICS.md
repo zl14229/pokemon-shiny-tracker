@@ -32,7 +32,7 @@
 
 月趋势只放置有确定月份（YYYY-MM或精确日），并且整个可能日期区间在筛选范围内的记录；年／未知／边界不确定记录留在coverage，不补造月份。缺少月份不代表零投入。Hunt目前只有累计值，没有M7会话明细，不能绘制每日次数／耗时，亦不把开始日期视为全部投入发生日。
 
-投入按游戏+方法+原样单位分组。count/seconds仅合计已知值，并附known_count_hunts/known_duration_hunts与总Hunt数；完全缺失为null，真实0仍为0。不同单位不跨组合计或共用次数图比较；选择单一单位后才显示次数对比。超出JavaScript安全整数或累计上溢的组合计保持null并显式overflow，不输出失真数字。
+投入按游戏+方法+原样单位分组。count/seconds仅合计已知值，并附known_count_hunts/known_duration_hunts与总Hunt数；完全缺失为null，真实0仍为0。不同游戏、方法或单位上下文不跨组合计或共用次数图比较；需收窄到单个上下文才绘制次数，明细仍分别保留。不因为单位文字相同就推断跨游戏／方法的次数含义相同。超出JavaScript安全整数或累计上溢的组合计保持null并显式overflow，不输出失真数字。
 
 效率为描述性已记录子集：仅已完成、游戏／方法明确，所有未删除关联成果均明确self_hunted且原始游戏匹配，至少一个成果；包含意外闪光，不将交换／活动关联伪称自刷。次数效率还要求次数与单位已知，耗时效率要求正耗时；两个指标分别显示样本Hunt／成果数量，不共享错误分母。进行中／放弃、未知／混入其他来源、游戏不一致不自动计算。日期筛选时，累计投入无法拆分到子期间，效率保持null。来源筛选为非自刷时亦不算效率。不能据此推算真实概率、加成规则或运气。
 
@@ -41,3 +41,14 @@
 ## 实现依据
 
 ECharts 6.1.0按npm registry元数据锁定，Apache-2.0；[按需导入](https://echarts.apache.org/handbook/en/basics/import/)和[容器大小与销毁](https://echarts.apache.org/handbook/en/concepts/chart-size/)遵照官方文档。前端依赖锁文件保留完整性校验；不改变Vue／Go／SQLite技术栈。
+
+
+## T021 样本与身份校验
+
+API在原effort中增加count_sample_status/time_sample_status（no_eligible_samples、single_sample、descriptive_subset）、median_count_per_shiny/median_seconds_per_shiny以及exclusions。均值仍按成果数加权；中位数取各合格Hunt的累计值／该Hunt成果数后求中位数，至少2个Hunt才给值，不能与按个体加权均值混称。单个样本仍可展示原描述值，明确提示样本不足；多个样本也不宣称代表总体概率。次数和耗时独立样本。
+
+exclusions逐组提供未完成／未知游戏或方法／期间或来源筛选／无成果／关联成果证据不匹配／缺失次数、单位、耗时／零耗时／超安全范围等原因的Hunt数。原因可重叠，不能求和作为总排除数。累计总和上溢时null；单Hunt输入仍安全时，逐Hunt中位数可保留，并明示上溢。没有用0替代未知或生成无穷效率。
+
+quality包含distinct_records、candidate_groups/candidate_records、candidates、candidates_truncated、count_comparison和note。永久ID按实际身份计数；相似候选沿用Excel导入的duplicateImport（当前物种+原始游戏+获得日期相同，包含未知）。这些字段不足以断言同一只，候选也可能是不同形态或多只同日成果；全部独立计入，不自动删除／合并／扣减或修改历史。候选最多显示20组，每组100个ID，完整候选总数保留并明确截断。
+
+前端校验汇总一致、分组／月份／身份／候选计数、安全数值、未知值与已知覆盖、样本状态和中位数前提；异常响应清空旧图并报错。查询保持只读、事务一致，没有新增表或第二套数据层。

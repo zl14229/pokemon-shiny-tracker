@@ -9,6 +9,15 @@ export function statisticsFixture(): StatisticsResult {
     by_source: [],
     trend: [],
     effort: [],
+    quality: {
+      distinct_records: 0,
+      candidate_groups: 0,
+      candidate_records: 0,
+      candidates: [],
+      candidates_truncated: false,
+      count_comparison: 'unavailable',
+      note: '候选不等于重复个体',
+    },
     coverage: {
       unknown_obtained_date: 0,
       partial_obtained_date: 0,

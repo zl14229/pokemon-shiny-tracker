@@ -1051,8 +1051,8 @@
         "T020"
       ],
       "acceptance": "跨单位比较限制、重复数据、筛选回归",
-      "status": "planned",
-      "branch": null,
+      "status": "in_review",
+      "branch": "feature/T021-statistics-validation",
       "evidence": {
         "implementation": null,
         "checks": [],
@@ -1064,7 +1064,7 @@
         "pr_url": null,
         "merge_sha": null
       },
-      "record": null
+      "record": "docs/tasks/T021.md"
     },
     {
       "id": "T022",

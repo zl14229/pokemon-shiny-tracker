@@ -133,3 +133,5 @@ Random Hunt 的本地候选池、幂等生成／保存、计划列表／详情�
 ## T020 统计中心
 
 `GET /api/v1/statistics` 的游戏／关联方法／来源／状态／日期／同单位次数／标准秒筛选、分组字段、月趋势、已知值覆盖与描述性效率边界见 [STATISTICS.md](STATISTICS.md)。复用T009查询与T019快照，无新个人表或schema；不同计数单位不混合比较，未知累计值和不可计算效率为null。
+
+T021 在原statistics响应中增加quality身份／候选提示、effort样本状态／中位数／排除原因；中位数至少2个合格Hunt，候选不等于重复身份且不自动扣除。count_comparison要求单一游戏／方法／单位上下文，原口径与字段详见STATISTICS.md。仍是只读接口，无新增schema。

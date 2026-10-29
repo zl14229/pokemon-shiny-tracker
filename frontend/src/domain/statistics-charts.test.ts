@@ -20,3 +20,12 @@ it('does not chart incomparable units or replace unknown effort with zero', () =
   expect((charts[5]!.option.series as any)[0].data).toEqual([null, 0])
   expect((charts[6]!.option.series as any)[0].data).toEqual([null, null])
 })
+
+it('does not assume identical unit names have the same meaning across methods or games', () => {
+  const v = statisticsFixture()
+  v.effort = [
+    { game: 'A', method: 'wild', unit: '次', count: 100 },
+    { game: 'B', method: 'reset', unit: '次', count: 200 },
+  ] as Effort[]
+  expect((statisticsCharts(v)[4]!.option.series as any)[0].data).toEqual([null, null])
+})

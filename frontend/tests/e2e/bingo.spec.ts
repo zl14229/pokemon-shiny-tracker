@@ -62,6 +62,11 @@ test('M5 Bingo persists multiple cards, protects rerolls, reviews new records an
       }).format(new Date(at)),
     { at: card.bingo.started_at, zone },
   )
+  // datetime-local carries whole seconds. Ensure truncating a new record's
+  // timestamp still proves it is strictly after the challenge, even on fast CI.
+  await expect
+    .poll(() => Math.floor(Date.now() / 1000) * 1000)
+    .toBeGreaterThan(Date.parse(card.bingo.started_at))
   for (const t of card.targets.slice(0, 3)) {
     const day = await page.evaluate(
       (zone) =>
@@ -91,6 +96,9 @@ test('M5 Bingo persists multiple cards, protects rerolls, reviews new records an
     })
     expect(response.status()).toBe(201)
     const r = (await response.json()).data
+    expect(Math.floor(Date.parse(r.created_at) / 1000) * 1000).toBeGreaterThan(
+      Date.parse(card.bingo.started_at),
+    )
     const local = await page.evaluate((at) => {
       const d = new Date(Math.floor(Date.parse(at) / 1000) * 1000)
       return new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().slice(0, 19)

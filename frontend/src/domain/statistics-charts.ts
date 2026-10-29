@@ -3,7 +3,7 @@ import type { StatisticsResult } from '../api/statistics'
 export function statisticsCharts(
   v: StatisticsResult,
 ): { title: string; option: EChartsCoreOption }[] {
-  const mixedUnits = new Set(v.effort.map((e) => e.unit)).size > 1
+  const multipleContexts = v.effort.length > 1
   const grid = { left: 64, right: 20, top: 55, bottom: 75, containLabel: true }
   const bar = (title: string, names: string[], values: (number | null)[], yname: string) => ({
     title,
@@ -75,7 +75,7 @@ export function statisticsCharts(
     bar(
       '次数合计 · 按游戏／方法／单位分组',
       v.effort.map((g) => `${g.game} · ${g.method ?? '方法未知'} · ${g.unit ?? '单位未知'}`),
-      v.effort.map((g) => (mixedUnits ? null : g.count)),
+      v.effort.map((g) => (multipleContexts ? null : g.count)),
       '原单位',
     ),
     bar(

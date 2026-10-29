@@ -3,7 +3,7 @@ import { computed, onMounted, onBeforeUnmount, reactive, ref } from 'vue'
 import { ElButton } from 'element-plus'
 import StatisticsChart from '../components/StatisticsChart.vue'
 import Feedback from '../components/Feedback.vue'
-import { statistics, type StatisticsResult } from '../api/statistics'
+import { statistics, efficiencyReasons, type StatisticsResult } from '../api/statistics'
 import { tracker } from '../api/tracker'
 import { type Game } from '../api/models'
 import { referenceOption } from '../domain/format'
@@ -69,6 +69,12 @@ onMounted(() => {
 onBeforeUnmount(() => controller?.abort())
 const num = (n: number | null) =>
   n === null ? '未知／不可计算' : n.toLocaleString('zh-CN', { maximumFractionDigits: 2 })
+const sampleText = (n: number) =>
+  n === 0
+    ? '无可核算样本'
+    : n === 1
+      ? '仅1个Hunt，样本不足，不能概括效率'
+      : `仅描述这${n}个Hunt，不能推断真实概率`
 </script>
 <template>
   <header class="page-heading">
@@ -170,8 +176,8 @@ const num = (n: number | null) =>
   <template v-if="result && !loading">
     <section class="surface statistics-summary" aria-label="统计结果">
       <h3>当前结果</h3>
-      <p v-if="new Set(result.effort.map((e) => e.unit)).size > 1 && !result.filters.count_unit">
-        当前含不同计数单位，次数图暂不比较；请选择单一计数单位，或在明细中分别查看。
+      <p v-if="result.quality.count_comparison === 'separate_contexts'">
+        当前含不同游戏、方法或计数单位，次数图不跨含义比较；请收窄到同一组合，明细仍分别保留。
       </p>
       <p data-testid="statistics-totals">
         {{ result.hunts }} 个Hunt · {{ result.individuals }} 只获得个体
@@ -197,6 +203,29 @@ const num = (n: number | null) =>
         </p>
       </details>
     </section>
+    <section class="surface statistics-quality" aria-label="统计质量核对">
+      <h3>身份与重复候选</h3>
+      <p>
+        {{ result.quality.distinct_records }} 个永久身份；{{
+          result.quality.candidate_groups
+        }}
+        组相似候选，涉及 {{ result.quality.candidate_records }} 个体。全部仍分别计数，不自动扣除。
+      </p>
+      <p>{{ result.quality.note }}</p>
+      <p v-if="result.quality.candidates_truncated">候选列表已截断，汇总保留完整候选数量。</p>
+      <details v-if="result.quality.candidates.length">
+        <summary>查看候选个体，仅供核对</summary>
+        <p v-for="(c, index) in result.quality.candidates" :key="index">
+          第{{ index + 1 }}组，共{{ c.count }}只：<a
+            v-for="id in c.record_ids"
+            :key="id"
+            :href="`#/collection/${id}`"
+          >
+            #{{ id }}
+          </a>
+        </p>
+      </details>
+    </section>
     <div class="statistics-grid">
       <article v-for="c in charts" :key="c.title" class="surface">
         <h3>{{ c.title }}</h3>
@@ -217,6 +246,7 @@ const num = (n: number | null) =>
               <th>耗时与覆盖</th>
               <th>次数／自刷个体</th>
               <th>秒／自刷个体</th>
+              <th>逐Hunt中位数／样本说明</th>
             </tr>
           </thead>
           <tbody>
@@ -232,9 +262,25 @@ const num = (n: number | null) =>
                 {{ num(e.seconds_per_shiny) }}<br />{{ e.time_samples }} Hunt／{{ e.time_outcomes }}
                 成果
               </td>
+              <td>
+                次数中位数 {{ num(e.median_count_per_shiny) }}；秒中位数
+                {{ num(e.median_seconds_per_shiny) }}
+                <p>{{ sampleText(e.count_samples) }}（次数）</p>
+                <p>{{ sampleText(e.time_samples) }}（耗时）</p>
+                <details>
+                  <summary>样本排除说明（原因可重叠）</summary>
+                  <p v-for="(n, reason) in e.exclusions" :key="reason">
+                    {{ efficiencyReasons[reason] }}：{{ n }} Hunt
+                  </p>
+                  <p v-if="!Object.keys(e.exclusions).length">
+                    无列出的排除原因；仍只描述已记录子集。
+                  </p>
+                  <p>{{ e.note }}</p>
+                </details>
+              </td>
             </tr>
             <tr v-if="!result.effort.length">
-              <td colspan="5">暂无匹配的投入记录</td>
+              <td colspan="6">暂无匹配的投入记录</td>
             </tr>
           </tbody>
         </table>
@@ -283,6 +329,11 @@ const num = (n: number | null) =>
 .statistics-grid h3 {
   font-size: 15px;
 }
+.statistics-quality {
+  margin: 20px 0;
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
 .statistics-summary p,
 details {
   font-size: 13px;
@@ -294,7 +345,7 @@ details {
 table {
   border-collapse: collapse;
   width: 100%;
-  min-width: 750px;
+  min-width: 1050px;
   font-size: 12px;
 }
 th,

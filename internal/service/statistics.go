@@ -93,24 +93,29 @@ type StatisticsCoverage struct {
 	UnknownMethod       int `json:"unknown_method"`
 }
 type StatisticsEffort struct {
-	Key                string   `json:"key"`
-	GameID             *uint64  `json:"game_id"`
-	Game               string   `json:"game"`
-	Method             *string  `json:"method"`
-	Unit               *string  `json:"unit"`
-	Hunts              int      `json:"hunts"`
-	KnownCountHunts    int      `json:"known_count_hunts"`
-	KnownDurationHunts int      `json:"known_duration_hunts"`
-	Count              *int64   `json:"count"`
-	Seconds            *int64   `json:"seconds"`
-	CountSamples       int      `json:"count_samples"`
-	TimeSamples        int      `json:"time_samples"`
-	CountOutcomes      int      `json:"count_outcomes"`
-	TimeOutcomes       int      `json:"time_outcomes"`
-	CountPerShiny      *float64 `json:"count_per_shiny"`
-	SecondsPerShiny    *float64 `json:"seconds_per_shiny"`
-	Overflow           bool     `json:"overflow"`
-	Note               string   `json:"note"`
+	Key                   string         `json:"key"`
+	GameID                *uint64        `json:"game_id"`
+	Game                  string         `json:"game"`
+	Method                *string        `json:"method"`
+	Unit                  *string        `json:"unit"`
+	Hunts                 int            `json:"hunts"`
+	KnownCountHunts       int            `json:"known_count_hunts"`
+	KnownDurationHunts    int            `json:"known_duration_hunts"`
+	Count                 *int64         `json:"count"`
+	Seconds               *int64         `json:"seconds"`
+	CountSamples          int            `json:"count_samples"`
+	TimeSamples           int            `json:"time_samples"`
+	CountOutcomes         int            `json:"count_outcomes"`
+	TimeOutcomes          int            `json:"time_outcomes"`
+	CountPerShiny         *float64       `json:"count_per_shiny"`
+	SecondsPerShiny       *float64       `json:"seconds_per_shiny"`
+	Overflow              bool           `json:"overflow"`
+	Note                  string         `json:"note"`
+	CountSampleStatus     string         `json:"count_sample_status"`
+	TimeSampleStatus      string         `json:"time_sample_status"`
+	MedianCountPerShiny   *float64       `json:"median_count_per_shiny"`
+	MedianSecondsPerShiny *float64       `json:"median_seconds_per_shiny"`
+	Exclusions            map[string]int `json:"exclusions"`
 }
 type StatisticsResult struct {
 	Filters     map[string]string        `json:"filters"`
@@ -123,6 +128,7 @@ type StatisticsResult struct {
 	Effort      []StatisticsEffort       `json:"effort"`
 	Coverage    StatisticsCoverage       `json:"coverage"`
 	Rule        string                   `json:"rule"`
+	Quality     StatisticsQuality        `json:"quality"`
 }
 
 // Nullable sums never turn absent input into zero, overflow, or an unsafe JS integer.
@@ -252,6 +258,7 @@ func (s Analytics) Statistics(ctx context.Context, raw string) (StatisticsResult
 		type ratioSum struct {
 			count, time                 int64
 			countOverflow, timeOverflow bool
+			countValues, timeValues     []float64
 		}
 		ratios := map[string]*ratioSum{}
 		for _, h := range data.Hunts {
@@ -289,7 +296,7 @@ func (s Analytics) Statistics(ctx context.Context, raw string) (StatisticsResult
 			encoded, _ := json.Marshal([]any{h.GameID, h.Method, h.CountUnit})
 			key := string(encoded)
 			if efforts[key] == nil {
-				efforts[key] = &StatisticsEffort{Key: key, GameID: h.GameID, Game: gname, Method: h.Method, Unit: h.CountUnit, Note: "合计仅已知值；效率为同游戏／方法／单位已完成且来源明确的Hunt描述，不代表概率；日期筛选时累计投入不能拆分，效率留空。"}
+				efforts[key] = &StatisticsEffort{Key: key, GameID: h.GameID, Game: gname, Method: h.Method, Unit: h.CountUnit, Exclusions: map[string]int{}, Note: "合计仅已知值；均值按成果加权，中位数为逐Hunt每成果值、至少2个Hunt才提供。仅描述明确自刷完成子集，不代表概率；排除原因可重叠，不能相加当作总数。"}
 				ratios[key] = &ratioSum{}
 			}
 			group := efforts[key]
@@ -303,19 +310,35 @@ func (s Analytics) Statistics(ctx context.Context, raw string) (StatisticsResult
 			// Suppress unsafe cumulative totals for this group; ratios have separate cohorts.
 			chartSum(&group.Count, h.EncounterCount, &group.Overflow)
 			chartSum(&group.Seconds, h.DurationSeconds, &group.Overflow)
-			eligible := h.Status == "completed" && h.GameID != nil && h.Method != nil && q.filters["from"] == "" && q.filters["to"] == "" && (q.filters["source"] == "" || q.filters["source"] == "self_hunted")
-			for _, r := range outcomes[h.ID] {
-				if r.Source != "self_hunted" || !same(r.OriginalGameID, h.GameID) {
-					eligible = false
-				}
+			reasons := efficiencyExclusions(h, outcomes[h.ID], q.filters)
+			for _, reason := range reasons {
+				group.Exclusions[reason]++
+			}
+			if h.EncounterCount == nil {
+				group.Exclusions["missing_count"]++
+			}
+			if h.CountUnit == nil {
+				group.Exclusions["missing_unit"]++
+			}
+			if h.DurationSeconds == nil {
+				group.Exclusions["missing_duration"]++
+			} else if *h.DurationSeconds == 0 {
+				group.Exclusions["zero_duration"]++
+			}
+			if h.EncounterCount != nil && *h.EncounterCount > maxChartInteger {
+				group.Exclusions["unsafe_count"]++
+			}
+			if h.DurationSeconds != nil && *h.DurationSeconds > maxChartInteger {
+				group.Exclusions["unsafe_duration"]++
 			}
 			n := len(outcomes[h.ID])
-			if !eligible || n == 0 {
+			if len(reasons) > 0 {
 				continue
 			}
 			if h.EncounterCount != nil && h.CountUnit != nil && *h.EncounterCount <= maxChartInteger {
 				group.CountSamples++
 				group.CountOutcomes += n
+				ratios[key].countValues = append(ratios[key].countValues, float64(*h.EncounterCount)/float64(n))
 				if ratios[key].count > maxChartInteger-*h.EncounterCount {
 					ratios[key].countOverflow = true
 				} else {
@@ -325,6 +348,7 @@ func (s Analytics) Statistics(ctx context.Context, raw string) (StatisticsResult
 			if h.DurationSeconds != nil && *h.DurationSeconds > 0 && *h.DurationSeconds <= maxChartInteger {
 				group.TimeSamples++
 				group.TimeOutcomes += n
+				ratios[key].timeValues = append(ratios[key].timeValues, float64(*h.DurationSeconds)/float64(n))
 				if ratios[key].time > maxChartInteger-*h.DurationSeconds {
 					ratios[key].timeOverflow = true
 				} else {
@@ -332,6 +356,7 @@ func (s Analytics) Statistics(ctx context.Context, raw string) (StatisticsResult
 				}
 			}
 		}
+		selectedRecords := []model.ShinyRecord{}
 		for _, r := range data.Records {
 			if !recordSet[r.ID] || !recordInDexScope(r, true, DexQuery{Scope: "all", System: system}, selected, data.Games) {
 				continue
@@ -340,6 +365,7 @@ func (s Analytics) Statistics(ctx context.Context, raw string) (StatisticsResult
 				continue
 			}
 			v.Individuals++
+			selectedRecords = append(selectedRecords, r)
 			gkey, gname := gameLabel(r.OriginalGameID, data.Games)
 			mkey, mname := "unknown", "方法未知"
 			if r.HuntID != nil {
@@ -385,6 +411,10 @@ func (s Analytics) Statistics(ctx context.Context, raw string) (StatisticsResult
 				g.Seconds = nil
 			}
 			r := ratios[key]
+			g.CountSampleStatus = sampleStatus(g.CountSamples)
+			g.TimeSampleStatus = sampleStatus(g.TimeSamples)
+			g.MedianCountPerShiny = sampleMedian(r.countValues)
+			g.MedianSecondsPerShiny = sampleMedian(r.timeValues)
 			if g.CountOutcomes > 0 && !r.countOverflow {
 				x := float64(r.count) / float64(g.CountOutcomes)
 				g.CountPerShiny = &x
@@ -396,6 +426,7 @@ func (s Analytics) Statistics(ctx context.Context, raw string) (StatisticsResult
 			v.Effort = append(v.Effort, *g)
 		}
 		sort.Slice(v.Effort, func(i, j int) bool { return v.Effort[i].Key < v.Effort[j].Key })
+		v.Quality = statisticsQuality(selectedRecords, len(v.Effort))
 		return nil
 	})
 	return v, err
